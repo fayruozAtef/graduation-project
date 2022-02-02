@@ -23,7 +23,7 @@ class _MyBody extends State<Body> {
   DateTime _endclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,10,00,00) ;
   String? _error=null;
   CalendarFormat _format = CalendarFormat.month;
-  int no=0;
+
   var time;
   final number =new TextEditingController();
 
@@ -167,6 +167,7 @@ class _MyBody extends State<Body> {
   Widget buildNoSeats() =>Material(
     child:   TextField(
       controller: number,
+
       keyboardType: TextInputType.number,
 
 
@@ -177,6 +178,7 @@ class _MyBody extends State<Body> {
         border: OutlineInputBorder(
           borderRadius:  BorderRadius.circular(12.0),
         ),
+
       ),
     ),
   );
@@ -191,6 +193,7 @@ class _MyBody extends State<Body> {
         duration: Duration(seconds: 5),
       );
       setState(() {
+        int num = int.parse(number.text);
         String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
         String tim=DateFormat('HH:mm').format(_selectTime);
         if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
@@ -206,6 +209,7 @@ class _MyBody extends State<Body> {
                 builder: (BuildContext context)=> tables(
                   date:dat,
                   time:tim,
+                  no: num,
                 ),
 
               ),
@@ -217,9 +221,9 @@ class _MyBody extends State<Body> {
         }
       });
 
-      // ignore: deprecated_member_use
 
-      print('no of seats $no');
+
+
     },
     child: const Text('Done'),
     color: Color.fromRGBO(65, 189, 180, 54),

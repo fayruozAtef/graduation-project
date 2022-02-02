@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:resflutter_app/widgets/home.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
-import 'register.dart';
+
 class Loginpage extends StatelessWidget {
   const Loginpage({Key? key}) : super(key: key);
 
@@ -42,7 +43,10 @@ class Loginpage extends StatelessWidget {
                       child: RaisedButton(
                         color:Colors.grey.withOpacity(0.1),
 
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context)=>home()));
+                          },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),

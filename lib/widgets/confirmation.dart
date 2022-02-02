@@ -100,7 +100,7 @@ class _confirm extends State<confirm> {
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(0.0,10.0,0,5),
-                      child: Text('',
+                      child: Text('${widget.tableno}',
                         style:TextStyle(
                           color: Colors.black,
                           fontSize: 20,

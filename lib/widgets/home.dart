@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dateAndtime.dart';
 
-void main() {
-  runApp(MyApp());
-}
+
 
 final List<String> imgList = [
   'assets/images/rest1.jpg',
@@ -25,7 +23,7 @@ final List<Widget> imageSliders = imgList
 ))
     .toList();
 
-class MyApp extends StatelessWidget {
+class home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,7 +63,7 @@ class MyHomePage extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/reserved.jpg"),
+                        image: AssetImage("assets/images/reserved.jpg"),
                         fit:BoxFit.cover,
                         opacity:40,
                       ),
@@ -86,7 +84,7 @@ class MyHomePage extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/inhall.jpg"),
+                        image: AssetImage("assets/images/inhall.jpg"),
                         fit:BoxFit.cover,
                         opacity:40,
                       ),
@@ -108,7 +106,7 @@ class MyHomePage extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/delivery.jpg"),
+                        image: AssetImage("assets/images/delivery.jpg"),
                         fit:BoxFit.cover,
                         opacity:47,
                       ),
@@ -147,7 +145,7 @@ class MyAppState extends State<Drawer1>{
             accountEmail: Text("Email",style:TextStyle(color:Colors.black)),
             currentAccountPicture:CircleAvatar(
               child:ClipOval(
-                child:Image.asset('assets/avatar1.jpg',
+                child:Image.asset('assets/images/avatar1.jpg',
                   width:80,
                   height:80,
                   fit: BoxFit.cover,
