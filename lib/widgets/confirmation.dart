@@ -23,7 +23,7 @@ class _confirm extends State<confirm> {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 30,
+            fontSize: 20,
           ),) ,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,

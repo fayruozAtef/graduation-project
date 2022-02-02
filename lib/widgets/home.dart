@@ -40,84 +40,86 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.black,
       ),
       drawer:Drawer1(),
-      body:Column(
-          children:<Widget> [
-            SizedBox(height: 10.0),
-            Container(
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    aspectRatio: 1.9,
-                    //enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                  items: imageSliders,
-                )),
-            SizedBox(height: 6.0),
-            SizedBox(height:160,
-              width: 300,
-              child:Card(
-                child:InkWell(onTap: (){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context)=>Body()));
-                },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/reserved.jpg"),
-                        fit:BoxFit.cover,
-                        opacity:40,
-                      ),
+      body:SingleChildScrollView(
+        child: Column(
+            children:<Widget> [
+              SizedBox(height: 10.0),
+              Container(
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      aspectRatio: 1.9,
+                      //enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
                     ),
-                    child: Text('Reserve',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
-                    alignment:Alignment.bottomLeft,
+                    items: imageSliders,
+                  )),
+              SizedBox(height: 6.0),
+              SizedBox(height:160,
+                width: 300,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>Body()));
+                  },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/reserved.jpg"),
+                          fit:BoxFit.cover,
+                          opacity:40,
+                        ),
+                      ),
+                      child: Text('Reserve',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
+                      alignment:Alignment.bottomLeft,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height:160,
-              width: 300,
-              child: Card(
-                child:InkWell(onTap: () {
-                  /*Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ));*/
-                },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/inhall.jpg"),
-                        fit:BoxFit.cover,
-                        opacity:40,
+              SizedBox(height:160,
+                width: 300,
+                child: Card(
+                  child:InkWell(onTap: () {
+                    /*Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ));*/
+                  },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/inhall.jpg"),
+                          fit:BoxFit.cover,
+                          opacity:40,
+                        ),
                       ),
+                      child: Text('In-Hall',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
+                      alignment:Alignment.bottomLeft,
                     ),
-                    child: Text('In-Hall',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
-                    alignment:Alignment.bottomLeft,
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height:160,
-              width: 300,
-              child:Card(
-                child:InkWell(onTap: () {
-                  /*Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ));*/
-                },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/delivery.jpg"),
-                        fit:BoxFit.cover,
-                        opacity:47,
+              SizedBox(
+                height:160,
+                width: 300,
+                child:Card(
+                  child:InkWell(onTap: () {
+                    /*Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ));*/
+                  },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/delivery.jpg"),
+                          fit:BoxFit.cover,
+                          opacity:47,
+                        ),
                       ),
+                      child: Text('Delivery',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
+                      alignment:Alignment.bottomLeft,
                     ),
-                    child: Text('Delivery',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
-                    alignment:Alignment.bottomLeft,
                   ),
                 ),
               ),
-            ),
-          ]
+            ]
+        ),
       ),
     );
   }

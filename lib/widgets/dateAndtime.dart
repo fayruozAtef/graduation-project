@@ -17,7 +17,7 @@ class _MyBody extends State<Body> {
   DateTime _selectTime = DateTime.now();
   DateTime _selectedDay=DateTime.now() ;
   DateTime _focusedDay=DateTime.now();
-  DateTime _available = DateTime.now().add(Duration(hours: 3));
+  DateTime _available = DateTime.now().add(Duration(hours: 1));
 //var t1= new DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59);
   DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59) ;
   DateTime _endclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,10,00,00) ;
