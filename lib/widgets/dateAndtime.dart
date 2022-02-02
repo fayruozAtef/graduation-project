@@ -30,14 +30,21 @@ class _MyBody extends State<Body> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
+      title: Text('Date And Time',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 30,
+        ),
+      ),
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
 
     ),
         body: Background(
 
-      child : SingleChildScrollView(
-        child: Column(
+         child : SingleChildScrollView(
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget> [
             buildText('Choose Date '),

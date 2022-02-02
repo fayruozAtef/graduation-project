@@ -19,29 +19,21 @@ class _confirm extends State<confirm> {
 
     return Scaffold(
       appBar: AppBar(
+        title:Text('Your Reservation:',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          ),) ,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
-
       ),
 
       body:Background(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              //Padding(padding: EdgeInsets.only(top: 30),),
               Container(
-                child: Center(
-                  child: Text('Your Reservation:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),),
-                ),
-              ),
-              Padding(padding: EdgeInsets.only(top: 50),),
-              Container(
-                height: 50,
                 child: Row(
                   children: [
                     Container(
