@@ -43,7 +43,7 @@ class tables extends StatefulWidget {
   Widget build(BuildContext context) {
   return Scaffold(
     appBar:AppBar(
-      title: Text('Tables',style: TextStyle(color: Colors.black,fontSize:25)),
+      title: Text('Available tables',style: TextStyle(color: Colors.black,fontSize:25)),
       backgroundColor: Colors.white,
       foregroundColor:Colors.black,
     ),
