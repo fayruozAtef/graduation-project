@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-
+import 'dateAndtime.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 final List<String> imgList = [
-  'assets/rest1.jpg',
-  'assets/rest2.jpg',
-  'assets/rest3.jpg',
-  'assets/rest4.jpg',
+  'assets/images/rest1.jpg',
+  'assets/images/rest2.jpg',
+  'assets/images/rest3.jpg',
+  'assets/images/rest4.jpg',
 ];
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
@@ -60,8 +59,8 @@ class MyHomePage extends StatelessWidget {
               width: 300,
               child:Card(
                 child:InkWell(onTap: (){
-                  /*Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context)=>));*/
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>Body()));
                 },
                   child: Container(
                     decoration: BoxDecoration(

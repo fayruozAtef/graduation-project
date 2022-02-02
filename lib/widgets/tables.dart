@@ -8,17 +8,25 @@ void main() {
 
 
 
-List<String> list = ['assets/table1.jpg',
-  'assets/table1_2',
+List<String> list = ['assets/images/table1.jpg',
+  'assets/images/table1_2',
 ];
 
 List<String> list2 = [
-  'assets/table2.jpg',
-  'assets/table2_2',
+  'assets/images/table2.jpg',
+  'assets/images/table2_2',
 ];
+
 
 class tables extends StatelessWidget {
   const tables({Key? key}) : super(key: key);
+
+  final String date;
+  final String time;
+  final int tableno;
+  int n1=3;
+  int n2=5;
+  tables({Key? key,required this.date,required this.time}) : super(key: key);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +45,7 @@ class tables extends StatelessWidget {
                       fixedSize:Size(100,100),
                       shape:CircleBorder()
                   ),
-                  child: Text('1',style:TextStyle(color:Colors.black,fontSize: 50,fontWeight: FontWeight.bold)),
+                  child: Text('3',style:TextStyle(color:Colors.black,fontSize: 50,fontWeight: FontWeight.bold)),
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -72,7 +80,17 @@ class tables extends StatelessWidget {
                                               borderRadius:BorderRadius.circular(18)
                                           ))
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState((){
+                                          tableno=n1;
+                    Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context)=>confirm(date:this.date,
+                    time:this.time,
+                    tableno:this.tableno,)));
+                    }
+    })
+    }
+    },
                                       child: Text('OK',style:TextStyle(fontSize: 30)),
                                     ),
     SizedBox(height: 20),
@@ -117,7 +135,15 @@ class tables extends StatelessWidget {
     borderRadius:BorderRadius.circular(18)
     ))
     ),
-    onPressed: () {},
+    onPressed: () {
+      setState((){
+        tableno=n2;
+        Navigator.of(context).push(
+        MaterialPageRoute(builder: (context)=>confirm(date:this.date,
+        time:this.time,
+        tableno:this.tableno,)));
+      }
+    },
     child: Text('OK',style:TextStyle(fontSize: 30)),
     ),
                                   ]
