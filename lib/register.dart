@@ -38,34 +38,38 @@ class Register extends StatelessWidget {
                       decoration: InputDecoration(labelText: 'First Name'
                           ,labelStyle: TextStyle(color: Colors.white)),
                       keyboardType: TextInputType.text,
+                      style:TextStyle(color:Colors.white),
                     ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'Second Name'
                           ,labelStyle: TextStyle(color: Colors.white)),
                       keyboardType: TextInputType.text,
+                      style:TextStyle(color:Colors.white),
                     ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'Phone'
                           ,labelStyle: TextStyle(color: Colors.white)),
-
+                      style:TextStyle(color:Colors.white),
                       keyboardType: TextInputType.phone,
                     ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'E-Mail'
                           ,labelStyle: TextStyle(color: Colors.white)),
-
+                      style:TextStyle(color:Colors.white),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'Password'
                           ,labelStyle: TextStyle(color: Colors.white)),
                       obscureText: true,
+                      style:TextStyle(color:Colors.white),
                       // keyboardType: TextInputType.text,
                     ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'Confirm Password'
                           ,labelStyle: TextStyle(color: Colors.white)),
                       obscureText: true,
+                      style:TextStyle(color:Colors.white),
                       // keyboardType: TextInputType.text,
                     ),
                     SizedBox(height: 10,

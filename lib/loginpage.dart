@@ -1,12 +1,65 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
 import 'register.dart';
+
+class log extends StatefulWidget {
+  const log({Key? key}) : super(key: key);
+
+  @override
+  _logState createState() => _logState();
+}
+
+class _logState extends State<log> {
+  //Intiallize firebase app
+  Future<FirebaseApp> _initializeFirebase()async{
+    FirebaseApp firebaseApp=await Firebase.initializeApp();
+    return firebaseApp;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder(
+        future: _initializeFirebase(),
+        builder: (context,snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+            return Loginpage();
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+}
+
 class Loginpage extends StatelessWidget {
   const Loginpage({Key? key}) : super(key: key);
+  //Login function
+  static Future<User?> loginUsingEmailPassword({required String email,required String password , required BuildContext context})async{
+  final  FirebaseAuth auth=FirebaseAuth.instance;
+    User? user ;
+    try{
+      UserCredential userCredential =await auth.signInWithEmailAndPassword(email: email, password: password);
+      user = userCredential.user;
+    }on FirebaseAuthException catch(e){
+      if(e.code=="user-not-found"){
+        print("This email is not valid");
+      }
+    }
+    return user;
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    //create the textfield controller
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+
     final deviceSize= MediaQuery.of(context).size;
     return Stack(
       children: [
@@ -23,30 +76,47 @@ class Loginpage extends StatelessWidget {
                     SizedBox(height: 35,),
                     Image.asset('assets/images/logo.png' , height: 200,width: 250,),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'user name'
-                      ,labelStyle: TextStyle(color: Colors.white)),
-
-                      keyboardType: TextInputType.text,
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(hintText: 'user name'
+                      ,hintStyle: TextStyle(color: Colors.white)
+                      ,prefixIcon: Icon(Icons.mail,color: Colors.grey),
+                      ),
+                      style:TextStyle(color:Colors.white),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'password'
-                      ,labelStyle: TextStyle(color: Colors.white)),
+                      controller: _passwordController,
+                      decoration:const InputDecoration(hintText: 'password'
+                      ,hintStyle: TextStyle(color: Colors.white)
+                      ,prefixIcon: Icon(Icons.lock,color: Colors.grey),
+                      ),
+                      style:TextStyle(color:Colors.white),
                      obscureText: true,
                      // keyboardType: TextInputType.text,
                     ),
-                    SizedBox(height: 10,
+                    SizedBox(height: 25,
                     ),
+                   Text("Don't Remember your password?",
+                     style: TextStyle(color: Colors.white),
+                   ),
                    SizedBox(
                       height:60,
                       width:130,
                       child: RaisedButton(
                         color:Colors.grey.withOpacity(0.1),
 
-                          onPressed: (){},
+                          onPressed: () async{
+                          User? user=await loginUsingEmailPassword(email: _emailController.text, password: _passwordController.text, context: context);
+                          print(user);
+                          if(user!=null){
+                            //Navigator.of(context).pushReplacementNamed(MaterialPageRoute(builder: (context)=>Register()));
+                            Navigator.of(context).pushReplacementNamed('/register');
+                          }
+                          },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                        child: Text('LOGIN',
+                        child: const Text('LOGIN',
                         style:TextStyle(
                           color: Colors.white,
                         ) ,
