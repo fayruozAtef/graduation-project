@@ -17,7 +17,7 @@ class _MyBody extends State<Body> {
   DateTime _selectTime = DateTime.now();
   DateTime _selectedDay=DateTime.now() ;
   DateTime _focusedDay=DateTime.now();
-  DateTime _available = DateTime.now().add(Duration(hours: 1));
+  DateTime _available = DateTime.now().add(Duration(hours: 3));
 //var t1= new DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59);
   DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59) ;
   DateTime _endclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,10,00,00) ;
@@ -183,50 +183,54 @@ class _MyBody extends State<Body> {
     ),
   );
 
-  Widget buildDone(BuildContext context)=>RaisedButton(
-    shape: RoundedRectangleBorder(
-      borderRadius:  BorderRadius.circular(12.0),
-    ),
-    onPressed: (){
-      final snack =SnackBar(
-        content: Text('Time Should be After 3 hours From now and Resturant close From 12 AM To 10 AM'),
-        duration: Duration(seconds: 5),
+  Widget buildDone(BuildContext context)=>Builder(
+    builder: (context) {
+      return RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius:  BorderRadius.circular(12.0),
+        ),
+        onPressed: (){
+          final snack =SnackBar(
+            content: Text('Time Should be After 3 hours From now and Resturant close From 12 AM To 10 AM'),
+            duration: Duration(seconds: 5),
+          );
+          setState(() {
+            int num = int.parse(number.text);
+            String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
+            String tim=DateFormat('HH:mm').format(_selectTime);
+            if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
+              Scaffold.of(context).showSnackBar(snack);
+            }else if(_selectTime.isAfter(_available)){
+
+              if(number.text.isEmpty) {
+                _error='Enter Number of Seats';
+              } else {
+                _error= null;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context)=> tables(
+                      date:dat,
+                      time:tim,
+                      no: num,
+                    ),
+
+                  ),
+                );
+              }
+            }
+            else{
+              Scaffold.of(context).showSnackBar(snack);
+            }
+          });
+
+
+
+
+        },
+        child: const Text('Done'),
+        color: Color.fromRGBO(65, 189, 180, 54),
       );
-      setState(() {
-        int num = int.parse(number.text);
-        String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
-        String tim=DateFormat('HH:mm').format(_selectTime);
-        if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
-          Scaffold.of(context).showSnackBar(snack);
-        }else if(_selectTime.isAfter(_available)){
-
-          if(number.text.isEmpty) {
-            _error='Enter Number of Seats';
-          } else {
-            _error= null;
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context)=> tables(
-                  date:dat,
-                  time:tim,
-                  no: num,
-                ),
-
-              ),
-            );
-          }
-        }
-        else{
-          Scaffold.of(context).showSnackBar(snack);
-        }
-      });
-
-
-
-
-    },
-    child: const Text('Done'),
-    color: Color.fromRGBO(65, 189, 180, 54),
+    }
   );
 
   Widget buildText(String text)=>Container(

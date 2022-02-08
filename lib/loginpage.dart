@@ -26,12 +26,14 @@ class Loginpage extends StatelessWidget {
                     TextFormField(
                       decoration: InputDecoration(labelText: 'user name'
                       ,labelStyle: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.white),
 
                       keyboardType: TextInputType.text,
                     ),
                     TextFormField(
                       decoration: InputDecoration(labelText: 'password'
                       ,labelStyle: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.white),
                      obscureText: true,
                      // keyboardType: TextInputType.text,
                     ),

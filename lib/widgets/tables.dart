@@ -87,7 +87,7 @@ class tables extends StatefulWidget {
                                     ),
                                     SizedBox(height:20),
                                     ElevatedButton(
-                                      style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.greenAccent.shade700),
+                                      style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
                                           fixedSize:MaterialStateProperty.all(Size(150,45)),
                                           shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                               borderRadius:BorderRadius.circular(18)
@@ -149,7 +149,7 @@ class tables extends StatefulWidget {
                                     ),
                                     SizedBox(height:20),
                                     ElevatedButton(
-                                      style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.greenAccent.shade700),
+                                      style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
                                           fixedSize:MaterialStateProperty.all(Size(150,45)),
                                           shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                               borderRadius:BorderRadius.circular(18)
