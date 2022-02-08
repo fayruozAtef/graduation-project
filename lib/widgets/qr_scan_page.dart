@@ -20,33 +20,24 @@ class _QRScanPageState extends State<QRScanPage> {
         Back(),
         Scaffold(
           appBar:AppBar(
-            title: Text('Choose the table',style: TextStyle(color: Colors.white,fontSize:25)),
+            title: Text('Choose the table',style: TextStyle(color: Colors.white,fontSize:22)),
             backgroundColor: Colors.black,
           ),
           backgroundColor: Colors.transparent,
           body:SingleChildScrollView(
             child: Column (
               children: <Widget>[
-                Back(),
-                const SizedBox(height: 35,),
-                const Text(
-                  'Table number is',
+                const SizedBox(height: 80),
+                Text(
+                  'Table number is: ' + ' $qrCode',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width:10),
-                Text(
-                  '$qrCode',
-                  style:const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 200),
+                const SizedBox(height: 250,width: 80),
                 SizedBox(
                   height:70,
                   width:230,
@@ -60,20 +51,37 @@ class _QRScanPageState extends State<QRScanPage> {
                       style:TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
-                      ) ,
-
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(height: 20,width: 80),
+                SizedBox(
+                  height:70,
+                  width:200,
+                  child: MaterialButton(
+                    onPressed: () => scanQRCode(),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    color:Color.fromRGBO(65, 189, 180, 54),
+
+                    child:const Text(' Done ',
+                      style:TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ],
     );
-
   }
+
 
   Future<void> scanQRCode() async {
     try {
