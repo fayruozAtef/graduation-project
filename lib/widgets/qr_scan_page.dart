@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// @dart=2.9
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
 

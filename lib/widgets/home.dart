@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dateAndtime.dart';
+import 'qr_scan_page.dart';
 
 
 
@@ -43,7 +44,7 @@ class MyHomePage extends StatelessWidget {
       body:SingleChildScrollView(
         child: Column(
             children:<Widget> [
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Container(
                   child: CarouselSlider(
                     options: CarouselOptions(
@@ -53,7 +54,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                     items: imageSliders,
                   )),
-              SizedBox(height: 6.0),
+              const SizedBox(height: 6.0),
               SizedBox(height:160,
                 width: 300,
                 child:Card(
@@ -62,14 +63,14 @@ class MyHomePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context)=>Body()));
                   },
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration:const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/reserved.jpg"),
                           fit:BoxFit.cover,
                           opacity:40,
                         ),
                       ),
-                      child: Text('Reserve',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
+                      child:const Text('Reserve',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
                       alignment:Alignment.bottomLeft,
                     ),
                   ),
@@ -79,18 +80,18 @@ class MyHomePage extends StatelessWidget {
                 width: 300,
                 child: Card(
                   child:InkWell(onTap: () {
-                    /*Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ));*/
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => QRScanPage()));
                   },
                     child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
+                      decoration: const BoxDecoration(
+                        image:  DecorationImage(
                           image: AssetImage("assets/images/inhall.jpg"),
                           fit:BoxFit.cover,
                           opacity:40,
                         ),
                       ),
-                      child: Text('In-Hall',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
+                      child:const Text('In-Hall',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
                       alignment:Alignment.bottomLeft,
                     ),
                   ),
@@ -105,14 +106,14 @@ class MyHomePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => ));*/
                   },
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration:const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/delivery.jpg"),
                           fit:BoxFit.cover,
                           opacity:47,
                         ),
                       ),
-                      child: Text('Delivery',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
+                      child: const Text('Delivery',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
                       alignment:Alignment.bottomLeft,
                     ),
                   ),
