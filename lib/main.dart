@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:resflutter_app/loginpage.dart';
 import 'package:resflutter_app/register.dart';
 import 'register.dart';
-import 'loginpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false ,
-      home:Loginpage(),
-      routes: {
-        '/login':(context)=>Loginpage(),
-        '/register':(context)=>Register()
-      },
+      home:AuthScreen(),
+
     );
   }
 }
