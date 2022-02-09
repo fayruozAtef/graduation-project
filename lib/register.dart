@@ -12,7 +12,7 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize= MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(20.0),
+      //padding: EdgeInsets.all(20.0),
       child:  Stack(
         children:<Widget> [
           Back(),

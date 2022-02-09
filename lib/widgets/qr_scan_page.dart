@@ -1,11 +1,15 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// @dart=2.9
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:resflutter_app/widgets/rate_service.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class QRScanPage extends StatefulWidget {
+  const QRScanPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _QRScanPageState();
 }
@@ -26,56 +30,66 @@ class _QRScanPageState extends State<QRScanPage> {
           ),
           backgroundColor: Colors.transparent,
           body:SingleChildScrollView(
-            child: Column (
-              children: <Widget>[
-                const SizedBox(height: 80),
-                Text(
-                  'Table number is: ' + ' $qrCode',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 250,width: 80),
-                SizedBox(
-                  height:70,
-                  width:230,
-                  child: MaterialButton(
-                    onPressed: () => scanQRCode(),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    color:Color.fromRGBO(65, 189, 180, 54),
-                    child:const Text('Scan QR-code',
-                      style:TextStyle(
+            child:Container(
+              padding: EdgeInsets.all(20.0),
+              child: Column (
+                children: <Widget>[
+                  const SizedBox(height: 100),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Table number is: ' + ' $qrCode',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 22,
                         color: Colors.white,
-                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20,width: 80),
-                SizedBox(
-                  height:70,
-                  width:200,
-                  child: MaterialButton(
-                    onPressed: () => scanQRCode(),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    color:Color.fromRGBO(65, 189, 180, 54),
-
-                    child:const Text(' Done ',
-                      style:TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
+                  const SizedBox(height: 280,),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      height:60,
+                      width:300,
+                      child: MaterialButton(
+                        onPressed: () => scanQRCode(),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        color:Color.fromRGBO(65, 189, 180, 54),
+                        child:const Text('Scan QR-code',
+                          style:TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 25,),
+                  SizedBox(
+                    height:60,
+                    width:180,
+                    child: MaterialButton(
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => Rateus(),
+                      )),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      color:Color.fromRGBO(65, 189, 180, 54),
+                      child:const Text(' Done ',
+                        style:TextStyle(
+                          color: Colors.white,
+                          fontSize: 22.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

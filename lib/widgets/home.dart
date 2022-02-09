@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dateAndtime.dart';
+// @dart=2.9
 import 'qr_scan_page.dart';
-
 
 
 final List<String> imgList = [
