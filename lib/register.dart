@@ -1,6 +1,11 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:resflutter_app/auth.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
 
 enum AuthMode{ Signup , Login }
 
@@ -52,16 +57,52 @@ class _AuthCardState extends State<AuthCard> {
   Map<String, String> _autData={
     'email':'' ,
     'password':'' ,
+    'fname':'',
+    'lname':'',
+    'phone':'',
   };
   var _isLoading=false;
   final _passwordController =TextEditingController();
 
-  void _submit(){
+  Future<void> _submit() async{
     if(_formKey.currentState!.validate()){
-      //Invalid!
-      return;
-    }
+
     _formKey.currentState!.save() ;
+    //true signup
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _autData['email']!,
+          password: _autData['password']!
+      );
+      print(_autData['email']);
+      print(_autData['password']);
+      //
+
+      /*CollectionReference users = FirebaseFirestore.instance.collection('users').doc();
+
+        // Call the user's CollectionReference to add a new user
+       users
+            .add()
+            .then((value) => print("User Added"))
+            .catchError((error) => print("Failed to add user: $error"));*/
+
+      Auth auth  = Auth();
+      auth.saveData({
+        'first name': _autData['fname'], // John Doe
+        'last name': _autData['lname'], // Stokes and Sons
+        'phone': _autData['phone'] ,
+        'email':_autData['email']
+      });
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
     setState(() {
       _isLoading=true;
     });
@@ -70,10 +111,29 @@ class _AuthCardState extends State<AuthCard> {
     }
     else {
       // Sign user up
+
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _autData['email']!,
+            password: _autData['password']!
+        );
+        print(_autData['email']);
+        print(_autData['password']);
+
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
+      }
     }
     setState(() {
       _isLoading=false;
     });
+    }
   }
   void _switchAuthMode(){
     if(_authMode==AuthMode.Login){
@@ -105,18 +165,26 @@ class _AuthCardState extends State<AuthCard> {
                       TextFormField(
                         enabled: _authMode==AuthMode.Signup,
                         decoration: InputDecoration(labelText: 'F-name' ,labelStyle: TextStyle(color: Colors.white)),
+                        style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.name,
                         validator: (value){
                           _autData['firstname']=value!;
+                        },
+                        onSaved: (value) {
+                          _autData['fname']=value!;
                         },
                       ),
                     if(_authMode==AuthMode.Signup)
                       TextFormField(
                         enabled: _authMode==AuthMode.Signup,
                         decoration:const InputDecoration(labelText: 'L-name' ,labelStyle: TextStyle(color: Colors.white)),
+                        style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.name,
                         validator: (value){
                           _autData['lastname']=value!;
+                        },
+                        onSaved: (value) {
+                          _autData['lname']=value!;
                         },
                       ),
                     if(_authMode==AuthMode.Signup)
@@ -124,7 +192,11 @@ class _AuthCardState extends State<AuthCard> {
                         enabled: _authMode==AuthMode.Signup,
                         decoration:const InputDecoration(labelText: 'phone' ,labelStyle: TextStyle(color: Colors.white)),
                         keyboardType: TextInputType.phone,
+                        style: TextStyle(color: Colors.white),
                         validator: (value){
+                          _autData['phone']=value!;
+                        },
+                        onSaved: (value) {
                           _autData['phone']=value!;
                         },
                       ),
@@ -132,6 +204,7 @@ class _AuthCardState extends State<AuthCard> {
                     TextFormField(
                       decoration:const InputDecoration (labelText: 'E-Mail' ,labelStyle: TextStyle(color: Colors.white)),
                       keyboardType: TextInputType.emailAddress,
+                      style: TextStyle(color: Colors.white),
                       validator: (value){
                         if(value!.isEmpty || !value.contains('@')){
                           return 'Invalid Email! ';
@@ -144,6 +217,7 @@ class _AuthCardState extends State<AuthCard> {
                     TextFormField(
                       decoration:const InputDecoration(labelText: 'password' ,labelStyle: TextStyle(color: Colors.white)),
                       obscureText: true,
+                      style: TextStyle(color: Colors.white),
                       controller: _passwordController,
                       validator: (value){
                         if(value!.isEmpty){
@@ -162,6 +236,7 @@ class _AuthCardState extends State<AuthCard> {
                         enabled: _authMode==AuthMode.Signup,
                         decoration:const InputDecoration(labelText: 'confirm password' ,
                             labelStyle: TextStyle(color: Colors.white,fontSize: 18)),
+                        style: TextStyle(color: Colors.white),
                         obscureText: true,
                         validator: _authMode==AuthMode.Signup
                             ? (value) {
