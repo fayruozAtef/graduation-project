@@ -69,7 +69,7 @@ class MyAppState extends State<_breakfast> {
                         height:175,
                         width:600,
                         child: const Image(
-                          image:  AssetImage("assets/eng bf.png"),
+                          image:  AssetImage("assets/images/eng bf.png"),
                         ),
                       ),
                       ExpansionTile(

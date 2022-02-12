@@ -78,9 +78,12 @@ class _QRScanPageState extends State<QRScanPage> {
                               if(qrCode==''){
                                 showAlertDialog(context);
                               }
+                              else if(double.parse(qrCode)<0){
+                                showAlertDialog(context);
+                              }
                               else{
                                 Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) => breakfast(),
+                                  builder: (BuildContext context) => breakfast(),
                                 ));
                               }
                       },
@@ -91,8 +94,7 @@ class _QRScanPageState extends State<QRScanPage> {
                       child:const Text(' Done ',
                         style:TextStyle(
                           color: Colors.white,
-                          fontSize: 22.0,
-                        ),
+                          fontSize: 22.0,),
                       ),
                     ),
                   ),
@@ -126,9 +128,6 @@ class _QRScanPageState extends State<QRScanPage> {
   }
 
   showAlertDialog(BuildContext context) {
-
-    // set up the button
-
 
     // set up the AlertDialog
     AlertDialog alert = const AlertDialog(

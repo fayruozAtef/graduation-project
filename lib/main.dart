@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resflutter_app/register.dart';
-import 'register.dart';
 import 'package:resflutter_app/widgets/home.dart';
-
 
 void main() {
   runApp(const MyApp());
