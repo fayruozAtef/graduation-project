@@ -2,8 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:resflutter_app/widgets/rate_service.dart';
-import 'package:resflutter_app/widgets/widgets.dart';
+import 'package:resflutter_app/widgets/widgeto.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import 'breakfast.dart';
@@ -23,7 +22,7 @@ class _QRScanPageState extends State<QRScanPage> {
     final deviceSize= MediaQuery.of(context).size;
     return  Stack(
       children: [
-        Back(),
+        BackWithOpacity(),
         Scaffold(
           appBar:AppBar(
             title:const Text('Choose the table',style: TextStyle(color: Colors.white,fontSize:22)),
@@ -82,7 +81,7 @@ class _QRScanPageState extends State<QRScanPage> {
                                 showAlertDialog(context);
                               }
                               else{
-                                Navigator.of(context).push(MaterialPageRoute(
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(
                                   builder: (BuildContext context) => breakfast(),
                                 ));
                               }
@@ -148,22 +147,5 @@ class _QRScanPageState extends State<QRScanPage> {
         return alert;
       },
     );
-  }
-  checkScan(String qrCode) {
-    if(qrCode==''){
-      const snack =SnackBar(
-      content: Text('Scan table QR-code first', style: TextStyle(
-           fontWeight :FontWeight.bold, fontSize: 18, color: Colors.white, backgroundColor: Colors.grey,
-      ),),
-      duration: Duration(seconds: 5),
-      );
-      return snack;
-    }
-    else{
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => breakfast(),
-      ));
-    }
-
   }
 }

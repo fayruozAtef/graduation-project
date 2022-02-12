@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:resflutter_app/widgets/widgets.dart';
+import 'package:resflutter_app/widgets/backWithOpacity.dart';
+import 'package:resflutter_app/widgets/widgeto.dart';
 
 import 'home.dart';
 
@@ -16,7 +16,7 @@ class _MRateus extends State<Rateus>{
   Widget build(BuildContext context) {
     return Stack(
         children: [
-          Back(),
+          BackWithOpacity(),
           Scaffold(
             appBar: AppBar(
               title:const  Text('Rate your visit',
