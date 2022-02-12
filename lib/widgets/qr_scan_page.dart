@@ -6,6 +6,8 @@ import 'package:resflutter_app/widgets/rate_service.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+import 'breakfast.dart';
+
 class QRScanPage extends StatefulWidget {
   const QRScanPage({Key? key}) : super(key: key);
 
@@ -14,7 +16,7 @@ class QRScanPage extends StatefulWidget {
 }
 
 class _QRScanPageState extends State<QRScanPage> {
-  String qrCode = '--';
+  String qrCode = '';
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class _QRScanPageState extends State<QRScanPage> {
         Back(),
         Scaffold(
           appBar:AppBar(
-            title: Text('Choose the table',style: TextStyle(color: Colors.white,fontSize:22)),
+            title:const Text('Choose the table',style: TextStyle(color: Colors.white,fontSize:22)),
             backgroundColor: Colors.black,
           ),
           backgroundColor: Colors.transparent,
@@ -39,7 +41,7 @@ class _QRScanPageState extends State<QRScanPage> {
                     child: Text(
                       'Table number is: ' + ' $qrCode',
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -57,7 +59,7 @@ class _QRScanPageState extends State<QRScanPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        color:Color.fromRGBO(65, 189, 180, 54),
+                        color:const Color.fromRGBO(65, 189, 180, 54),
                         child:const Text('Scan QR-code',
                           style:TextStyle(
                             color: Colors.white,
@@ -72,13 +74,20 @@ class _QRScanPageState extends State<QRScanPage> {
                     height:60,
                     width:180,
                     child: MaterialButton(
-                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => Rateus(),
-                      )),
+                      onPressed: (){
+                              if(qrCode==''){
+                                showAlertDialog(context);
+                              }
+                              else{
+                                Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) => breakfast(),
+                                ));
+                              }
+                      },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      color:Color.fromRGBO(65, 189, 180, 54),
+                      color:const Color.fromRGBO(65, 189, 180, 54),
                       child:const Text(' Done ',
                         style:TextStyle(
                           color: Colors.white,
@@ -114,5 +123,48 @@ class _QRScanPageState extends State<QRScanPage> {
     } on PlatformException {
       qrCode = 'Failed to get platform version.';
     }
+  }
+
+  showAlertDialog(BuildContext context) {
+
+    // set up the button
+
+
+    // set up the AlertDialog
+    AlertDialog alert = const AlertDialog(
+      backgroundColor: Colors.white54,
+      title:Text("Warning:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+      ),),
+      content: Text("Scan table QR-code first.", style: TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  checkScan(String qrCode) {
+    if(qrCode==''){
+      const snack =SnackBar(
+      content: Text('Scan table QR-code first', style: TextStyle(
+           fontWeight :FontWeight.bold, fontSize: 18, color: Colors.white, backgroundColor: Colors.grey,
+      ),),
+      duration: Duration(seconds: 5),
+      );
+      return snack;
+    }
+    else{
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => breakfast(),
+      ));
+    }
+
   }
 }
