@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 class Auth {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
-
   getId() {
     return FirebaseAuth.instance.currentUser!.uid;
   }

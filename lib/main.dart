@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:resflutter_app/auth.dart';
-import 'package:resflutter_app/register.dart';
+//import 'package:resflutter_app/auth.dart';
+import 'package:resflutter_app/categories.dart';
+import 'package:resflutter_app/authscreen.dart';
 import 'package:provider/provider.dart';
-import 'register.dart';
+import 'authscreen.dart';
 
 
 void main()  async {
