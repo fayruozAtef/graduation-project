@@ -1,15 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:resflutter_app/widgets/home.dart';
-=======
-//import 'package:resflutter_app/auth.dart';
-import 'package:resflutter_app/categories.dart';
-import 'package:resflutter_app/authscreen.dart';
-import 'package:provider/provider.dart';
-import 'authscreen.dart';
->>>>>>> nadalogin
-
 
 void main()  async {
   WidgetsFlutterBinding.ensureInitialized();
