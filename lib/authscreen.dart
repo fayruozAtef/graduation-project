@@ -142,7 +142,7 @@ class _AuthCardState extends State<AuthCard> {
       }).then((value){
         FirebaseAuth.instance.currentUser?.sendEmailVerification();
       }).catchError((e){
-        
+
       });
       // try {
       //
