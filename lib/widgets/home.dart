@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
+import 'categorydrawer.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
 import 'qr_scan_page.dart';
@@ -27,8 +29,10 @@ final List<Widget> imageSliders = imgList
 
 class home extends StatelessWidget {
   final String userId;
-
+  String uname='';
+  String uemail='';
   home({Key? key,required this.userId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +43,7 @@ class home extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar:AppBar(
         title: Text('The Restaurant',style: TextStyle(color: Colors.white,fontSize:25)),
@@ -59,8 +64,8 @@ class MyHomePage extends StatelessWidget {
                     items: imageSliders,
                   )),
               const SizedBox(height: 6.0),
-              SizedBox(height:160,
-                width: 300,
+              SizedBox(height:170,
+                width: width,
                 child:Card(
                   child:InkWell(onTap: (){
                     Navigator.of(context).push(
@@ -70,7 +75,7 @@ class MyHomePage extends StatelessWidget {
                       decoration:const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/reserved.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
@@ -80,8 +85,8 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height:160,
-                width: 300,
+              SizedBox(height:170,
+                width: width,
                 child: Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
@@ -91,7 +96,7 @@ class MyHomePage extends StatelessWidget {
                       decoration: const BoxDecoration(
                         image:  DecorationImage(
                           image: AssetImage("assets/images/inhall.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
@@ -102,8 +107,8 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height:160,
-                width: 300,
+                height:170,
+                width: width,
                 child:Card(
                   child:InkWell(onTap: () {
                     /*Navigator.of(context).push(
@@ -113,7 +118,7 @@ class MyHomePage extends StatelessWidget {
                       decoration:const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/delivery.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
@@ -141,6 +146,7 @@ class Drawer1 extends StatefulWidget {
     return MyAppState();
   }
 }
+
 class MyAppState extends State<Drawer1>{
   @override
   Widget build(BuildContext context) {
@@ -176,7 +182,10 @@ class MyAppState extends State<Drawer1>{
           ListTile(
             leading:Icon(Icons.menu_book),
             title:Text('Menu'),
-            onTap:(){},
+            onTap:(){
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context)=>Categories2()));
+            },
           ),
           ListTile(
             leading:Icon(Icons.article),
