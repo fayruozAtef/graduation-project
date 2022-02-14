@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:resflutter_app/authscreen.dart';
 
 import 'categorydrawer.dart';
 import 'dateAndtime.dart';
@@ -201,9 +202,10 @@ class MyAppState extends State<Drawer1>{
             leading:Icon(Icons.exit_to_app),
             title: Text('Log out'),
             onTap:() async {
-
               await FirebaseAuth.instance.signOut();
-            },
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>AuthScreen() ));
+
+            }
           ),
         ],
       ),
