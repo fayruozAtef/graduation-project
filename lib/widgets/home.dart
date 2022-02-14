@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dateAndtime.dart';
@@ -25,6 +26,9 @@ final List<Widget> imageSliders = imgList
     .toList();
 
 class home extends StatelessWidget {
+  final String userId;
+
+  home({Key? key,required this.userId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -187,7 +191,10 @@ class MyAppState extends State<Drawer1>{
           ListTile(
             leading:Icon(Icons.exit_to_app),
             title: Text('Log out'),
-            onTap:(){},
+            onTap:() async {
+
+              await FirebaseAuth.instance.signOut();
+            },
           ),
         ],
       ),

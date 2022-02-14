@@ -119,7 +119,8 @@ class _AuthCardState extends State<AuthCard> {
           password: _autData['password']!
       ).then((value){
         print("Successfull");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>home() ));
+        String id=Auth().getId();
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>home(userId: id,) ));
        // print(value.user.uid);
       }).catchError((e){
         if (e.code == 'user-not-found') {

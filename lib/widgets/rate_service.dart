@@ -482,9 +482,7 @@ class _MRateus extends State<Rateus>{
                                     height: 60.0,
                                     width: 300.0,
                                     child: MaterialButton(
-                                      onPressed: () => Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (context)=>home())),
-
+                                      onPressed: () => {},
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(50),
                                       ),
