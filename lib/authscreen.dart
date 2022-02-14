@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/auth.dart';
+import 'package:resflutter_app/verify.dart';
 import 'package:resflutter_app/widgets/home.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -129,7 +130,7 @@ class _AuthCardState extends State<AuthCard> {
           password: _autData['password']!
       ).then((value){
         print("Successfull");
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>home() ));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>VerifyScreen() ));
        // print(value.user.uid);
       }).catchError((e){
         if (e.code == 'user-not-found')
