@@ -7,7 +7,6 @@ import 'package:resflutter_app/widgets/home.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-
 enum AuthMode{ Signup , Login }
 
 class AuthScreen extends StatelessWidget {
@@ -86,33 +85,19 @@ class _AuthCardState extends State<AuthCard> {
             'last name': _autData['lname'], // Stokes and Sons
             'phone': _autData['phone'] ,
             'email':_autData['email']
+          }).then((value) {
+            _switchAuthMode();
           });
+
         }).catchError((e){
           if (e.code == 'weak-password') {
             print('The password provided is too weak.');
           } else if (e.code == 'email-already-in-use') {
             print('The account already exists for that email.');
+
+
           }
         });
-      //  print(_autData['password']);
-        //print(_autData['email']);
-
-        /*CollectionReference users = FirebaseFirestore.instance.collection('users').doc();
-
-        // Call the user's CollectionReference to add a new user
-       users
-            .add()
-            .then((value) => print("User Added"))
-            .catchError((error) => print("Failed to add user: $error"));*/
-
-        //to save user data in fire store
-
-     /* setState(() {
-        _isLoading=true;
-      });
-      setState(() {
-        _isLoading=false;
-      });*/
     }
 
   }
@@ -129,7 +114,7 @@ class _AuthCardState extends State<AuthCard> {
           password: _autData['password']!
       ).then((value){
         print("Successfull");
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>home() ));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>home() ));
        // print(value.user.uid);
       }).catchError((e){
         if (e.code == 'user-not-found')
@@ -139,128 +124,10 @@ class _AuthCardState extends State<AuthCard> {
         {
           print('Wrong password provided for that user.');
         }
-      }).then((value){
-        FirebaseAuth.instance.currentUser?.sendEmailVerification();
-      }).catchError((e){
-
       });
-      // try {
-      //
-      // } on FirebaseAuthException catch (e) {
-      //   if (e.code == 'user-not-found') {
-      //     print('No user found for that email.');
-      //   } else if (e.code == 'wrong-password') {
-      //     print('Wrong password provided for that user.');
-      //   }
-      // }
-
-      /*FirebaseAuth.instance
-          .authStateChanges()
-          .listen((User? user) {
-        if (user == null) {
-          print('User is currently signed out!');
-        } else {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) =>home() ));
-
-          print('User is signed in!');
-        }
-      });*/
-
-      /* setState(() {
-        _isLoading=true;
-      });
-      setState(() {
-        _isLoading=false;
-      });*/
     }
   }
 
-
-  //////////////////////////
-  /*Future<void> _submit() async{
-    if(_formKey.currentState!.validate()){
-
-    _formKey.currentState!.save() ;
-    //true signup
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _autData['email']!,
-          password: _autData['password']!
-      );
-      print(_autData['password']);
-      //
-      print(_autData['email']);
-
-      /*CollectionReference users = FirebaseFirestore.instance.collection('users').doc();
-
-        // Call the user's CollectionReference to add a new user
-       users
-            .add()
-            .then((value) => print("User Added"))
-            .catchError((error) => print("Failed to add user: $error"));*/
-
-      Auth auth  = Auth();
-      auth.saveData({
-        'first name': _autData['fname'], // John Doe
-        'last name': _autData['lname'], // Stokes and Sons
-        'phone': _autData['phone'] ,
-        'email':_autData['email']
-      });
-
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-    setState(() {
-      _isLoading=true;
-    });
-    if(_authMode==AuthMode.Login){
-      //Lod User in
-    }
-    else {
-      // Sign user up
-
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _autData['email']!,
-            password: _autData['password']!
-        );
-        print(_autData['email']);
-        print(_autData['password']);
-
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
-        }
-      } catch (e) {
-        print(e);
-      }
-    }
-    setState(() {
-      _isLoading=false;
-    });
-    }
-  }*/
-
-  // void logIn(String email , String pass)
-  // {
-  //   FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass).
-  //   then((value){
-  //     print(value.user!.email);
-  //     print(value.user!.displayName);
-  //     //Navigator.of(context).push(MaterialPageRoute(builder: (context) =>home() ));
-  //   }).catchError((error){
-  //     print(error.toString());
-  //   });
-  // }
 
   void _switchAuthMode(){
     if(_authMode==AuthMode.Login){
@@ -329,7 +196,10 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                     ////////////////////////////////////////////
                     TextFormField(
-                      decoration:const InputDecoration (labelText: 'E-Mail' ,labelStyle: TextStyle(color: Colors.white)),
+                      decoration:const InputDecoration (
+                          labelText: 'E-Mail' ,
+                        labelStyle: TextStyle(color: Colors.white),
+                      ),
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.white),
                       validator: (value){
@@ -420,6 +290,28 @@ class _AuthCardState extends State<AuthCard> {
           ),
         ]
 
+    );
+  }
+  showAlertDialog(BuildContext context) {
+
+    // set up the AlertDialog
+    AlertDialog alert = const AlertDialog(
+      backgroundColor: Colors.white54,
+      title:Text("Warning:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+      ),),
+      content: Text("email is already exist.", style: TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
