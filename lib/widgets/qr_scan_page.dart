@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:resflutter_app/widgets/widgeto.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+import '../categories.dart';
 import 'breakfast.dart';
 
 class QRScanPage extends StatefulWidget {
@@ -82,7 +83,7 @@ class _QRScanPageState extends State<QRScanPage> {
                               }
                               else{
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => breakfast(),
+                                  builder: (BuildContext context) => Categories(),
                                 ));
                               }
                       },

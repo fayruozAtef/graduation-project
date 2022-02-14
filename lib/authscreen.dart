@@ -61,6 +61,7 @@ class _AuthCardState extends State<AuthCard> {
     'fname':'',
     'lname':'',
     'phone':'',
+
   };
   var _isLoading=false;
   final _passwordController =TextEditingController();
@@ -84,7 +85,8 @@ class _AuthCardState extends State<AuthCard> {
             'first name': _autData['fname'], // John Doe
             'last name': _autData['lname'], // Stokes and Sons
             'phone': _autData['phone'] ,
-            'email':_autData['email']
+            'email':_autData['email'],
+            'coins':100,
           }).then((value) {
             _switchAuthMode();
           });
@@ -92,8 +94,11 @@ class _AuthCardState extends State<AuthCard> {
         }).catchError((e){
           if (e.code == 'weak-password') {
             print('The password provided is too weak.');
+            showAlertDialog(context, 'The password provided is too weak.');
           } else if (e.code == 'email-already-in-use') {
             print('The account already exists for that email.');
+
+            showAlertDialog(context, 'The account already exists for that email.');
 
 
           }
@@ -117,12 +122,13 @@ class _AuthCardState extends State<AuthCard> {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>home() ));
        // print(value.user.uid);
       }).catchError((e){
-        if (e.code == 'user-not-found')
-        {
+        if (e.code == 'user-not-found') {
           print('No user found for that email.');
+          showAlertDialog(context, 'No user found for that email.');
         } else if (e.code == 'wrong-password')
         {
           print('Wrong password provided for that user.');
+          showAlertDialog(context, 'Wrong password');
         }
       });
     }
@@ -292,15 +298,15 @@ class _AuthCardState extends State<AuthCard> {
 
     );
   }
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context,String message) {
 
     // set up the AlertDialog
-    AlertDialog alert = const AlertDialog(
+    AlertDialog alert =  AlertDialog(
       backgroundColor: Colors.white54,
-      title:Text("Warning:", style: TextStyle(
+      title:const Text("Warning:", style: TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
       ),),
-      content: Text("email is already exist.", style: TextStyle(
+      content: Text('$message', style: const TextStyle(
         fontSize: 18, color: Colors.black,
       ),),
       actions: [],
