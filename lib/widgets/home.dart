@@ -35,19 +35,6 @@ class home extends StatelessWidget {
 
   home({Key? key,required this.userId}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(id: this.userId),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String id;
-   MyHomePage({Key? key,required this.id}) : super(key: key);
-
-
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -55,7 +42,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('The Restaurant',style: TextStyle(color: Colors.white,fontSize:25)),
         backgroundColor: Colors.black,
       ),
-      drawer:Drawer1(uid: id),
+      drawer:Drawer1(uid: userId),
       body:SingleChildScrollView(
         child: Column(
             children:<Widget> [
