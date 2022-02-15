@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -31,19 +32,22 @@ final List<Widget> imageSliders = imgList
 
 class home extends StatelessWidget {
   final String userId;
-  String uname='';
-  String uemail='';
+
   home({Key? key,required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: MyHomePage(id: this.userId),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  final String id;
+   MyHomePage({Key? key,required this.id}) : super(key: key);
+
+
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -51,7 +55,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('The Restaurant',style: TextStyle(color: Colors.white,fontSize:25)),
         backgroundColor: Colors.black,
       ),
-      drawer:Drawer1(),
+      drawer:Drawer1(uid: id),
       body:SingleChildScrollView(
         child: Column(
             children:<Widget> [
@@ -135,29 +139,50 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 
 class Drawer1 extends StatefulWidget {
-  const Drawer1({Key? key}) : super(key: key);
+
+  final String uid;
+  
+   Drawer1({Key? key,required this.uid}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState();
+    return MyAppState(Userid: uid);
   }
 }
 
 class MyAppState extends State<Drawer1>{
+  final String Userid;
+  MyAppState({Key? key,required this.Userid});
+
+  String uname='';
+  String uemail='';
+
+  getData() async {
+    DocumentReference data = FirebaseFirestore.instance.collection("users").doc(Userid);
+    var dbu = await data.get();
+    setState(() {
+      uname = dbu.get("first name") + ' ' + dbu.get("last name");
+      uemail = dbu.get("email");
+    });
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child:ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(accountName: Text("Name",style:TextStyle(color:Colors.black)),
-            accountEmail: Text("Email",style:TextStyle(color:Colors.black)),
+          UserAccountsDrawerHeader(accountName: Text(uname,style:TextStyle(color:Colors.black)),
+            accountEmail: Text(uemail,style:TextStyle(color:Colors.black)),
             currentAccountPicture:CircleAvatar(
               child:ClipOval(
                 child:Image.asset('assets/images/avatar1.jpg',
