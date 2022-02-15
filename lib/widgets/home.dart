@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resflutter_app/authscreen.dart';
 
+import '../deliveryinformation.dart';
 import 'categorydrawer.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
@@ -112,8 +113,8 @@ class MyHomePage extends StatelessWidget {
                 width: width,
                 child:Card(
                   child:InkWell(onTap: () {
-                    /*Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ));*/
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => DeliveryInformation()));
                   },
                     child: Container(
                       decoration:const BoxDecoration(
