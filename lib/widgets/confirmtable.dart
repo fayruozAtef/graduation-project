@@ -34,17 +34,17 @@ class table extends StatelessWidget {
       },
       children: [
         buildRow(['Items', 'Qty', 'Price'], isHeader: true),
-        for(int i=0;i<orders.length;i++)
-          buildRow([orders[i][0], orders[i][1], orders[i][2]]),
-        buildRow(['Sub-Total', '', getSum()]),
-        buildRow(['Delivery', '', '50']),
-        buildRow(['Total', '', (double.parse(getSum())+50).toString()]),
+        for(int i=1;i<orders.length;i++)
+          buildRow([orders[i][0], 'x'+orders[i][1], orders[i][2]]),
+        buildRow(['Sub-Total', '-', getSum()]),
+        buildRow(['Delivery', '-', '50']),
+        buildRow(['Total', '-', (double.parse(getSum())+50).toString()]),
       ],
     );
   }
   String getSum(){
     double sum=0;
-    for(int i=0;i<orders.length;i++) {
+    for(int i=1;i<orders.length;i++) {
       sum+=double.parse(orders[i][2]);
     }
     return sum.toString();

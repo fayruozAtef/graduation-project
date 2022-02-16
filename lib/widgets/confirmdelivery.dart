@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
 import 'confirmtable.dart';
 
-
-List<List<String>> test=[
-  ['english breakfast','x2','99.99'],
-  ['pizza','x1','50'],
-  ['water','x1','10'],
-];
-
-class confdeliv extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return _confdeliv();
-  }
-}
-class _confdeliv extends StatefulWidget {
-
-
-  const _confdeliv({Key? key}) : super(key: key);
+class confdeliv extends StatefulWidget {
+  List<List<String>> test2;
+  confdeliv({Key? key, required this.test2 }) : super(key: key);
 
   @override
   createState(){
-    return MyAppState();
+    return MyAppState(test: test2);
   }
 }
-class MyAppState extends State<_confdeliv> {
-
+class MyAppState extends State<confdeliv> {
+  List<List<String>> test;
+  MyAppState({Key? key, required this.test }) : super();
   TableRow buildRow(List<String> cells,{bool isHeader = false}) => TableRow(
     children:cells.map((cell) {
       final style=TextStyle(
@@ -53,6 +40,7 @@ class MyAppState extends State<_confdeliv> {
       body: SingleChildScrollView(
         child: Column(
             children: [
+              const SizedBox(height: 10.0,),
               Container(
                 height: 50,
                 padding: EdgeInsets.all(10),
@@ -60,6 +48,7 @@ class MyAppState extends State<_confdeliv> {
                 child:Text('Order Summary : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
                 ),
               ),
+              table(orders: test),
               Container(
 
                 padding: EdgeInsets.all(10),
@@ -72,7 +61,7 @@ class MyAppState extends State<_confdeliv> {
                 ),
               ),
 
-              table(orders: test),
+
 
               Container(
 

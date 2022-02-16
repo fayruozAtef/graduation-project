@@ -3,10 +3,18 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+<<<<<<< HEAD
 
 import 'package:resflutter_app/widgets/confirmation.dart';
 
 
+=======
+import 'package:flutter/material.dart';
+import 'package:resflutter_app/widgets/confirmation.dart';
+
+
+
+>>>>>>> 3361901aa532017fe70c99d41a9e5ad17d15d592
 List<String> list = [
   'assets/images/table1.jpg',
   'assets/images/table1_2.jpg',

@@ -1,20 +1,32 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/breakfast.dart';
+import 'package:resflutter_app/widgets/confirmdelivery.dart';
 import 'package:resflutter_app/widgets/details.dart';
 import 'package:resflutter_app/widgets/home.dart';
-
+List<List<String>> totalOrder=[];
+double x=0.0;
 class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
+  List<String>subOrder=[];
+   Categories({Key? key ,required this.subOrder}) : super(key: key);
 
   @override
-  _CategoriesState createState() => _CategoriesState();
+  _CategoriesState createState() => _CategoriesState(subOrder2: subOrder);
 }
 
 class _CategoriesState extends State<Categories> {
+  List<String>subOrder2=[];
+  _CategoriesState({Key? key ,required this.subOrder2}) ;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    totalOrder.add(subOrder2);
+      x=0.0;
+    for(int i=1;i<totalOrder.length;i++)
+    {
+      x+=double.parse(totalOrder[i][2]);
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pick your order' ,
@@ -49,7 +61,7 @@ class _CategoriesState extends State<Categories> {
                       decoration:const  BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/breakfast.jpeg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
@@ -73,7 +85,7 @@ class _CategoriesState extends State<Categories> {
                       decoration:const  BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/maindish.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
@@ -100,7 +112,7 @@ class _CategoriesState extends State<Categories> {
                       decoration:const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/softdrinks.jpeg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
@@ -126,7 +138,7 @@ class _CategoriesState extends State<Categories> {
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/dessert.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
@@ -143,6 +155,23 @@ class _CategoriesState extends State<Categories> {
             ]
         ),
       ),
+      floatingActionButton: buildNavigateButton(),
     );
   }
+
+
+  Widget buildNavigateButton()=>FloatingActionButton.extended(
+    backgroundColor: Colors.teal,
+      onPressed: (){
+      if(totalOrder.length>1) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => confdeliv(test2: totalOrder)));
+      }
+      },
+      label: Text('${x}'+' | '+'CheckOut Now '),
+  );
+
 }
+
+
