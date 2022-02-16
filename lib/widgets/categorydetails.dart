@@ -18,9 +18,11 @@ class MyAppState extends State<categirydetail> {
   String title2;
   MyAppState({Key? key, required this.title2}) : super();
 
-  List image = ["assets/images/eng bf.png",
+  List image = [
+    "assets/images/pancakes.jpg",
+    "assets/images/eng bf.png",
     "assets/images/Appetizers.jpeg",
-    "assets/images/softdrinks.jpeg",
+    "assets/images/club sandwish.jpg",
     "assets/images/eng bf.png",
     "assets/images/softdrinks.jpeg",
     "assets/images/pancakes.jpg",
