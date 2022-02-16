@@ -19,12 +19,17 @@ class MyAppState extends State<details> {
 
   List image = ["assets/images/eng bf.png",
     "assets/images/club sandwish.jpg",
-    "assets/images/pancakes.jpg"
+    "assets/images/pancakes.jpg",
+    "assets/images/eng bf.png",
+    "assets/images/club sandwish.jpg",
+    "assets/images/pancakes.jpg",
+    "assets/images/pancakes.jpg",
+
   ];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
-  List <double> tprice = [];
+  List <num> tprice = [];
   List <String> t = [];
 
   getData() async {
@@ -35,6 +40,7 @@ class MyAppState extends State<details> {
           count.add(1);
           tprice.add(element.get('price'));
           t.add((element.get('price')).toString());
+          print('${tprice}');
       });
     });
   }
@@ -68,7 +74,7 @@ class MyAppState extends State<details> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('breakfast', style: TextStyle(color: Colors.black, fontSize: 25)),
+        title: Text(title2, style: TextStyle(color: Colors.black, fontSize: 25)),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
@@ -104,7 +110,7 @@ class MyAppState extends State<details> {
                                 .bold)
                             ),
                             children: [
-                              Text(list[i]['details'], style: TextStyle(
+                              Text(list[i]['component'], style: TextStyle(
                                   color: Colors.black, fontSize: 20)),
                             ]
                         ),
