@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/breakfast.dart';
+import 'package:resflutter_app/widgets/details.dart';
 import 'package:resflutter_app/widgets/home.dart';
 
 class Categories extends StatefulWidget {
@@ -42,7 +43,7 @@ class _CategoriesState extends State<Categories> {
                 child:Card(
                   child:InkWell(onTap: (){
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context)=>breakfast()));
+                        MaterialPageRoute(builder: (context)=>details(title: 'Breakfast',)));
                   },
                     child: Container(
                       decoration:const  BoxDecoration(
