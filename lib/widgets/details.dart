@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:resflutter_app/categories.dart';
 
 
 class details extends StatefulWidget {
@@ -24,8 +25,8 @@ class MyAppState extends State<details> {
     "assets/images/club sandwish.jpg",
     "assets/images/pancakes.jpg",
     "assets/images/pancakes.jpg",
-
   ];
+  List <String>order=[];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
@@ -151,8 +152,12 @@ class MyAppState extends State<details> {
                                         ))
                                 ),
                                 onPressed: () {
-                                  /*Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) => (tprice: '${t[i]}')));*/
+                                  order.add(list[i]['name']);
+                                  order.add(count[i].toString());
+                                  order.add(t[i]);
+                                 // print(order);
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => Categories(subOrder:order)));
                                 },
                                 child:
                                 Text('ADD | ${t[i]} LE',
