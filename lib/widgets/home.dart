@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:resflutter_app/authscreen.dart';
 
+import '../deliveryinformation.dart';
 import 'categorydrawer.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
@@ -33,19 +35,6 @@ class home extends StatelessWidget {
 
   home({Key? key,required this.userId}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(id: this.userId),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String id;
-   MyHomePage({Key? key,required this.id}) : super(key: key);
-
-
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -53,7 +42,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('The Restaurant',style: TextStyle(color: Colors.white,fontSize:25)),
         backgroundColor: Colors.black,
       ),
-      drawer:Drawer1(uid: id),
+      drawer:Drawer1(uid: userId),
       body:SingleChildScrollView(
         child: Column(
             children:<Widget> [
@@ -115,8 +104,8 @@ class MyHomePage extends StatelessWidget {
                 width: width,
                 child:Card(
                   child:InkWell(onTap: () {
-                    /*Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ));*/
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => DeliveryInformation()));
                   },
                     child: Container(
                       decoration:const BoxDecoration(
@@ -226,9 +215,10 @@ class MyAppState extends State<Drawer1>{
             leading:Icon(Icons.exit_to_app),
             title: Text('Log out'),
             onTap:() async {
-
               await FirebaseAuth.instance.signOut();
-            },
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>AuthScreen() ));
+
+            }
           ),
         ],
       ),

@@ -7,9 +7,6 @@ import 'package:resflutter_app/widgets/confirmation.dart';
 
 
 
-
-
-
 List<String> list = [
   'assets/images/table1.jpg',
   'assets/images/table1_2.jpg',
