@@ -163,8 +163,11 @@ class _CategoriesState extends State<Categories> {
   Widget buildNavigateButton()=>FloatingActionButton.extended(
     backgroundColor: Colors.teal,
       onPressed: (){
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => confdeliv( test2: totalOrder)));
+      if(totalOrder.length>1) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => confdeliv(test2: totalOrder)));
+      }
       },
       label: Text('${x}'+' | '+'CheckOut Now '),
   );
