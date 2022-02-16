@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class categirydetail extends StatefulWidget {
   String title;
    categirydetail({Key? key, required this.title}) : super(key: key);
@@ -23,7 +21,7 @@ class MyAppState extends State<categirydetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title: Text('$title2',style: TextStyle(color: Colors.black,fontSize:25)),
+        title: Text('$title2',style: const TextStyle(color: Colors.black,fontSize:25)),
         backgroundColor: Colors.white,
         foregroundColor:Colors.black,
       ),
@@ -40,10 +38,10 @@ class MyAppState extends State<categirydetail> {
                   physics:const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Container(
+                      const SizedBox(
                         height:175,
                         width:600,
-                        child: const Image(
+                        child: Image(
                           image:  AssetImage("assets/images/eng bf.png"),
                         ),
                       ),
