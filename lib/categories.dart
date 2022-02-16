@@ -21,8 +21,11 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    totalOrder.add(subOrder2);
+    if(subOrder2[2]=='0'){
+      totalOrder=[];
       x=0.0;
+    }
+    totalOrder.add(subOrder2);
     for(int i=1;i<totalOrder.length;i++)
     {
       x+=double.parse(totalOrder[i][2]);
@@ -54,7 +57,7 @@ class _CategoriesState extends State<Categories> {
                 width: width,
                 child:Card(
                   child:InkWell(onTap: (){
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context)=>details(title: 'Breakfast',)));
                   },
                     child: Container(
@@ -158,15 +161,14 @@ class _CategoriesState extends State<Categories> {
       floatingActionButton: buildNavigateButton(),
     );
   }
-
-
   Widget buildNavigateButton()=>FloatingActionButton.extended(
     backgroundColor: Colors.teal,
       onPressed: (){
       if(totalOrder.length>1) {
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => confdeliv(test2: totalOrder)));
+                builder: (context) => confdeliv(test2: totalOrder.sublist(1,totalOrder.length))));
+
       }
       },
       label: Text('${x}'+' | '+'CheckOut Now '),

@@ -17,7 +17,7 @@ class QRScanPage extends StatefulWidget {
 
 class _QRScanPageState extends State<QRScanPage> {
   String qrCode = '';
-  List<String>test=[];
+  List<String>test=[' ',' ','0'];
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _QRScanPageState extends State<QRScanPage> {
                                 showAlertDialog(context);
                               }
                               else{
-                                Navigator.of(context).push(
+                                Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(builder: (context) => Categories(subOrder:test))
                                 );
                               }
