@@ -17,6 +17,7 @@ class QRScanPage extends StatefulWidget {
 
 class _QRScanPageState extends State<QRScanPage> {
   String qrCode = '';
+  List<String>test=[];
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +83,9 @@ class _QRScanPageState extends State<QRScanPage> {
                                 showAlertDialog(context);
                               }
                               else{
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => Categories(),
-                                ));
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => Categories(subOrder:test))
+                                );
                               }
                       },
                       shape: RoundedRectangleBorder(
