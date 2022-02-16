@@ -157,7 +157,7 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                               showAlertDialog(context, 1);
                             }
                             else{
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories()));
+                              //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories(subOrder: totalOrder,)));
                             }
 
                           },
