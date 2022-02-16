@@ -48,7 +48,7 @@ class _CategoriesState extends State<Categories> {
                       decoration:const  BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/breakfast.jpeg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
@@ -72,7 +72,7 @@ class _CategoriesState extends State<Categories> {
                       decoration:const  BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/maindish.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
@@ -99,7 +99,7 @@ class _CategoriesState extends State<Categories> {
                       decoration:const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/softdrinks.jpeg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
@@ -125,7 +125,7 @@ class _CategoriesState extends State<Categories> {
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/dessert.jpg"),
-                          fit:BoxFit.cover,
+                          fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
