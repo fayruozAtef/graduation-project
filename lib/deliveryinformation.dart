@@ -157,11 +157,7 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                               showAlertDialog(context, 1);
                             }
                             else{
-<<<<<<< HEAD
                               //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories(subOrder: totalOrder,)));
-=======
-                              //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories()));
->>>>>>> rahmaTabel
                             }
 
                           },
