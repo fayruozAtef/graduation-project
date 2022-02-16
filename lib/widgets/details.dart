@@ -156,7 +156,7 @@ class MyAppState extends State<details> {
                                   order.add(count[i].toString());
                                   order.add(t[i]);
                                  // print(order);
-                                  Navigator.of(context).push(
+                                  Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(builder: (context) => Categories(subOrder:order)));
                                 },
                                 child:
