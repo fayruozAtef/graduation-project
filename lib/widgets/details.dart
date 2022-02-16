@@ -34,7 +34,7 @@ class MyAppState extends State<details> {
   List <String> t = [];
 
   getData() async {
-    QuerySnapshot dbf = await bff.where("type",isEqualTo: title2).get();
+    QuerySnapshot dbf = await bff.get();
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());
