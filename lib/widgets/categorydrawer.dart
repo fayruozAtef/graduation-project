@@ -141,6 +141,31 @@ class _CategoriesState extends State<Categories2> {
                   ),
                 ),
               ),
+
+              SizedBox(height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Appetizers',)));
+                  },
+                    child: Container(
+                      decoration:const  BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/Appetizers.jpeg"),
+                          fit:BoxFit.fill,
+                          opacity:40,
+                        ),
+                      ),
+                      child:const  Text('Appetizers',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
             ]
         ),
       ),
