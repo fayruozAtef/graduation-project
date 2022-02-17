@@ -4,16 +4,22 @@ import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
 List<String>test=[' ',' ','0'];
 class DeliveryInformation extends StatefulWidget {
-  const DeliveryInformation({Key? key}) : super(key: key);
+
+  final String userId;
+
+  const DeliveryInformation({Key? key,required this.userId}) : super(key: key);
 
   @override
-  _DeliveryInformationState createState() => _DeliveryInformationState();
+  _DeliveryInformationState createState() => _DeliveryInformationState(userId: userId);
 }
 
 class _DeliveryInformationState extends State<DeliveryInformation> {
   String address='';
   String phonenum='';
   String extraphonenum='';
+
+  final String userId;
+   _DeliveryInformationState({Key? key,required this.userId}) ;
 
   final myController = TextEditingController();
   final myController2 = TextEditingController();
@@ -158,7 +164,9 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                               showAlertDialog(context, 1);
                             }
                             else{
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories(subOrder: test,)));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute
+                                (builder: (context) => Categories(
+                                  subOrder: test,address:address,phone:phonenum,exphone:extraphonenum,userId:userId)));
                             }
 
                           },

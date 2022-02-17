@@ -1,18 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'confirmtable.dart';
+import 'home.dart';
 
 class confdeliv extends StatefulWidget {
   List<List<String>> test2;
-  confdeliv({Key? key, required this.test2 }) : super(key: key);
+  String address='';
+  String exphone='';
+  String phone='';
+
+  final String userId;
+  confdeliv({Key? key, required this.test2,required this.address,required this.phone,required this.exphone ,required this.userId}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(test: test2);
+    return MyAppState(test: test2,address: address,phone: phone,exphone: exphone,userId: userId);
   }
 }
 class MyAppState extends State<confdeliv> {
   List<List<String>> test;
-  MyAppState({Key? key, required this.test }) : super();
+  String address='';
+  String exphone='';
+  String phone='';
+
+  final String userId;
+  MyAppState({Key? key, required this.test,required this.address,required this.phone,required this.exphone,required this.userId }) : super();
   TableRow buildRow(List<String> cells,{bool isHeader = false}) => TableRow(
     children:cells.map((cell) {
       final style=TextStyle(
@@ -50,13 +62,12 @@ class MyAppState extends State<confdeliv> {
               ),
               table(orders: test),
               Container(
-
                 padding: EdgeInsets.all(10),
                 child:Row(
 
                     children:[
                       Text('your address : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                      Text('25-shoubra.st',style:TextStyle(color:Colors.black,fontSize: 20))
+                      Text(address,style:TextStyle(color:Colors.black,fontSize: 20))
                     ]
                 ),
               ),
@@ -72,7 +83,20 @@ class MyAppState extends State<confdeliv> {
                   //mainAxisAlignment: MainAxisAlignment.center,
                     children:[
                       Text('your phone : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                      Text('01156677394',style:TextStyle(color:Colors.black,fontSize: 20))
+                      Text(phone,style:TextStyle(color:Colors.black,fontSize: 20))
+                    ]
+                ),
+              ),
+              Container(
+
+                padding: EdgeInsets.all(10),
+
+
+                child:Row(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                      Text('your extra phone : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                      Text(exphone,style:TextStyle(color:Colors.black,fontSize: 20))
                     ]
                 ),
               ),
@@ -84,7 +108,17 @@ class MyAppState extends State<confdeliv> {
                         borderRadius:BorderRadius.circular(18)
                     ))
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                    DocumentReference data = FirebaseFirestore.instance.collection("users").doc(userId);
+                    await data.set(
+                        {"address":address,"phone2":phone,"extra phone":exphone},
+                     SetOptions(merge: true),
+                    );
+
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) =>home(userId: userId,)));
+
+                },
                 child: Text('Confirm',style:TextStyle(fontSize: 30)),
               ),
 

@@ -5,29 +5,39 @@ import 'package:resflutter_app/categories.dart';
 
 class details extends StatefulWidget {
   String title;
+  List image2=[];
+  String address='';
+  String exphone='';
+  String phone='';
 
-  details({Key? key,required this.title}) : super(key: key);
+  final String userId;
+
+  details({Key? key,required this.title,required this.image2,required this.address,required this.phone,required this.exphone,required this.userId}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(title2: title);
+    return MyAppState(title2: title,image:image2,address: address,phone: phone,exphone: exphone,userId: userId);
   }
 }
 
 class MyAppState extends State<details> {
   String title2;
-  MyAppState({Key? key, required this.title2}) : super();
+  List image = [];
+  String address='';
+  String exphone='';
+  String phone='';
 
-  List image = ["assets/images/eng bf.png",
-    "assets/images/club sandwish.jpg",
-    "assets/images/pancakes.jpg",
-  ];
+  final String userId;
+
+  MyAppState({Key? key, required this.title2,required this.image,required this.address,required this.phone,required this.exphone,required this.userId}) : super();
+
+
   List <String>order=[];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
   List <num> tprice = [];
-  List <String> t = [];
+  //List <String> t = [];
 
   getData() async {
     QuerySnapshot dbf = await bff.where('type',isEqualTo:title2).get();
@@ -36,7 +46,7 @@ class MyAppState extends State<details> {
         list.add(element.data());
           count.add(1);
           tprice.add(element.get('price'));
-          t.add((element.get('price')).toString());
+          //t.add((element.get('price')).toString());
       });
     });
   }
@@ -52,7 +62,7 @@ class MyAppState extends State<details> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-    t[n] = tprice[n].toStringAsFixed(2);
+    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   void _decrease(int n) {
@@ -63,7 +73,7 @@ class MyAppState extends State<details> {
       count[n]--;
     });
     tprice[n] = tprice[n] - list[n]['price'];
-    t[n] = tprice[n].toStringAsFixed(2);
+    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   @override
@@ -138,7 +148,7 @@ class MyAppState extends State<details> {
                                     backgroundColor: MaterialStateProperty.all<
                                         Color>(Colors.white),
                                     fixedSize: MaterialStateProperty.all(
-                                        Size(200, 40)),
+                                        Size(225, 40)),
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
@@ -149,12 +159,12 @@ class MyAppState extends State<details> {
                                 onPressed: () {
                                   order.add(list[i]['name']);
                                   order.add(count[i].toString());
-                                  order.add(t[i]);
+                                  order.add(tprice[i].toString());
                                   Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) => Categories(subOrder:order)));
+                                      MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
                                 },
                                 child:
-                                Text('ADD | ${t[i]} LE',
+                                Text('ADD | ${tprice[i]} LE',
                                     style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
                               ),
                             )
