@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resflutter_app/widgets/confirmation.dart';
-import 'package:flutter/material.dart';
-import 'package:resflutter_app/widgets/confirmation.dart';
 
 List<String> list = [
   'assets/images/table1.jpg',
@@ -71,7 +69,7 @@ class tables extends StatefulWidget {
                 children:[
                   for(int i = 0; i < table.length; i=i+2)
                     Container(
-                      padding: EdgeInsets.all(5.0),
+                      padding: EdgeInsets.only(bottom: 5.0),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -90,7 +88,7 @@ class tables extends StatefulWidget {
                                 showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
-                                    final theme = Theme.of(context);
+                                    //final theme = Theme.of(context);
                                     return SingleChildScrollView(
                                       child: Container(
                                           height: 500,
@@ -139,7 +137,6 @@ class tables extends StatefulWidget {
                                                             ))
                                                     ),
                                                     onPressed: () {
-                                                      //int tablen=n1;
                                                       Navigator.of(context).push(
                                                         MaterialPageRoute(
                                                           builder: (context) =>
@@ -181,7 +178,7 @@ class tables extends StatefulWidget {
                                 showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
-                                    final theme = Theme.of(context);
+                                    //final theme = Theme.of(context);
                                     return SingleChildScrollView(
                                       child: Container(
                                           height: 500,
