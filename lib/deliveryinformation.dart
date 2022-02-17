@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
+List<String>test=[' ',' ','0'];
 class DeliveryInformation extends StatefulWidget {
   const DeliveryInformation({Key? key}) : super(key: key);
 
@@ -157,7 +158,7 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                               showAlertDialog(context, 1);
                             }
                             else{
-                              //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories(subOrder: totalOrder,)));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Categories(subOrder: test,)));
                             }
 
                           },
