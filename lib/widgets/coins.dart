@@ -82,7 +82,7 @@ class _coins extends State<Coins>{
                                       child: Container(
                                         decoration:const BoxDecoration(
                                           image: DecorationImage(
-                                            image: AssetImage("assets/images/softdrinks.jpeg"),
+                                            image: AssetImage("assets/images/fresh-cola-drink-glass.jpg"),
                                             fit:BoxFit.fill,
                                             opacity:47,
                                           ),
@@ -110,6 +110,67 @@ class _coins extends State<Coins>{
                                     child: Container(
                                       decoration:const BoxDecoration(
                                         image: DecorationImage(
+                                          image: AssetImage("assets/images/latte-coffee.jpg"),
+                                          fit:BoxFit.fill,
+                                          opacity:47,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: (MediaQuery.of(context).size.width-30)/2,
+                                height: 60.0,
+                                child: MaterialButton(
+                                  child: const Text('Get a latte with 800 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () {  },),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10.0,),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(
+                                height:170,
+                                width: (MediaQuery.of(context).size.width-30)/2,
+                                child:Card(
+                                  child:InkWell(onTap: () {},
+                                    child: Container(
+                                      decoration:const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage("assets/images/french-fries.jpg"),
+                                          fit:BoxFit.fill,
+                                          opacity:47,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: (MediaQuery.of(context).size.width-30)/2,
+                                height: 60.0,
+                                child: MaterialButton(
+                                  child:const Text('Get a fries with 1000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () {  },),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height:170,
+                                width: (MediaQuery.of(context).size.width-30)/2,
+                                child:Card(
+                                  child:InkWell(onTap: () {},
+                                    child: Container(
+                                      decoration:const BoxDecoration(
+                                        image: DecorationImage(
                                           image: AssetImage("assets/images/pancakes.jpg"),
                                           fit:BoxFit.fill,
                                           opacity:47,
@@ -123,7 +184,7 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 60.0,
                                 child: MaterialButton(
-                                  child: const Text('Get a panckake with 800 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  child: const Text('Get a panckake with 2000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
                                   onPressed: () {  },),
                               ),
                             ],
@@ -156,7 +217,7 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 80.0,
                                 child: MaterialButton(
-                                  child:const Text('Get a english breakfast with 8000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  child:const Text('Get a english breakfast with 3500 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
                                   onPressed: () {  },),
                               ),
                             ],
@@ -184,7 +245,7 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 80.0,
                                 child: MaterialButton(
-                                  child: const Text('Get a club sandwish with 2000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  child: const Text('Get a club sandwish with 5000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
                                   onPressed: () {  },),
                               ),
                             ],
