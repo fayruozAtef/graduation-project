@@ -36,14 +36,13 @@ class MyAppState extends State<detailsinHall> {
   List <String> t = [];
 
   getData() async {
-    QuerySnapshot dbf = await bff.get();
+    QuerySnapshot dbf = await bff.where('type',isEqualTo:title2).get();
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());
         count.add(1);
         tprice.add(element.get('price'));
         t.add((element.get('price')).toString());
-        print('${tprice}');
       });
     });
   }
