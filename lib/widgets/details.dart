@@ -21,10 +21,6 @@ class MyAppState extends State<details> {
   List image = ["assets/images/eng bf.png",
     "assets/images/club sandwish.jpg",
     "assets/images/pancakes.jpg",
-    "assets/images/eng bf.png",
-    "assets/images/club sandwish.jpg",
-    "assets/images/pancakes.jpg",
-    "assets/images/pancakes.jpg",
   ];
   List <String>order=[];
   List list = [];
@@ -34,14 +30,13 @@ class MyAppState extends State<details> {
   List <String> t = [];
 
   getData() async {
-    QuerySnapshot dbf = await bff.get();
+    QuerySnapshot dbf = await bff.where('type',isEqualTo:title2).get();
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());
           count.add(1);
           tprice.add(element.get('price'));
           t.add((element.get('price')).toString());
-          print('${tprice}');
       });
     });
   }
@@ -155,7 +150,6 @@ class MyAppState extends State<details> {
                                   order.add(list[i]['name']);
                                   order.add(count[i].toString());
                                   order.add(t[i]);
-                                 // print(order);
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(builder: (context) => Categories(subOrder:order)));
                                 },
