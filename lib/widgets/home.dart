@@ -106,7 +106,7 @@ class home extends StatelessWidget {
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => DeliveryInformation()));
+                        MaterialPageRoute(builder: (context) => DeliveryInformation(userId: userId,)));
                   },
                     child: Container(
                       decoration:const BoxDecoration(
