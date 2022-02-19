@@ -27,17 +27,6 @@ class _CategoriesState extends State<Categories> {
   final String userId;
   _CategoriesState({Key? key ,required this.subOrder2,required this.address,required this.phone,required this.exphone,required this.userId}) ;
 
-  List bf=[
-    "assets/images/pancakes.jpg",
-    "assets/images/club sandwish.jpg",
-    "assets/images/eng bf.png",
-
-  ];
-  List dessert=[
-    "assets/images/om ali.jpg",
-    "assets/images/cheese cake.jpg",
-    "assets/images/waffel.jpg",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -75,18 +64,18 @@ class _CategoriesState extends State<Categories> {
              ),
               const SizedBox(height: 6.0),
               SizedBox(height:190,
-                width: width,
+                width:350,
                 child:Card(
                   child:InkWell(onTap: (){
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context)=>details(title: 'Breakfast',image2:bf,address:address,phone:phone,exphone:exphone,userId:userId)));
+                        MaterialPageRoute(builder: (context)=>details(title: 'Breakfast',address:address,phone:phone,exphone:exphone,userId:userId)));
                   },
                     child: Container(
                       decoration:const  BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/breakfast.jpeg"),
                           fit:BoxFit.fill,
-                          opacity:40,
+                          opacity:47,
                         ),
                       ),
                       child:const  Text('Breakfast',style:TextStyle(color:Colors.white,
@@ -99,21 +88,145 @@ class _CategoriesState extends State<Categories> {
                 ),
               ),
               SizedBox(height:190,
-                width: width,
+                width:350,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context)=>details(title: 'Salads',address:address,phone:phone,exphone:exphone,userId:userId)));
+                  },
+                    child: Container(
+                      decoration:const  BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/breakfast.jpeg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child:const  Text('Salads',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width:350,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>details(title: 'Appetizers',address:address,phone:phone,exphone:exphone,userId:userId)));
+                  },
+                    child: Container(
+                      decoration:const  BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/Appetizers.jpeg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child:const  Text('Appetizers',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width:350,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context)=>details(title: 'Soups',address:address,phone:phone,exphone:exphone,userId:userId)));
+                  },
+                    child: Container(
+                      decoration:const  BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/breakfast.jpeg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child:const  Text('Soups',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width:350,
                 child: Card(
                   child:InkWell(onTap: () {
-                    /*Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ));*/
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => details(title: 'Main Dishes',address:address,phone:phone,exphone:exphone,userId:userId)));
                   },
                     child: Container(
                       decoration:const  BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/maindish.jpg"),
                           fit:BoxFit.fill,
-                          opacity:40,
+                          opacity:47,
                         ),
                       ),
-                      child:const  Text('Main dishes',
+                      child:const  Text('Main Dishes',
+                          style:TextStyle(
+                              color:Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width:350,
+                child: Card(
+                  child:InkWell(onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => details(title: 'Pasta',address:address,phone:phone,exphone:exphone,userId:userId)));
+                  },
+                    child: Container(
+                      decoration:const  BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/maindish.jpg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child:const  Text('Pasta',
+                          style:TextStyle(
+                              color:Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width:350,
+                child: Card(
+                  child:InkWell(onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => details(title: 'Pizza',address:address,phone:phone,exphone:exphone,userId:userId)));
+                  },
+                    child: Container(
+                      decoration:const  BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/maindish.jpg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child:const  Text('Pizza',
                           style:TextStyle(
                               color:Colors.white,
                               fontSize: 40,
@@ -126,11 +239,11 @@ class _CategoriesState extends State<Categories> {
               ),
               SizedBox(
                 height:190,
-                width: width,
+                width:350,
                 child:Card(
                   child:InkWell(onTap: () {
                     /*Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ));*/
+                        MaterialPageRoute(builder: (context) => details(title: 'Drinks',address:address,phone:phone,exphone:exphone,userId:userId)));*/
                   },
                     child: Container(
                       decoration:const BoxDecoration(
@@ -140,7 +253,7 @@ class _CategoriesState extends State<Categories> {
                           opacity:47,
                         ),
                       ),
-                      child: const Text('Softdrinks',
+                      child: const Text('Drinks',
                           style:TextStyle(color:Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.bold)
@@ -152,11 +265,11 @@ class _CategoriesState extends State<Categories> {
               ),
               SizedBox(
                 height:190,
-                width: width,
+                width:350,
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => details(title: 'Desserts',image2:dessert,address:address,phone:phone,exphone:exphone,userId:userId)));
+                        MaterialPageRoute(builder: (context) => details(title: 'Desserts',address:address,phone:phone,exphone:exphone,userId:userId)));
                   },
                     child: Container(
                       decoration: const BoxDecoration(

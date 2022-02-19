@@ -67,7 +67,9 @@ class MyAppState extends State<confdeliv> {
 
                     children:[
                       Text('your address : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                      Text(address,style:TextStyle(color:Colors.black,fontSize: 20))
+                      Expanded(
+                          child:Text(address,maxLines: 3,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 20)) ),
+
                     ]
                 ),
               ),
