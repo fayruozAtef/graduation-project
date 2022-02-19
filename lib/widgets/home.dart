@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resflutter_app/authscreen.dart';
+import 'package:resflutter_app/widgets/coins.dart';
 
 import '../deliveryinformation.dart';
 import 'categorydrawer.dart';
@@ -105,7 +106,7 @@ class home extends StatelessWidget {
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => DeliveryInformation()));
+                        MaterialPageRoute(builder: (context) => DeliveryInformation(userId: userId,)));
                   },
                     child: Container(
                       decoration:const BoxDecoration(
@@ -191,7 +192,9 @@ class MyAppState extends State<Drawer1>{
           ListTile(
             leading:Icon(Icons.monetization_on),
             title:Text('Coins'),
-            onTap:(){},
+            onTap:(){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Coins(user: Userid)));
+            },
           ),
           ListTile(
             leading:Icon(Icons.menu_book),
