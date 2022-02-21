@@ -67,7 +67,9 @@ class MyAppState extends State<confdeliv> {
 
                     children:[
                       Text('your address : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                      Text(address,style:TextStyle(color:Colors.black,fontSize: 20))
+                      Expanded(
+                          child:Text(address,maxLines: 3,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 20)) ),
+
                     ]
                 ),
               ),
@@ -109,16 +111,14 @@ class MyAppState extends State<confdeliv> {
                     ))
                 ),
                 onPressed: () async {
-                    DocumentReference data = FirebaseFirestore.instance.collection("users").doc(userId);
-                    await data.set(
-                        {"address":address,"phone2":phone,"extra phone":exphone},
+                   CollectionReference data = FirebaseFirestore.instance.collection("delivery");
+                    await data.doc().set(
+                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId},
                      SetOptions(merge: true),
                     );
-
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) =>home(userId: userId,)));
-
-                },
+                    },
                 child: Text('Confirm',style:TextStyle(fontSize: 30)),
               ),
 

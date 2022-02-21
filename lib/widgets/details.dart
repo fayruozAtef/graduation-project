@@ -5,31 +5,31 @@ import 'package:resflutter_app/categories.dart';
 
 class details extends StatefulWidget {
   String title;
-  List image2=[];
+
   String address='';
   String exphone='';
   String phone='';
 
   final String userId;
 
-  details({Key? key,required this.title,required this.image2,required this.address,required this.phone,required this.exphone,required this.userId}) : super(key: key);
+  details({Key? key,required this.title,required this.address,required this.phone,required this.exphone,required this.userId}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(title2: title,image:image2,address: address,phone: phone,exphone: exphone,userId: userId);
+    return MyAppState(title2: title,address: address,phone: phone,exphone: exphone,userId: userId);
   }
 }
 
 class MyAppState extends State<details> {
   String title2;
-  List image = [];
+
   String address='';
   String exphone='';
   String phone='';
 
   final String userId;
 
-  MyAppState({Key? key, required this.title2,required this.image,required this.address,required this.phone,required this.exphone,required this.userId}) : super();
+  MyAppState({Key? key, required this.title2,required this.address,required this.phone,required this.exphone,required this.userId}) : super();
 
 
   List <String>order=[];
@@ -100,9 +100,9 @@ class MyAppState extends State<details> {
                       children: [
                         Container(
                           height: 175,
-                          width: 600,
+                          width: 800,
                           child: Image(
-                            image: AssetImage(image[i]),
+                            image:NetworkImage(list[i]['imagepath']),
                           ),
                         ),
                         ExpansionTile(

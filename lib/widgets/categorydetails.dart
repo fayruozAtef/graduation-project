@@ -18,22 +18,12 @@ class MyAppState extends State<categirydetail> {
   String title2;
   MyAppState({Key? key, required this.title2}) : super();
 
-  List image = [
-    "assets/images/pancakes.jpg",
-    "assets/images/eng bf.png",
-    "assets/images/Appetizers.jpeg",
-    "assets/images/club sandwish.jpg",
-    "assets/images/eng bf.png",
-    "assets/images/softdrinks.jpeg",
-    "assets/images/pancakes.jpg",
-    "assets/images/pancakes.jpg",
 
-  ];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
   List <num> tprice = [];
-  List <String> t = [];
+  //List <String> t = [];
 
   getData() async {
     QuerySnapshot dbf = await bff.where("type",isEqualTo: title2).get();
@@ -42,8 +32,8 @@ class MyAppState extends State<categirydetail> {
         list.add(element.data());
         count.add(1);
         tprice.add(element.get('price'));
-        t.add((element.get('price')).toString());
-        print('${tprice}');
+        //t.add((element.get('price')).toString());
+
       });
     });
   }
@@ -59,7 +49,7 @@ class MyAppState extends State<categirydetail> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-    t[n] = tprice[n].toStringAsFixed(2);
+    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   void _decrease(int n) {
@@ -70,7 +60,7 @@ class MyAppState extends State<categirydetail> {
       count[n]--;
     });
     tprice[n] = tprice[n] - list[n]['price'];
-    t[n] = tprice[n].toStringAsFixed(2);
+    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   @override
@@ -99,7 +89,7 @@ class MyAppState extends State<categirydetail> {
                           height: 175,
                           width: 600,
                           child: Image(
-                            image: AssetImage(image[i]),
+                            image: NetworkImage(list[i]['imagepath']),
                           ),
                         ),
                         ExpansionTile(
@@ -122,7 +112,7 @@ class MyAppState extends State<categirydetail> {
                           children: [
                             Container(
                               alignment: Alignment.center,
-                              child: Text('Price | ${t[i]} LE.',
+                              child: Text('Price | ${tprice[i]} LE.',
                                     style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
                               ),
 

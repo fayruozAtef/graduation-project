@@ -20,20 +20,13 @@ class MyAppState extends State<detailsinHall> {
   String tableNo;
   MyAppState({Key? key, required this.title2, required this.tableNo}) : super();
 
-  List image = ["assets/images/eng bf.png",
-    "assets/images/club sandwish.jpg",
-    "assets/images/pancakes.jpg",
-    "assets/images/eng bf.png",
-    "assets/images/club sandwish.jpg",
-    "assets/images/pancakes.jpg",
-    "assets/images/pancakes.jpg",
-  ];
+
   List <String>order=[];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
   List <num> tprice = [];
-  List <String> t = [];
+  //List <String> t = [];
 
   getData() async {
     QuerySnapshot dbf = await bff.where('type',isEqualTo:title2).get();
@@ -42,7 +35,7 @@ class MyAppState extends State<detailsinHall> {
         list.add(element.data());
         count.add(1);
         tprice.add(element.get('price'));
-        t.add((element.get('price')).toString());
+        //t.add((element.get('price')).toString());
       });
     });
   }
@@ -58,7 +51,7 @@ class MyAppState extends State<detailsinHall> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-    t[n] = tprice[n].toStringAsFixed(2);
+    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   void _decrease(int n) {
@@ -69,7 +62,7 @@ class MyAppState extends State<detailsinHall> {
       count[n]--;
     });
     tprice[n] = tprice[n] - list[n]['price'];
-    t[n] = tprice[n].toStringAsFixed(2);
+    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   @override
@@ -98,7 +91,7 @@ class MyAppState extends State<detailsinHall> {
                           height: 175,
                           width: 600,
                           child: Image(
-                            image: AssetImage(image[i]),
+                            image:NetworkImage(list[i]['imagepath']),
                           ),
                         ),
                         ExpansionTile(
@@ -152,12 +145,12 @@ class MyAppState extends State<detailsinHall> {
                                 onPressed: () {
                                   order.add(list[i]['name']);
                                   order.add(count[i].toString());
-                                  order.add(t[i]);
+                                  order.add(tprice[i].toString());
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,)));
                                 },
                                 child:
-                                Text('ADD | ${t[i]} LE',
+                                Text('ADD | ${tprice[i]} LE',
                                     style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
                               ),
                             )
