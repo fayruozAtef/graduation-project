@@ -53,6 +53,8 @@ dependencies:
 
   http: ^0.13.4
   provider: ^6.0.2
+  firebase_storage: ^10.2.7
+  image_downloader: ^0.31.0
 
 
 

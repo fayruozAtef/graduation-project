@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:resflutter_app/authscreen.dart';
+<<<<<<< HEAD
+import 'package:resflutter_app/widgets/coins.dart';
+=======
 import 'package:resflutter_app/widgets/profileInfo.dart';
 
+>>>>>>> rahmaTabel
 
 import '../deliveryinformation.dart';
 import 'categorydrawer.dart';
@@ -122,7 +126,11 @@ class MyHomePage extends StatelessWidget {
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
+<<<<<<< HEAD
+                        MaterialPageRoute(builder: (context) => DeliveryInformation(userId: userId,)));
+=======
                         MaterialPageRoute(builder: (context) => DeliveryInformation(userId:id)));
+>>>>>>> rahmaTabel
                   },
                     child: Container(
                       decoration:const BoxDecoration(
@@ -212,7 +220,9 @@ class MyAppState extends State<Drawer1>{
           ListTile(
             leading:Icon(Icons.monetization_on),
             title:Text('Coins'),
-            onTap:(){},
+            onTap:(){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Coins(user: Userid)));
+            },
           ),
           ListTile(
             leading:Icon(Icons.menu_book),
