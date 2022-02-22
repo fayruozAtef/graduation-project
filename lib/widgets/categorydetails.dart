@@ -23,7 +23,6 @@ class MyAppState extends State<categirydetail> {
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
   List <num> tprice = [];
-  //List <String> t = [];
 
   getData() async {
     QuerySnapshot dbf = await bff.where("type",isEqualTo: title2).get();
@@ -32,7 +31,6 @@ class MyAppState extends State<categirydetail> {
         list.add(element.data());
         count.add(1);
         tprice.add(element.get('price'));
-        //t.add((element.get('price')).toString());
 
       });
     });
@@ -49,7 +47,6 @@ class MyAppState extends State<categirydetail> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   void _decrease(int n) {
@@ -60,7 +57,6 @@ class MyAppState extends State<categirydetail> {
       count[n]--;
     });
     tprice[n] = tprice[n] - list[n]['price'];
-    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
   @override
