@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'background.dart';
-import 'confirmation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class Body extends StatefulWidget{
+  final String userId;
+  Body({Key? key, required this.userId}) : super(key: key);
 
   @override
   State<Body> createState() => _MyBody();
@@ -18,14 +21,30 @@ class _MyBody extends State<Body> {
   DateTime _selectedDay=DateTime.now() ;
   DateTime _focusedDay=DateTime.now();
   DateTime _available = DateTime.now().add(Duration(hours: 3));
-//var t1= new DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59);
-  DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59) ;
+  DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,00,00,00) ;
   DateTime _endclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,10,00,00) ;
   String? _error=null;
   CalendarFormat _format = CalendarFormat.month;
-
   var time;
-  final number =new TextEditingController();
+  final number =TextEditingController();
+  List tableno = [];
+  var set;
+  CollectionReference table = FirebaseFirestore.instance.collection("tables");
+  gettable() async {
+    //final query = await table..where("no-of-sets".toString(),isEqualTo: number.toString()).snapshots();
+   // FirebaseFirestore.instance.collection("tables").where('no-of-sets',isEqualTo: number).snapshots();
+   // tableno.add(query);
+    QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
+   // table.where('no-of-sets',isEqualTo: number).snapshots();
+   // dbt.docs.where((element) =>element['no-of-sets'].toString().contains(number.toString()));
+    dbt.docs.forEach((element) {
+      setState(() {
+        tableno.add(element.data());
+      });
+    });
+       // element['no-of-sets'].toString().contains(number.toString())).map((e) =>tableno.add(e.data()));
+    print('table no :$tableno');
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -142,10 +161,7 @@ class _MyBody extends State<Body> {
             ),
           ],
         ),
-
       ),
-
-
     ),
   );
 
@@ -167,10 +183,7 @@ class _MyBody extends State<Body> {
   Widget buildNoSeats() =>Material(
     child:   TextField(
       controller: number,
-
       keyboardType: TextInputType.number,
-
-
       decoration:  InputDecoration(
         hintText: 'Enter number of seats',
         labelText: 'no of seats',
@@ -182,6 +195,16 @@ class _MyBody extends State<Body> {
       ),
     ),
   );
+  Widget buildtableno(BuildContext context)=>StreamBuilder<QuerySnapshot>(
+      stream: table.snapshots().asBroadcastStream(),
+      builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>snapshot){
+        if(!snapshot.hasData){
+          return buildText('There is no avalible table with that Seat number');
+        }else{
+          return gettable();
+        }
+
+      });
 
   Widget buildDone(BuildContext context)=>Builder(
     builder: (context) {
@@ -192,15 +215,20 @@ class _MyBody extends State<Body> {
         onPressed: (){
           final snack =SnackBar(
             content: Text('Time Should be After 3 hours From now and Resturant close From 12 AM To 10 AM'),
-            duration: Duration(seconds: 5),
+            duration: Duration(seconds: 3),
           );
           setState(() {
-            int num = int.parse(number.text);
+            int numb = int.parse(number.text);
+            set = num.tryParse(number.text) as List<num> ;
+            gettable();
             String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
             String tim=DateFormat('HH:mm').format(_selectTime);
             if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
               Scaffold.of(context).showSnackBar(snack);
-            }else if(_selectTime.isAfter(_available)){
+            }else
+              if(DateFormat('yyyy-MM-dd').format(_selectedDay)==DateFormat('yyyy-MM-dd').format(DateTime.now()))
+            {
+              if(_selectTime.isAfter(_available)){
 
               if(number.text.isEmpty) {
                 _error='Enter Number of Seats';
@@ -211,21 +239,36 @@ class _MyBody extends State<Body> {
                     builder: (BuildContext context)=> tables(
                       date:dat,
                       time:tim,
-                      no: num,
+                      no: numb,
+                      userId: widget.userId,
                     ),
 
                   ),
                 );
               }
             }
-            else{
-              Scaffold.of(context).showSnackBar(snack);
+              else{
+              Scaffold.of(context).showSnackBar(snack);}
+            }
+              else{
+              if(number.text.isEmpty) {
+                _error='Enter Number of Seats';
+              } else {
+                _error= null;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context)=> tables(
+                      date:dat,
+                      time:tim,
+                      no: numb,
+                      userId: widget.userId,
+                    ),
+
+                  ),
+                );
+              }
             }
           });
-
-
-
-
         },
         child: const Text('Done'),
         color: Color.fromRGBO(65, 189, 180, 54),

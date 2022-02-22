@@ -63,7 +63,7 @@ class home extends StatelessWidget {
                 child:Card(
                   child:InkWell(onTap: (){
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context)=>Body()));
+                        MaterialPageRoute(builder: (context)=>Body(userId: userId,)));
                   },
                     child: Container(
                       decoration:const BoxDecoration(

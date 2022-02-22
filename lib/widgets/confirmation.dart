@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'background.dart';
+import 'home.dart';
 class confirm extends StatefulWidget {
   final String date;
   final String time;
   final int tableno;
-  confirm({Key? key, required this.date,required this.time,required this.tableno}) : super(key: key);
+  final String userId;
+  confirm({Key? key, required this.date,required this.time,required this.tableno,required this.userId}) : super(key: key);
   @override
   State<confirm> createState() => _confirm();
 }
@@ -157,7 +159,41 @@ class _confirm extends State<confirm> {
                       shape: RoundedRectangleBorder(
                         borderRadius:  BorderRadius.circular(12.0),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)));
+                      },
+
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 120,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    border: Border.all(color: Colors.white12,width: 10.0,)
+                ),
+                child: Center(
+                  child: ButtonTheme(
+                    minWidth: 150.0,
+                    height: 50.0,
+                    child: RaisedButton(
+                      child: Text('Cancel',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26,
+                        ),),
+                      color: Color.fromRGBO(65, 189, 180, 54),
+
+                      shape: RoundedRectangleBorder(
+                        borderRadius:  BorderRadius.circular(12.0),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)));
+                      },
 
                     ),
                   ),

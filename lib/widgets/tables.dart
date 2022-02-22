@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -21,9 +21,9 @@ class tables extends StatefulWidget {
   final String date;
   final String time;
   final int no;
+  final String userId;
 
-
-  tables({Key? key,required this.date,required this.time,required this.no}) : super(key: key);
+  tables({Key? key,required this.date,required this.time,required this.no,required this.userId}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _tables();
 
@@ -42,6 +42,7 @@ class tables extends StatefulWidget {
           table.add(element.data());
         });
       });
+      print('table:$table');
     }
 
     @override
@@ -144,7 +145,8 @@ class tables extends StatefulWidget {
                                                                   .date,
                                                                   time: widget
                                                                       .time,
-                                                                  tableno: table[i]['num']),
+                                                                  tableno: table[i]['num'],
+                                                              userId:widget.userId ,),
                                                         ),
                                                       );
                                                     },
@@ -238,7 +240,8 @@ class tables extends StatefulWidget {
                                                                   time: widget
                                                                       .time,
                                                                   tableno: table[i +
-                                                                      1]['num']),
+                                                                      1]['num'],
+                                                                userId: widget.userId,),
                                                         ),
                                                       );
                                                     },
