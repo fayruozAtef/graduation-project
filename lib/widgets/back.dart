@@ -5,10 +5,9 @@ class Back extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
+      decoration:const  BoxDecoration(
+        image:  DecorationImage(
           image: AssetImage('assets/images/background.jpg'),
-          //3lshan a3ml el img ta5od kol el saf5a
           fit: BoxFit.cover,
         ),
       ),

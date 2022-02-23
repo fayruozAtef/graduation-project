@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/confirmdelivery.dart';
 import 'package:resflutter_app/widgets/details.dart';
@@ -242,8 +241,8 @@ class _CategoriesState extends State<Categories> {
                 width:350,
                 child:Card(
                   child:InkWell(onTap: () {
-                    /*Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => details(title: 'Drinks',address:address,phone:phone,exphone:exphone,userId:userId)));*/
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => details(title: 'Drinks',address:address,phone:phone,exphone:exphone,userId:userId)));
                   },
                     child: Container(
                       decoration:const BoxDecoration(
@@ -256,7 +255,7 @@ class _CategoriesState extends State<Categories> {
                       child: const Text('Drinks',
                           style:TextStyle(color:Colors.white,
                               fontSize: 40,
-                              fontWeight: FontWeight.bold)
+                              fontWeight: FontWeight.bold),
                       ),
                       alignment:Alignment.bottomLeft,
                     ),

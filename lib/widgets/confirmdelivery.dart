@@ -64,11 +64,26 @@ class MyAppState extends State<confdeliv> {
               Container(
                 padding: EdgeInsets.all(10),
                 child:Row(
-
                     children:[
-                      Text('your address : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                Expanded(
+                child:RichText(text: TextSpan(
+                        text :'your address : ',
+                        style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold),
+                          children:[
+                            TextSpan(text :address,
+                                style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.normal),
+                            ),
+
+                          ],
+                      ),
+                          maxLines: 3,
+                          softWrap: false,
+                          overflow:TextOverflow.ellipsis
+                      ),
+                ),
+                      /*Text('your address : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
                       Expanded(
-                          child:Text(address,maxLines: 3,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 20)) ),
+                          child:Text(address,maxLines: 3,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 20)) ),*/
 
                     ]
                 ),
