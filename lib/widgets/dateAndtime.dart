@@ -24,26 +24,56 @@ class _MyBody extends State<Body> {
   DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,00,00,00) ;
   DateTime _endclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,10,00,00) ;
   String? _error=null;
+  String ?dat;
   CalendarFormat _format = CalendarFormat.month;
   var time;
   final number =TextEditingController();
-  List tableno = [];
-  var set;
+  List <num>tableno = [];
+  List d = [];
+  List dsearch = [];
+  List result = [];
+  num set=0;
+ // Timestamp da = Timestamp.fromMillisecondsSinceEpoch(_selectedDay.microsecondsSinceEpoch);
+  List tr=[];
   CollectionReference table = FirebaseFirestore.instance.collection("tables");
+  CollectionReference tdate = FirebaseFirestore.instance.collection("reserve");
   gettable() async {
     //final query = await table..where("no-of-sets".toString(),isEqualTo: number.toString()).snapshots();
    // FirebaseFirestore.instance.collection("tables").where('no-of-sets',isEqualTo: number).snapshots();
    // tableno.add(query);
+    // table.where('no-of-sets',isEqualTo: number).snapshots();
+    // dbt.docs.where((element) =>element['no-of-sets'].toString().contains(number.toString()));
+    // element['no-of-sets'].toString().contains(number.toString())).map((e) =>tableno.add(e.data()));
     QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
-   // table.where('no-of-sets',isEqualTo: number).snapshots();
-   // dbt.docs.where((element) =>element['no-of-sets'].toString().contains(number.toString()));
+    tableno=[];
     dbt.docs.forEach((element) {
       setState(() {
-        tableno.add(element.data());
+        tableno.add(element.get('num'));
       });
     });
-       // element['no-of-sets'].toString().contains(number.toString())).map((e) =>tableno.add(e.data()));
     print('table no :$tableno');
+  }
+  gettableanddate() async {
+    
+      QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay)).get();
+    t.docs.forEach((element) {
+      setState(() {
+        d.add(element.get('tableno'));
+      });
+    });
+      print('dataaa:$d');
+    // d list, tableno list
+      for(int i=0;i<tableno.length;i++){
+        for(int j=0;j<d.length;j++){
+          if(tableno[i]==d[j])
+          {
+          print('there is matching');
+          }
+          else{tr.add(tableno[i]);
+            print('there is no matching');}
+        }
+      }
+      print('list is $tr');
   }
 
   @override
@@ -219,10 +249,11 @@ class _MyBody extends State<Body> {
           );
           setState(() {
             int numb = int.parse(number.text);
-            set = num.tryParse(number.text) as List<num> ;
-            gettable();
+             set = int.parse(number.text) ;
             String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
             String tim=DateFormat('HH:mm').format(_selectTime);
+            gettable();
+            gettableanddate();
             if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
               Scaffold.of(context).showSnackBar(snack);
             }else
@@ -234,6 +265,10 @@ class _MyBody extends State<Body> {
                 _error='Enter Number of Seats';
               } else {
                 _error= null;
+                if (tr.isEmpty){
+                  showAlertDialog(context,numb);
+                }
+                else{
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context)=> tables(
@@ -242,9 +277,8 @@ class _MyBody extends State<Body> {
                       no: numb,
                       userId: widget.userId,
                     ),
-
-                  ),
-                );
+                  ),);
+                }
               }
             }
               else{
@@ -255,6 +289,10 @@ class _MyBody extends State<Body> {
                 _error='Enter Number of Seats';
               } else {
                 _error= null;
+                if (tr.isEmpty){
+                  showAlertDialog(context,numb);
+                }
+                else{
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context)=> tables(
@@ -263,9 +301,8 @@ class _MyBody extends State<Body> {
                       no: numb,
                       userId: widget.userId,
                     ),
-
-                  ),
-                );
+                  ),);
+                }
               }
             }
           });
@@ -283,7 +320,28 @@ class _MyBody extends State<Body> {
       style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
     ),
   );
+  showAlertDialog(BuildContext context, int noseats) {
 
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white54,
+      title:const Text("Warning:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+      ),),
+      content: Text("There is no available tables in that day with $noseats seats.", style:const  TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
 
 

@@ -22,6 +22,7 @@ class tables extends StatefulWidget {
   final String time;
   final int no;
   final String userId;
+  
 
   tables({Key? key,required this.date,required this.time,required this.no,required this.userId}) : super(key: key);
   @override
@@ -42,7 +43,7 @@ class tables extends StatefulWidget {
           table.add(element.data());
         });
       });
-      print('table:$table');
+     // print('table:$table');
     }
 
     @override
