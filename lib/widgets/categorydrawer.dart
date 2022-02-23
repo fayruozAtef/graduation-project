@@ -68,7 +68,7 @@ class _CategoriesState extends State<Categories2> {
                 child: Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Main dishes',)));
+                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Main Dishes',)));
                   },
                     child: Container(
                       decoration:const  BoxDecoration(
@@ -78,7 +78,7 @@ class _CategoriesState extends State<Categories2> {
                           opacity:40,
                         ),
                       ),
-                      child:const  Text('Main dishes',
+                      child:const  Text('Main Dishes',
                           style:TextStyle(
                               color:Colors.white,
                               fontSize: 40,
@@ -132,6 +132,111 @@ class _CategoriesState extends State<Categories2> {
                         ),
                       ),
                       child: const Text('Desserts',
+                          style:TextStyle(color:Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Salads',)));
+                  },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/dessert.jpg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child: const Text('Salads',
+                          style:TextStyle(color:Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Soups',)));
+                  },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/dessert.jpg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child: const Text('Soups',
+                          style:TextStyle(color:Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Pasta',)));
+                  },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/dessert.jpg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child: const Text('Pasta',
+                          style:TextStyle(color:Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>categirydetail(title: 'Pizza',)));
+                  },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/dessert.jpg"),
+                          fit:BoxFit.fill,
+                          opacity:47,
+                        ),
+                      ),
+                      child: const Text('Pizza',
                           style:TextStyle(color:Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.bold)
