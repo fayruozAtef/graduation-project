@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resflutter_app/widgets/confirmation.dart';
 
+
+
 List<String> list = [
   'assets/images/table1.jpg',
   'assets/images/table1_2.jpg',
@@ -21,9 +23,10 @@ class tables extends StatefulWidget {
   final String date;
   final String time;
   final int no;
+  final List<num> tables;
 
 
-  tables({Key? key,required this.date,required this.time,required this.no}) : super(key: key);
+  tables({Key? key,required this.date,required this.time,required this.no,required this.tables}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _tables();
 
