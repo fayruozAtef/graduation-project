@@ -23,7 +23,7 @@ class tables extends StatefulWidget {
   final String date;
   final String time;
   final int no;
-  final List<num> tables=[];
+  final List<num> tables;
 
 
   tables({Key? key,required this.date,required this.time,required this.no,required this.tables}) : super(key: key);
