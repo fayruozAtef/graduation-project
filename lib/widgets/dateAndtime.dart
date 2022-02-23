@@ -7,16 +7,18 @@ import 'package:table_calendar/table_calendar.dart';
 import 'background.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
+List tr=[];
 class Body extends StatefulWidget{
   final String userId;
   Body({Key? key, required this.userId}) : super(key: key);
 
   @override
-  State<Body> createState() => _MyBody();
+  State<Body> createState() => _MyBody(userId: userId);
 }
 
 class _MyBody extends State<Body> {
+  final String userId;
+  _MyBody({Key? key, required this.userId});
   DateTime _selectTime = DateTime.now();
   DateTime _selectedDay=DateTime.now() ;
   DateTime _focusedDay=DateTime.now();
@@ -275,7 +277,8 @@ class _MyBody extends State<Body> {
                       date:dat,
                       time:tim,
                       no: numb,
-                      userId: widget.userId,
+                      uid: userId,
+                      listtables: tr,
                     ),
                   ),);
                 }
@@ -299,7 +302,8 @@ class _MyBody extends State<Body> {
                       date:dat,
                       time:tim,
                       no: numb,
-                      userId: widget.userId,
+                      uid: userId,
+                      listtables: tr,
                     ),
                   ),);
                 }
