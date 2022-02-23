@@ -178,7 +178,7 @@ class MyAppState extends State<home>{
                   child:Card(
                     child:InkWell(onTap: (){
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context)=>Body()));
+                          MaterialPageRoute(builder: (context)=>Body(userId: Userid,)));
                     },
                       child: Container(
                         decoration: BoxDecoration(
