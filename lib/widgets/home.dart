@@ -12,15 +12,8 @@ import 'dateAndtime.dart';
 import 'qr_scan_page.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
- List<String> imgList=[];
- //List<String> imgList =[
-  /*'assets/images/rest1.jpg',
-  'assets/images/rest2.jpg',
-  'assets/images/rest3.jpg',
-  'assets/images/rest4.jpg',*/
-//];
-
-
+List<String> imgList=[];
+List<String> bodyimgList=['','',''];//0 -> reserve  1-> in hall  2-> delivery
 
 class home extends StatefulWidget {
   final String userId;
@@ -31,38 +24,44 @@ class home extends StatefulWidget {
     return MyAppState(Userid: userId);
   }
 }
-
+List<Widget> imageSliders=[];
 class MyAppState extends State<home>{
   final String Userid;
   MyAppState({Key? key,required this.Userid});
 
   dowurl() async{
     String durl1 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest1.jpg').getDownloadURL();
-    String durl2 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest2.jpg').getDownloadURL();
-    String durl3 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest3.jpg').getDownloadURL();
+    String durl3 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest2.jpg').getDownloadURL();
+    String durl2 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest3.jpg').getDownloadURL();
     String durl4 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest4.jpg').getDownloadURL();
+
+    String reserveim = await firebase_storage.FirebaseStorage.instance.ref('assets/reserved.jpg').getDownloadURL();
+    String inhallim = await firebase_storage.FirebaseStorage.instance.ref('assets/inhall.jpg').getDownloadURL();
+    String deliveryim = await firebase_storage.FirebaseStorage.instance.ref('assets/delivery.jpg').getDownloadURL();
+
     setState((){
       imgList.add(durl1);
       imgList.add(durl2);
       imgList.add(durl3);
       imgList.add(durl4);
+      bodyimgList[0]=(reserveim);
+      bodyimgList[1]=(inhallim);
+      bodyimgList[2]=(deliveryim);
     });
-    print (imgList);
-
+    imageSliders=[];
+    imageSliders = imgList
+        .map((item) => Container(
+      child: Container(
+        child: ClipRRect(
+            child: Stack(
+              children: <Widget>[
+                Image(image: NetworkImage(item)),
+              ],
+            )),
+      ),
+    ))
+        .toList();
   }
-  //List<String> img=imgList;
-   List<Widget> imageSliders = imgList
-       .map((item) => Container(
-    child: Container(
-      child: ClipRRect(
-          child: Stack(
-            children: <Widget>[
-              Image.network(item, fit: BoxFit.cover),
-            ],
-          )),
-    ),
-  ))
-      .toList();
 
   String uname='';
   String uemail='';
@@ -74,6 +73,7 @@ class MyAppState extends State<home>{
       uname = dbu.get("first name") + ' ' + dbu.get("last name");
       uemail = dbu.get("email");
     });
+
   }
   @override
   void initState() {
@@ -174,16 +174,16 @@ class MyAppState extends State<home>{
                     )),
                 const SizedBox(height: 6.0),
                 SizedBox(height:170,
-                  width:350,
+                  width:width,
                   child:Card(
                     child:InkWell(onTap: (){
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context)=>Body()));
                     },
                       child: Container(
-                        decoration:const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/reserved.jpg"),
+                            image: NetworkImage(bodyimgList[0]),
                             fit:BoxFit.fill,
                             opacity:40,
                           ),
@@ -195,16 +195,16 @@ class MyAppState extends State<home>{
                   ),
                 ),
                 SizedBox(height:170,
-                  width:350,
+                  width:width,
                   child: Card(
                     child:InkWell(onTap: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => QRScanPage()));
                     },
                       child: Container(
-                        decoration: const BoxDecoration(
-                          image:  DecorationImage(
-                            image: AssetImage("assets/images/inhall.jpg"),
+                        decoration:  BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(bodyimgList[1]),
                             fit:BoxFit.fill,
                             opacity:40,
                           ),
@@ -217,18 +217,18 @@ class MyAppState extends State<home>{
                 ),
                 SizedBox(
                   height:170,
-                  width:350,
+                  width:width,
                   child:Card(
                     child:InkWell(onTap: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => DeliveryInformation(userId:Userid)));
                       },
                       child: Container(
-                        decoration:const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/delivery.jpg"),
+                            image: NetworkImage(bodyimgList[0]),
                             fit:BoxFit.fill,
-                            opacity:47,
+                            opacity:40,
                           ),
                         ),
                         child: const Text('Delivery',style:TextStyle(color:Colors.white,fontSize: 50,fontWeight: FontWeight.bold)),
