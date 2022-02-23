@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/confirmdelivery.dart';
 import 'package:resflutter_app/widgets/details.dart';
 import 'package:resflutter_app/widgets/detailsinHall.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 List<List<String>> totalOrder=[];
 double x=0.0;
-
+List<String> imgList=['','','','','','','','',''];
 class CategoriesinHall extends StatefulWidget {
   List<String>subOrder=[];
   String tableno;
@@ -20,6 +21,37 @@ class _CategoriesState extends State<CategoriesinHall> {
   String tableNo;
   List<String>subOrder2=[];
   _CategoriesState({Key? key ,required this.subOrder2, required this.tableNo}) ;
+
+  dowurl() async{
+    String durl1 = await firebase_storage.FirebaseStorage.instance.ref('assets/breakfast.jpeg').getDownloadURL();
+    String durl2 = await firebase_storage.FirebaseStorage.instance.ref('assets/salads.jpg').getDownloadURL();
+    String durl3 = await firebase_storage.FirebaseStorage.instance.ref('assets/Appetizers.jpeg').getDownloadURL();
+    String durl4 = await firebase_storage.FirebaseStorage.instance.ref('assets/soup.jpg').getDownloadURL();
+    String durl5 = await firebase_storage.FirebaseStorage.instance.ref('assets/maindish.jpg').getDownloadURL();
+    String durl6 = await firebase_storage.FirebaseStorage.instance.ref('assets/pasta.jpg').getDownloadURL();
+    String durl7 = await firebase_storage.FirebaseStorage.instance.ref('assets/pizza.jpg').getDownloadURL();
+    String durl8 = await firebase_storage.FirebaseStorage.instance.ref('assets/drinks.jpg').getDownloadURL();
+    String durl9 = await firebase_storage.FirebaseStorage.instance.ref('assets/dessert.jpg').getDownloadURL();
+
+    setState((){
+      imgList[0]=(durl1);
+      imgList[1]=(durl2);
+      imgList[2]=(durl3);
+      imgList[3]=(durl4);
+      imgList[4]=(durl5);
+      imgList[5]=(durl6);
+      imgList[6]=(durl7);
+      imgList[7]=(durl8);
+      imgList[8]=(durl9);
+
+    });
+
+  }
+  @override
+  void initState() {
+    dowurl();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +96,9 @@ class _CategoriesState extends State<CategoriesinHall> {
                         MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Breakfast', table: tableNo ,)));
                   },
                     child: Container(
-                      decoration:const  BoxDecoration(
+                      decoration:  BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/breakfast.jpeg"),
+                          image: NetworkImage(imgList[0]),
                           fit:BoxFit.fill,
                           opacity:40,
                         ),
@@ -85,17 +117,17 @@ class _CategoriesState extends State<CategoriesinHall> {
                 child: Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Main Dish', table: tableNo ,)));
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Salads', table: tableNo ,)));
                   },
                     child: Container(
-                      decoration:const  BoxDecoration(
+                      decoration:  BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/maindish.jpg"),
+                          image: NetworkImage(imgList[1]),
                           fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
-                      child:const  Text('Main dishes',
+                      child:const  Text('Salad',
                           style:TextStyle(
                               color:Colors.white,
                               fontSize: 40,
@@ -112,17 +144,17 @@ class _CategoriesState extends State<CategoriesinHall> {
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Soft drinks', table: tableNo ,)));
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Appetizers', table: tableNo ,)));
                   },
                     child: Container(
-                      decoration:const BoxDecoration(
+                      decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/softdrinks.jpeg"),
+                          image: NetworkImage(imgList[2]),
                           fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
-                      child: const Text('Softdrinks',
+                      child: const Text('Appetizers',
                           style:TextStyle(color:Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.bold)
@@ -138,17 +170,17 @@ class _CategoriesState extends State<CategoriesinHall> {
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Desert', table: tableNo ,)));
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Soups', table: tableNo ,)));
                   },
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration:  BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/dessert.jpg"),
+                          image:  NetworkImage(imgList[3]),
                           fit:BoxFit.fill,
                           opacity:47,
                         ),
                       ),
-                      child: const Text('Desserts',
+                      child: const Text('Soup',
                           style:TextStyle(color:Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.bold)
@@ -163,17 +195,113 @@ class _CategoriesState extends State<CategoriesinHall> {
                 child:Card(
                   child:InkWell(onTap: (){
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Appetizers', table: tableNo ,)));
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Main Dishes', table: tableNo ,)));
                   },
                     child: Container(
-                      decoration:const  BoxDecoration(
+                      decoration:  BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/Appetizers.jpeg"),
+                          image: NetworkImage(imgList[4]),
                           fit:BoxFit.fill,
                           opacity:40,
                         ),
                       ),
-                      child:const  Text('Appetizers',style:TextStyle(color:Colors.white,
+                      child:const  Text('Main Dishes',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Pasta', table: tableNo ,)));
+                  },
+                    child: Container(
+                      decoration:  BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(imgList[5]),
+                          fit:BoxFit.fill,
+                          opacity:40,
+                        ),
+                      ),
+                      child:const  Text('Pasta',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Pizza', table: tableNo ,)));
+                  },
+                    child: Container(
+                      decoration:  BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(imgList[6]),
+                          fit:BoxFit.fill,
+                          opacity:40,
+                        ),
+                      ),
+                      child:const  Text('Pizza',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Drinks', table: tableNo ,)));
+                  },
+                    child: Container(
+                      decoration:  BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(imgList[7]),
+                          fit:BoxFit.fill,
+                          opacity:40,
+                        ),
+                      ),
+                      child:const  Text('Drinks',style:TextStyle(color:Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)
+                      ),
+                      alignment:Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:190,
+                width: width,
+                child:Card(
+                  child:InkWell(onTap: (){
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context)=>detailsinHall(title: 'Desserts', table: tableNo ,)));
+                  },
+                    child: Container(
+                      decoration:  BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(imgList[8]),
+                          fit:BoxFit.fill,
+                          opacity:40,
+                        ),
+                      ),
+                      child:const  Text('Desserts',style:TextStyle(color:Colors.white,
                           fontSize: 40,
                           fontWeight: FontWeight.bold)
                       ),

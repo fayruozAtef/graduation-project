@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
@@ -69,6 +70,8 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                       height: 60.0,
                       width:  MediaQuery.of(context).size.width,
                       child: TextField(
+                        maxLength: 11,
+
                         controller: myController,
                         textAlign: TextAlign.left,
                         style:const TextStyle(color: Colors.white, fontSize: 20.0,),
@@ -155,18 +158,33 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                           ),
                           onPressed: () {
                             address=myController.text;
-                            phonenum=myController2.text;
+                            phonenum = myController2.text;
                             extraphonenum=myController3.text;
                             if(address==''){
-                              showAlertDialog(context, 0);
+                              showAlertDialog(context, 'Address is required');
                             }
                             else if(phonenum==''){
-                              showAlertDialog(context, 1);
+                              showAlertDialog(context, 'Phone number is required');
                             }
                             else{
-                              Navigator.of(context).pushReplacement(MaterialPageRoute
-                                (builder: (context) => Categories(
-                                  subOrder: test,address:address,phone:phonenum,exphone:extraphonenum,userId:userId)));
+                              if(phonenum.length!=11) {
+                                showAlertDialog(context, 'Phone number is not valid ');
+
+                              }
+                              else if(extraphonenum.length!=0 && extraphonenum.length!=11) {
+                                showAlertDialog(context, 'Extra phone number is not valid');
+                              }
+                              else {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute
+                                      (builder: (context) =>
+                                        Categories(
+                                            subOrder: test,
+                                            address: address,
+                                            phone: phonenum,
+                                            exphone: extraphonenum,
+                                            userId: userId)));
+                              }
                             }
 
                           },
@@ -184,14 +202,7 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
     );
   }
 
-  showAlertDialog(BuildContext context, int num) {
-
-    String errormessage='';
-
-    if(num==0){
-      errormessage="Enter Address";}
-    else if(num==1){
-      errormessage="Enter phone number";}
+  showAlertDialog(BuildContext context, String errormessage) {
 
     // set up the AlertDialog
     AlertDialog alert =  AlertDialog(

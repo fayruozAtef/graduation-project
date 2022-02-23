@@ -226,7 +226,7 @@ class MyAppState extends State<home>{
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(bodyimgList[0]),
+                            image: NetworkImage(bodyimgList[2]),
                             fit:BoxFit.fill,
                             opacity:40,
                           ),
