@@ -1,30 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resflutter_app/widgets/confirmation.dart';
 
-
-
-List<String> list = [
-  'assets/images/table1.jpg',
-  'assets/images/table1_2.jpg',
-];
-
-List<String> list2 = [
-  'assets/images/table2.jpg',
-  'assets/images/table2_2.jpg',
-];
-
-
-// ignore: must_be_immutable
 class tables extends StatefulWidget {
   final String date;
   final String time;
   final int no;
   final List listtables;
-final String uid;
+  final String uid;
 
   tables({Key? key,required this.date,required this.time,required this.no,required this.listtables,required this.uid}) : super(key: key);
   @override
@@ -32,20 +17,16 @@ final String uid;
 
 }
 
-
-  class _tables extends State<tables> {
+class _tables extends State<tables> {
     final String date;
     final String time;
     final int no;
     final List table;
     final String uid;
-    _tables({Key? key,required this.date,required this.time,required this.no,required this.table,required this.uid});
-
-    //List table = [];
+    _tables({Key? key,required this.date,required this.time,required this.no,required this.table, required this.uid});
 
 
     /*CollectionReference t = FirebaseFirestore.instance.collection("tables");
-
     getData() async {
       QuerySnapshot dbt = await t.get();
       dbt.docs.forEach((element) {
@@ -53,9 +34,9 @@ final String uid;
           table.add(element.data());
         });
       });
-    }*/
+    }
 
-    /*@override
+    @override
     void initState() {
       getData();
       super.initState();
@@ -108,16 +89,16 @@ final String uid;
                                                   Container(
                                                       child: CarouselSlider(
                                                         options: CarouselOptions(
-                                                          aspectRatio: 1.4,
+                                                          aspectRatio: 1.25,
+                                                          enlargeCenterPage: true,
                                                         ),
-                                                        items: list
-                                                            .map((item) =>
+                                                        items: table[i]['images']
+                                                            .map<Widget>((item) =>
                                                             Container(
-                                                              child: Center(
-                                                                  child: Image
-                                                                      .asset(
+                                                              child:  Image
+                                                                      .network(
                                                                       item)),
-                                                            ))
+                                                            )
                                                             .toList(),
                                                       )
                                                   ),
@@ -198,16 +179,14 @@ final String uid;
                                                   Container(
                                                       child: CarouselSlider(
                                                         options: CarouselOptions(
-                                                          aspectRatio: 1.4,
+                                                          aspectRatio: 1.2,
+                                                          enlargeCenterPage: true,
                                                         ),
-                                                        items: list
-                                                            .map((item) =>
+                                                        items: table[i+1]['images']
+                                                            .map<Widget>((item) =>
                                                             Container(
-                                                              child: Center(
-                                                                  child: Image
-                                                                      .asset(
-                                                                      item)),
-                                                            ))
+                                                              child:  Image.network(item)),
+                                                            )
                                                             .toList(),
                                                       )
                                                   ),
@@ -239,7 +218,6 @@ final String uid;
                                                             ))
                                                     ),
                                                     onPressed: () {
-                                                      //int tablen=n1;
                                                       Navigator.of(context).push(
                                                         MaterialPageRoute(
                                                           builder: (context) =>
@@ -247,8 +225,7 @@ final String uid;
                                                                   .date,
                                                                   time: widget
                                                                       .time,
-                                                                  tableno: table[i +
-                                                                      1]['num'], userId: uid,),
+                                                                  tableno: table[i + 1]['num'], userId: uid,),
                                                         ),
                                                       );
                                                     },
@@ -268,7 +245,6 @@ final String uid;
                           ]
                       ),
                     ),
-
                 ]
             ),
             ]
