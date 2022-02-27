@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:resflutter_app/widgets/table2.dart';
 import 'confirmtable.dart';
 import 'home.dart';
 
@@ -60,7 +61,7 @@ class MyAppState extends State<confdeliv> {
                 child:Text('Order Summary : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
                 ),
               ),
-              table(orders: test),
+              table2(orders: test),
               Container(
                 padding: EdgeInsets.all(10),
                 child:Row(
