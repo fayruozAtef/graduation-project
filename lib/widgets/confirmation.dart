@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'background.dart';
 import 'home.dart';
@@ -159,7 +160,12 @@ class _confirm extends State<confirm> {
                       shape: RoundedRectangleBorder(
                         borderRadius:  BorderRadius.circular(12.0),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        CollectionReference data = FirebaseFirestore.instance.collection("reserve");
+                        await data.doc().set(
+                          {"arrived":false,"date":widget.date,"time":widget.time,"tableno":widget.tableno,"user id":widget.userId},
+                          SetOptions(merge: true),
+                        );
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)));
                       },

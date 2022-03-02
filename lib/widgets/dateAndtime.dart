@@ -30,16 +30,13 @@ class _MyBody extends State<Body> {
   CalendarFormat _format = CalendarFormat.month;
   var time;
   final number =TextEditingController();
-  List <num>tableno = [];
-  List d = [];
-  List dsearch = [];
-  List result = [];
+ // List <num>tableno = <num>[];
+  List <num> d = <num>[];
   num set=0;
- // Timestamp da = Timestamp.fromMillisecondsSinceEpoch(_selectedDay.microsecondsSinceEpoch);
   List tr=[];
   CollectionReference table = FirebaseFirestore.instance.collection("tables");
   CollectionReference tdate = FirebaseFirestore.instance.collection("reserve");
-  gettable() async {
+ /* gettable() async {
     //final query = await table..where("no-of-sets".toString(),isEqualTo: number.toString()).snapshots();
    // FirebaseFirestore.instance.collection("tables").where('no-of-sets',isEqualTo: number).snapshots();
    // tableno.add(query);
@@ -54,10 +51,20 @@ class _MyBody extends State<Body> {
       });
     });
     print('table no :$tableno');
-  }
+  }*/
   gettableanddate() async {
+    QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
+    List <num> tableno=[];
+    dbt.docs.forEach((element) {
+      setState(() {
+        tableno.add(element.get('num'));
+      });
+    });
+    print('table no :$tableno');
     
-      QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay)).get();
+      QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay))
+          .where("arrived",isEqualTo:false).get();
+      d=[];
     t.docs.forEach((element) {
       setState(() {
         d.add(element.get('tableno'));
@@ -65,17 +72,9 @@ class _MyBody extends State<Body> {
     });
       print('dataaa:$d');
     // d list, tableno list
-      for(int i=0;i<tableno.length;i++){
-        for(int j=0;j<d.length;j++){
-          if(tableno[i]==d[j])
-          {
-          print('there is matching');
-          }
-          else{tr.add(tableno[i]);
-            print('there is no matching');}
-        }
-      }
-      print('list is $tr');
+       tableno.removeWhere((element) => d.contains(element));
+      print('list is $tableno');
+      return tableno;
   }
 
   @override
@@ -227,7 +226,7 @@ class _MyBody extends State<Body> {
       ),
     ),
   );
-  Widget buildtableno(BuildContext context)=>StreamBuilder<QuerySnapshot>(
+  /*Widget buildtableno(BuildContext context)=>StreamBuilder<QuerySnapshot>(
       stream: table.snapshots().asBroadcastStream(),
       builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>snapshot){
         if(!snapshot.hasData){
@@ -236,7 +235,7 @@ class _MyBody extends State<Body> {
           return gettable();
         }
 
-      });
+      });*/
 
   Widget buildDone(BuildContext context)=>Builder(
     builder: (context) {
@@ -246,7 +245,11 @@ class _MyBody extends State<Body> {
         ),
         onPressed: (){
           final snack =SnackBar(
-            content: Text('Time Should be After 3 hours From now and Resturant close From 12 AM To 10 AM'),
+            content: Text('Resturant close From 12 AM To 10 AM'),
+            duration: Duration(seconds: 3),
+          );
+          final snack2 =SnackBar(
+            content: Text('Time Should be After 3 hours From now '),
             duration: Duration(seconds: 3),
           );
           setState(() {
@@ -254,8 +257,8 @@ class _MyBody extends State<Body> {
              set = int.parse(number.text) ;
             String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
             String tim=DateFormat('HH:mm').format(_selectTime);
-            gettable();
-            gettableanddate();
+           // gettableanddate();
+           // tr.addAll(tableno);
             if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
               Scaffold.of(context).showSnackBar(snack);
             }else
@@ -267,32 +270,41 @@ class _MyBody extends State<Body> {
                 _error='Enter Number of Seats';
               } else {
                 _error= null;
-                if (tr.isEmpty){
-                  showAlertDialog(context,numb);
-                }
-                else{
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context)=> tables(
-                      date:dat,
-                      time:tim,
-                      no: numb,
-                      uid: userId,
-                      listtables: tr,
-                    ),
-                  ),);
-                }
+                gettableanddate().then((value) {
+                  tr.addAll(value);
+                  print('ommmm $value');
+                  print('ommmm1 $tr');
+                  if (value.toString()=="[]"){
+                    showAlertDialog(context,numb);
+                  }
+                  else{
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context)=> tables(
+                          date:dat,
+                          time:tim,
+                          no: numb,
+                          uid: userId,
+                          listtables:tr,
+                        ),
+                      ),);
+                  }
+                });
               }
             }
               else{
-              Scaffold.of(context).showSnackBar(snack);}
+              Scaffold.of(context).showSnackBar(snack2);}
             }
               else{
               if(number.text.isEmpty) {
                 _error='Enter Number of Seats';
               } else {
                 _error= null;
-                if (tr.isEmpty){
+             gettableanddate().then((value) {
+              tr.addAll(value);
+                 print('ommmm $value');
+                print('ommmm1 $tr');
+                if (value.toString()=="[]"){
                   showAlertDialog(context,numb);
                 }
                 else{
@@ -303,10 +315,11 @@ class _MyBody extends State<Body> {
                       time:tim,
                       no: numb,
                       uid: userId,
-                      listtables: tr,
+                      listtables:tr,
                     ),
                   ),);
                 }
+             });
               }
             }
           });
@@ -335,7 +348,7 @@ class _MyBody extends State<Body> {
       content: Text("There is no available tables in that day with $noseats seats.", style:const  TextStyle(
         fontSize: 18, color: Colors.black,
       ),),
-      actions: [],
+      actions: const [],
     );
 
     // show the dialog
