@@ -21,9 +21,9 @@ class information extends State<profileInfo> {
   String currentphone='';
 
 
-final formkey=GlobalKey<FormState>();
+  final formkey=GlobalKey<FormState>();
 
-String _value='female';
+  String _value='female';
   final String userId;
   information({Key? key,required this.userId});
   String uFname='';
@@ -58,142 +58,142 @@ String _value='female';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:AppBar(
+      appBar:AppBar(
         title: Text('Profile Information',style: TextStyle(color: Colors.black,fontSize:25)),
-    backgroundColor: Colors.white,
-    foregroundColor:Colors.black,
-    ),
-    body:SingleChildScrollView(
+        backgroundColor: Colors.white,
+        foregroundColor:Colors.black,
+      ),
+      body:SingleChildScrollView(
         child: Form(
           key:formkey,
           child: Column(
-            children: [
-          Container(
-            padding:EdgeInsets.all(13),
-            child:TextFormField(
-              validator: (val){
-                if(val!.isEmpty) {
-                  return 'Please Enter your First Name';
-                }
-                  return null;
-                },
-              onChanged: (val)=>setState(()=>currentfname=val),
-              style:TextStyle(color:Colors.black,fontSize: 20),
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                  hintText: uFname,
-                  hintStyle:TextStyle(color:Colors.black,fontSize: 20),
-                  labelText: 'First Name',
-                  labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color:Colors.black38),
-                ),
-              ),
-            ) ,
-          ),
-
-          Container(
-            padding:EdgeInsets.all(13),
-            child:TextFormField(
-              validator: (val){
-                if(val!.isEmpty) {
-                  return 'Please Enter your Last Name';
-                }
-                return null;
-              },
-              onChanged: (val)=>setState(()=>currentlname=val),
-              style:TextStyle(color:Colors.black,fontSize: 20),
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                hintText: uLname,
-                hintStyle:TextStyle(color:Colors.black,fontSize: 20),
-                labelText: 'Last Name',
-                labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color:Colors.black38),
-                ),
-              ),
-            ) ,
-          ),
-
-          Container(
-            padding:EdgeInsets.all(13),
-            child:TextFormField(
-              validator: (val){
-                if(val!.isEmpty) {
-                  return 'Please Enter your phone';
-                }
-                else if(val.length!=11){
-                  return 'Please Check your phone';
-                }
-                return null;
-              },
-              onChanged: (val)=>setState(()=>currentphone=val),
-              style:TextStyle(color:Colors.black,fontSize: 20),
-              cursorColor: Colors.black,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                hintText: uphone,
-                hintStyle:TextStyle(color:Colors.black,fontSize: 20),
-                labelText: 'Phone',
-                labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color:Colors.black38),
-                ),
-              ),
-            ) ,
-          ),
-
-              Container(
-                padding:EdgeInsets.all(13),
-                child:Row(
-                    children:[
-                      Text('Gender : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                      Radio<String>(value: 'male',
-                        groupValue: _value,
-                        onChanged: (value) {
-                        setState((){
-                          _value=value!;
-                        });
-                        },
+              children: [
+                Container(
+                  padding:EdgeInsets.all(13),
+                  child:TextFormField(
+                    validator: (val){
+                      if(val!.isEmpty) {
+                        return 'Please Enter your First Name';
+                      }
+                      return null;
+                    },
+                    onChanged: (val)=>setState(()=>currentfname=val),
+                    style:TextStyle(color:Colors.black,fontSize: 20),
+                    cursorColor: Colors.black,
+                    decoration: InputDecoration(
+                      hintText: uFname,
+                      hintStyle:TextStyle(color:Colors.black,fontSize: 20),
+                      labelText: 'First Name',
+                      labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color:Colors.black38),
                       ),
-                      //SizedBox(width:10),
-                      Text('Male',style:TextStyle(color:Colors.black,fontSize: 20)),
-                      Radio<String>(value: 'female',
-                        groupValue: _value,
-                        onChanged: (value) {
-                          setState((){
-                            _value=value!;
-                          });
-                        },
-                      ),
-                      Text('Female',style:TextStyle(color:Colors.black,fontSize: 20))
-                    ]
+                    ),
+                  ) ,
                 ),
-              ),
 
-              ElevatedButton(
-                style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
-                    fixedSize:MaterialStateProperty.all(Size(150,45)),
-                    shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius:BorderRadius.circular(18)
-                    ))
+                Container(
+                  padding:EdgeInsets.all(13),
+                  child:TextFormField(
+                    validator: (val){
+                      if(val!.isEmpty) {
+                        return 'Please Enter your Last Name';
+                      }
+                      return null;
+                    },
+                    onChanged: (val)=>setState(()=>currentlname=val),
+                    style:TextStyle(color:Colors.black,fontSize: 20),
+                    cursorColor: Colors.black,
+                    decoration: InputDecoration(
+                      hintText: uLname,
+                      hintStyle:TextStyle(color:Colors.black,fontSize: 20),
+                      labelText: 'Last Name',
+                      labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color:Colors.black38),
+                      ),
+                    ),
+                  ) ,
                 ),
-                onPressed: () {
-                  final isValid = formkey.currentState!.validate();
-                  if(isValid==true ){
-    updateData(currentfname,currentlname,currentemail,currentphone,_value);
-    Navigator.of(context).push(
-        MaterialPageRoute(
-            builder: (context) =>home(userId:userId)));
-    }
+
+                Container(
+                  padding:EdgeInsets.all(13),
+                  child:TextFormField(
+                    validator: (val){
+                      if(val!.isEmpty) {
+                        return 'Please Enter your phone';
+                      }
+                      else if(val.length!=11){
+                        return 'Please Check your phone';
+                      }
+                      return null;
+                    },
+                    onChanged: (val)=>setState(()=>currentphone=val),
+                    style:TextStyle(color:Colors.black,fontSize: 20),
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      hintText: uphone,
+                      hintStyle:TextStyle(color:Colors.black,fontSize: 20),
+                      labelText: 'Phone',
+                      labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color:Colors.black38),
+                      ),
+                    ),
+                  ) ,
+                ),
+
+                Container(
+                  padding:EdgeInsets.all(13),
+                  child:Row(
+                      children:[
+                        Text('Gender : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                        Radio<String>(value: 'male',
+                          groupValue: _value,
+                          onChanged: (value) {
+                            setState((){
+                              _value=value!;
+                            });
+                          },
+                        ),
+                        //SizedBox(width:10),
+                        Text('Male',style:TextStyle(color:Colors.black,fontSize: 20)),
+                        Radio<String>(value: 'female',
+                          groupValue: _value,
+                          onChanged: (value) {
+                            setState((){
+                              _value=value!;
+                            });
+                          },
+                        ),
+                        Text('Female',style:TextStyle(color:Colors.black,fontSize: 20))
+                      ]
+                  ),
+                ),
+
+                ElevatedButton(
+                  style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
+                      fixedSize:MaterialStateProperty.all(Size(150,45)),
+                      shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius:BorderRadius.circular(18)
+                      ))
+                  ),
+                  onPressed: () {
+                    final isValid = formkey.currentState!.validate();
+                    if(isValid==true ){
+                      updateData(currentfname,currentlname,currentemail,currentphone,_value);
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>home(userId:userId)));
+                    }
                   },
-                child: Text('update',style:TextStyle(fontSize: 30)),
-              ),
-            ]
-    ),
+                  child: Text('update',style:TextStyle(fontSize: 30)),
+                ),
+              ]
+          ),
         ),
-    ),
+      ),
     );
   }
 }
