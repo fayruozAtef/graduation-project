@@ -31,7 +31,7 @@ class _MyBody extends State<Body> {
   var time;
   final number =TextEditingController();
  // List <num>tableno = <num>[];
-  List <num> d = <num>[];
+  List  d =[];
   num set=0;
   List tr=[];
 
@@ -51,10 +51,17 @@ class _MyBody extends State<Body> {
       d=[];
     t.docs.forEach((element) {
       setState(() {
-        d.add(element.get('tableno'));
+        d.add(element.data());
       });
     });
-      tableno.removeWhere((element) => d.contains(element));
+    
+    for(int i=0;i<tableno.length;i++){
+      for(int j=0;j<d.length;j++) {
+        if (d[j]['tableno'] == tableno[i]['num']) {
+          tableno.removeAt(i);
+        }
+      }
+    }
       return tableno;
   }
 
