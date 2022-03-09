@@ -7,7 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'background.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-List tr=[];
+List tableno=[];
 class Body extends StatefulWidget{
   final String userId;
   Body({Key? key, required this.userId}) : super(key: key);
@@ -34,35 +34,19 @@ class _MyBody extends State<Body> {
   List <num> d = <num>[];
   num set=0;
   List tr=[];
-  CollectionReference table = FirebaseFirestore.instance.collection("tables");
+
   CollectionReference tdate = FirebaseFirestore.instance.collection("reserve");
- /* gettable() async {
-    //final query = await table..where("no-of-sets".toString(),isEqualTo: number.toString()).snapshots();
-   // FirebaseFirestore.instance.collection("tables").where('no-of-sets',isEqualTo: number).snapshots();
-   // tableno.add(query);
-    // table.where('no-of-sets',isEqualTo: number).snapshots();
-    // dbt.docs.where((element) =>element['no-of-sets'].toString().contains(number.toString()));
-    // element['no-of-sets'].toString().contains(number.toString())).map((e) =>tableno.add(e.data()));
-    QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
+  CollectionReference gettable = FirebaseFirestore.instance.collection("tables");
+  gettableanddate() async {
+    QuerySnapshot dbt = await gettable.where("no-of-sets",isEqualTo: set).get();
     tableno=[];
     dbt.docs.forEach((element) {
       setState(() {
-        tableno.add(element.get('num'));
+        tableno.add(element.data());
       });
     });
-    print('table no :$tableno');
-  }*/
-  gettableanddate() async {
-    QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
-    List <num> tableno=[];
-    dbt.docs.forEach((element) {
-      setState(() {
-        tableno.add(element.get('num'));
-      });
-    });
-    print('table no :$tableno');
     
-      QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay))
+    QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay))
           .where("arrived",isEqualTo:false).get();
       d=[];
     t.docs.forEach((element) {
@@ -70,17 +54,14 @@ class _MyBody extends State<Body> {
         d.add(element.get('tableno'));
       });
     });
-      print('dataaa:$d');
-    // d list, tableno list
-       tableno.removeWhere((element) => d.contains(element));
-      print('list is $tableno');
+      tableno.removeWhere((element) => d.contains(element));
       return tableno;
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('Date And Time',
+      title: const Text('Date And Time',
         style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
@@ -125,7 +106,7 @@ class _MyBody extends State<Body> {
                     _format = format;
                   });
                 },
-                calendarStyle: CalendarStyle(
+                calendarStyle: const CalendarStyle(
                   isTodayHighlighted: false,
                 ),
 
@@ -150,7 +131,7 @@ class _MyBody extends State<Body> {
                         height: MediaQuery.of(context).size.height*0.25 ,
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft:  Radius.circular(25.0),
                               topRight: Radius.circular(25.0),),
                             border: Border.all(color: Colors.white12,width: 2.0)
@@ -163,13 +144,13 @@ class _MyBody extends State<Body> {
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Choose Time',
+                    const Text('Choose Time',
                       style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
 
                     Text(
                       _selectTime.hour.toString().padLeft(2, '0') + ':' +
                           _selectTime.minute.toString().padLeft(2, '0'),
-                      style: TextStyle(
+                      style:const  TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold
                       ),
@@ -226,16 +207,6 @@ class _MyBody extends State<Body> {
       ),
     ),
   );
-  /*Widget buildtableno(BuildContext context)=>StreamBuilder<QuerySnapshot>(
-      stream: table.snapshots().asBroadcastStream(),
-      builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>snapshot){
-        if(!snapshot.hasData){
-          return buildText('There is no avalible table with that Seat number');
-        }else{
-          return gettable();
-        }
-
-      });*/
 
   Widget buildDone(BuildContext context)=>Builder(
     builder: (context) {
@@ -244,11 +215,11 @@ class _MyBody extends State<Body> {
           borderRadius:  BorderRadius.circular(12.0),
         ),
         onPressed: (){
-          final snack =SnackBar(
+          const snack =SnackBar(
             content: Text('Resturant close From 12 AM To 10 AM'),
             duration: Duration(seconds: 3),
           );
-          final snack2 =SnackBar(
+          const snack2 =SnackBar(
             content: Text('Time Should be After 3 hours From now '),
             duration: Duration(seconds: 3),
           );
@@ -257,8 +228,6 @@ class _MyBody extends State<Body> {
              set = int.parse(number.text) ;
             String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
             String tim=DateFormat('HH:mm').format(_selectTime);
-           // gettableanddate();
-           // tr.addAll(tableno);
             if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
               Scaffold.of(context).showSnackBar(snack);
             }else
@@ -271,9 +240,7 @@ class _MyBody extends State<Body> {
               } else {
                 _error= null;
                 gettableanddate().then((value) {
-                  tr.addAll(value);
                   print('ommmm $value');
-                  print('ommmm1 $tr');
                   if (value.toString()=="[]"){
                     showAlertDialog(context,numb);
                   }
@@ -285,7 +252,7 @@ class _MyBody extends State<Body> {
                           time:tim,
                           no: numb,
                           uid: userId,
-                          listtables:tr,
+                          listtables:value,
                         ),
                       ),);
                   }
@@ -301,9 +268,6 @@ class _MyBody extends State<Body> {
               } else {
                 _error= null;
              gettableanddate().then((value) {
-              tr.addAll(value);
-                 print('ommmm $value');
-                print('ommmm1 $tr');
                 if (value.toString()=="[]"){
                   showAlertDialog(context,numb);
                 }
@@ -315,7 +279,7 @@ class _MyBody extends State<Body> {
                       time:tim,
                       no: numb,
                       uid: userId,
-                      listtables:tr,
+                      listtables:value,
                     ),
                   ),);
                 }
@@ -337,6 +301,7 @@ class _MyBody extends State<Body> {
       style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
     ),
   );
+
   showAlertDialog(BuildContext context, int noseats) {
 
     // set up the AlertDialog
@@ -359,11 +324,6 @@ class _MyBody extends State<Body> {
       },
     );
   }
-
-
-
-
-
 
 }
 
