@@ -100,7 +100,7 @@ class MyHomePage extends StatelessWidget {
                 child: Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => QRScanPage()));
+                        MaterialPageRoute(builder: (context) => QRScanPage(userid: id,)));
                   },
                     child: Container(
                       decoration: const BoxDecoration(
