@@ -5,7 +5,6 @@ import 'package:resflutter_app/categories.dart';
 
 class details extends StatefulWidget {
   String title;
-
   String address='';
   String exphone='';
   String phone='';
@@ -22,7 +21,6 @@ class details extends StatefulWidget {
 
 class MyAppState extends State<details> {
   String title2;
-
   String address='';
   String exphone='';
   String phone='';
@@ -32,7 +30,7 @@ class MyAppState extends State<details> {
   MyAppState({Key? key, required this.title2,required this.address,required this.phone,required this.exphone,required this.userId}) : super();
 
 
-  List <String>order=[];
+  List <List<String>>order=[];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
@@ -44,7 +42,7 @@ class MyAppState extends State<details> {
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());
-          count.add(1);
+          count.add(0);
           tprice.add(element.get('price'));
           //t.add((element.get('price')).toString());
       });
@@ -66,7 +64,7 @@ class MyAppState extends State<details> {
   }
 
   void _decrease(int n) {
-    if (count[n] < 2) {
+    if (count[n] < 1) {
       return;
     }
     setState(() {
@@ -74,6 +72,16 @@ class MyAppState extends State<details> {
     });
     tprice[n] = tprice[n] - list[n]['price'];
     //t[n] = tprice[n].toStringAsFixed(2);
+  }
+
+  void add(){
+    for(int i=0;i<list.length;i++){
+      if(count[i]>0){
+        order[i].add(list[i]['name']);
+        order[i].add(count[i].toString());
+        order[i].add(tprice[i].toString());
+      }
+    }
   }
 
   @override
@@ -142,41 +150,43 @@ class MyAppState extends State<details> {
                               mini: true,
                             ),
                             Container(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<
-                                        Color>(Colors.white),
-                                    fixedSize: MaterialStateProperty.all(
-                                        Size(225, 40)),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                18)
-                                        ))
-                                ),
-                                onPressed: () {
-                                  order.add(list[i]['name']);
-                                  order.add(count[i].toString());
-                                  order.add(tprice[i].toString());
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
-                                },
-                                child:
-                                Text('ADD | ${tprice[i]} LE',
-                                    style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
+                              width:225,
+                              height: 40 ,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:Colors.black,
+                                  ),
+                                      borderRadius: BorderRadius.all(Radius.circular(18)),
                               ),
-                            )
+                              child:Text('${tprice[i]} LE',
+                                  style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
+                            ),
                           ],
                         ),
                         SizedBox(height: 10),
                       ],
                     ),
                   ),
-                )
+                ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
+                      fixedSize:MaterialStateProperty.all(Size(150,45)),
+                      shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius:BorderRadius.circular(18)
+                      ))
+                  ),
+                  onPressed: () {
+                    add();
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
+                  },
+                  child: Text('Add',style:TextStyle(fontSize: 30)),
+                ),
+              ),
             ],
-          )
+          ),
       ),
     );
   }
