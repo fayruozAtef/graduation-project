@@ -11,6 +11,7 @@ import '../deliveryinformation.dart';
 import 'categorydrawer.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
+import 'myorder.dart';
 import 'qr_scan_page.dart';
 
 
@@ -214,6 +215,13 @@ class MyAppState extends State<Drawer1>{
             title:Text('Coins'),
             onTap:(){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Coins(user: Userid)));
+            },
+          ),
+          ListTile(
+            leading:Icon(Icons.history),
+            title:Text('My Orders'),
+            onTap:(){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>myorders(uid: Userid)));
             },
           ),
           ListTile(
