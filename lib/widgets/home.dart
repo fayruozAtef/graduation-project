@@ -76,7 +76,7 @@ class MyHomePage extends StatelessWidget {
                   )),
               const SizedBox(height: 6.0),
               SizedBox(height:170,
-                width:350,
+                width:width,
                 child:Card(
                   child:InkWell(onTap: (){
                     Navigator.of(context).push(
@@ -97,7 +97,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height:170,
-                width:350,
+                width:width,
                 child: Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(
@@ -119,7 +119,7 @@ class MyHomePage extends StatelessWidget {
               ),
               SizedBox(
                 height:170,
-                width:350,
+                width:width,
                 child:Card(
                   child:InkWell(onTap: () {
                     Navigator.of(context).push(

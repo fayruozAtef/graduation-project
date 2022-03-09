@@ -9,7 +9,7 @@ List<List<String>> totalOrder=[];
 double x=0.0;
 List<String> imgList=['','','','','','','','',''];
 class Categories extends StatefulWidget {
-  List<String>subOrder=[];
+  List<List<String>>subOrder=[];
   String address='';
   String exphone='';
   String phone='';
@@ -21,7 +21,7 @@ class Categories extends StatefulWidget {
   _CategoriesState createState() => _CategoriesState(subOrder2: subOrder,address: address,phone: phone,exphone: exphone,userId: userId);
 }
 class _CategoriesState extends State<Categories> {
-  List<String>subOrder2=[];
+  List<List<String>>subOrder2=[];
   String address='';
   String exphone='';
   String phone='';
@@ -62,10 +62,11 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if(subOrder2[2]=='0'){
+    if(subOrder2[0][2]=='0'){
       totalOrder=[];
     }
-    totalOrder.add(subOrder2);
+    for(int i=0;i<subOrder2.length;i++)
+      totalOrder.add(subOrder2[i]);
     x=0.0;
     for(int i=1;i<totalOrder.length;i++)
     {

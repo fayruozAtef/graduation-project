@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
-List<String>test=[' ',' ','0'];
+List<List<String>>test=[[' ',' ','0'],[' ',' ','0'],[' ',' ','0']];
 class DeliveryInformation extends StatefulWidget {
 
   final String userId;

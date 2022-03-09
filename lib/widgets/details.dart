@@ -60,7 +60,7 @@ class MyAppState extends State<details> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-    //t[n] = tprice[n].toStringAsFixed(2);
+
   }
 
   void _decrease(int n) {
@@ -71,15 +71,16 @@ class MyAppState extends State<details> {
       count[n]--;
     });
     tprice[n] = tprice[n] - list[n]['price'];
-    //t[n] = tprice[n].toStringAsFixed(2);
   }
 
-  void add(){
+  void _add(){
     for(int i=0;i<list.length;i++){
       if(count[i]>0){
-        order[i].add(list[i]['name']);
-        order[i].add(count[i].toString());
-        order[i].add(tprice[i].toString());
+        List<String> su=['','',''];
+        su[0]=(list[i]['name']);
+        su[1]=(count[i].toString());
+        su[2]=(tprice[i].toString());
+        order.add(su);
       }
     }
   }
@@ -158,7 +159,7 @@ class MyAppState extends State<details> {
                               ),
                               borderRadius: BorderRadius.all(Radius.circular(18)),
                             ),
-                            child:Text('${tprice[i]} LE',
+                            child:Text(count[i]==0? '0':'${tprice[i]} LE',textAlign: TextAlign.center,
                                 style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
                           ),
                         ],
@@ -178,10 +179,20 @@ class MyAppState extends State<details> {
                     ))
                 ),
                 onPressed: () {
-                  add();
+                  for(int i=0;i<list.length;i++){
+                    if(count[i]>0){
+                      List<String> su=[];
+                      su.add(list[i]['name']);
+                      su.add(count[i].toString());
+                      su.add(tprice[i].toString());
+                      order.add(su);
+                    }
+                  }
+                  print(order);
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
                 },
+
                 child: Text('Add',style:TextStyle(fontSize: 30)),
               ),
             ),

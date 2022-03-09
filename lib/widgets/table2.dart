@@ -16,7 +16,7 @@ class _table2 extends State<table2>{
   String getSum(){
     double sum=0;
     for(int i=0;i<orders.length;i++) {
-      sum+=double.parse(orders[i][2]);
+      sum+=double.parse(orders[i][2]) ;
     }
     return sum.toString();
   }
@@ -54,7 +54,8 @@ class _table2 extends State<table2>{
           ),
           Text('-------------------------------',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 20,)),
           for(int i=0;i<orders.length;i++)
-            Row(
+            if(orders[i][2]!='0')
+              Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(8,0,0,0),
