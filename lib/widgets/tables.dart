@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resflutter_app/widgets/confirmation.dart';
 
+
+
 List<String> list = [
   'assets/images/table1.jpg',
   'assets/images/table1_2.jpg',
@@ -21,19 +23,28 @@ class tables extends StatefulWidget {
   final String date;
   final String time;
   final int no;
+  final List listtables;
+final String uid;
 
-
-  tables({Key? key,required this.date,required this.time,required this.no}) : super(key: key);
+  tables({Key? key,required this.date,required this.time,required this.no,required this.listtables,required this.uid}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => _tables();
+  State<StatefulWidget> createState() => _tables(date: date, no: no,time: time,table: listtables,uid:uid);
 
 }
 
 
   class _tables extends State<tables> {
+    final String date;
+    final String time;
+    final int no;
+    final List table;
+    final String uid;
+    _tables({Key? key,required this.date,required this.time,required this.no,required this.table,required this.uid});
 
-    List table = [];
-    CollectionReference t = FirebaseFirestore.instance.collection("tables");
+    //List table = [];
+
+
+    /*CollectionReference t = FirebaseFirestore.instance.collection("tables");
 
     getData() async {
       QuerySnapshot dbt = await t.get();
@@ -42,21 +53,20 @@ class tables extends StatefulWidget {
           table.add(element.data());
         });
       });
-    }
+    }*/
 
-    @override
+    /*@override
     void initState() {
       getData();
       super.initState();
-    }
+    }*/
 
-    int n1=1;
-    int n2=3;
+
 @override
   Widget build(BuildContext context) {
   return Scaffold(
     appBar:AppBar(
-      title: Text('Available tables',style: TextStyle(color: Colors.black,fontSize:25)),
+      title: Text('Available Tables',style: TextStyle(color: Colors.black,fontSize:25)),
       backgroundColor: Colors.white,
       foregroundColor:Colors.black,
     ),
@@ -144,7 +154,7 @@ class tables extends StatefulWidget {
                                                                   .date,
                                                                   time: widget
                                                                       .time,
-                                                                  tableno: table[i]['num']),
+                                                                  tableno: table[i]['num'],userId:uid),
                                                         ),
                                                       );
                                                     },
@@ -238,7 +248,7 @@ class tables extends StatefulWidget {
                                                                   time: widget
                                                                       .time,
                                                                   tableno: table[i +
-                                                                      1]['num']),
+                                                                      1]['num'], userId: uid,),
                                                         ),
                                                       );
                                                     },

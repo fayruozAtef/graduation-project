@@ -5,27 +5,77 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'background.dart';
-import 'confirmation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+List tr=[];
 class Body extends StatefulWidget{
+  final String userId;
+  Body({Key? key, required this.userId}) : super(key: key);
 
   @override
-  State<Body> createState() => _MyBody();
+  State<Body> createState() => _MyBody(userId: userId);
 }
 
 class _MyBody extends State<Body> {
+  final String userId;
+  _MyBody({Key? key, required this.userId});
   DateTime _selectTime = DateTime.now();
   DateTime _selectedDay=DateTime.now() ;
   DateTime _focusedDay=DateTime.now();
   DateTime _available = DateTime.now().add(Duration(hours: 3));
-//var t1= new DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59);
-  DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,23,59,59) ;
+  DateTime _stclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,00,00,00) ;
   DateTime _endclose = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,10,00,00) ;
   String? _error=null;
+  String ?dat;
   CalendarFormat _format = CalendarFormat.month;
-
   var time;
-  final number =new TextEditingController();
+  final number =TextEditingController();
+ // List <num>tableno = <num>[];
+  List <num> d = <num>[];
+  num set=0;
+  List tr=[];
+  CollectionReference table = FirebaseFirestore.instance.collection("tables");
+  CollectionReference tdate = FirebaseFirestore.instance.collection("reserve");
+ /* gettable() async {
+    //final query = await table..where("no-of-sets".toString(),isEqualTo: number.toString()).snapshots();
+   // FirebaseFirestore.instance.collection("tables").where('no-of-sets',isEqualTo: number).snapshots();
+   // tableno.add(query);
+    // table.where('no-of-sets',isEqualTo: number).snapshots();
+    // dbt.docs.where((element) =>element['no-of-sets'].toString().contains(number.toString()));
+    // element['no-of-sets'].toString().contains(number.toString())).map((e) =>tableno.add(e.data()));
+    QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
+    tableno=[];
+    dbt.docs.forEach((element) {
+      setState(() {
+        tableno.add(element.get('num'));
+      });
+    });
+    print('table no :$tableno');
+  }*/
+  gettableanddate() async {
+    QuerySnapshot dbt = await table.where("no-of-sets",isEqualTo: set).get();
+    List <num> tableno=[];
+    dbt.docs.forEach((element) {
+      setState(() {
+        tableno.add(element.get('num'));
+      });
+    });
+    print('table no :$tableno');
+    
+      QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay))
+          .where("arrived",isEqualTo:false).get();
+      d=[];
+    t.docs.forEach((element) {
+      setState(() {
+        d.add(element.get('tableno'));
+      });
+    });
+      print('dataaa:$d');
+    // d list, tableno list
+       tableno.removeWhere((element) => d.contains(element));
+      print('list is $tableno');
+      return tableno;
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -142,10 +192,7 @@ class _MyBody extends State<Body> {
             ),
           ],
         ),
-
       ),
-
-
     ),
   );
 
@@ -167,10 +214,7 @@ class _MyBody extends State<Body> {
   Widget buildNoSeats() =>Material(
     child:   TextField(
       controller: number,
-
       keyboardType: TextInputType.number,
-
-
       decoration:  InputDecoration(
         hintText: 'Enter number of seats',
         labelText: 'no of seats',
@@ -182,6 +226,16 @@ class _MyBody extends State<Body> {
       ),
     ),
   );
+  /*Widget buildtableno(BuildContext context)=>StreamBuilder<QuerySnapshot>(
+      stream: table.snapshots().asBroadcastStream(),
+      builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>snapshot){
+        if(!snapshot.hasData){
+          return buildText('There is no avalible table with that Seat number');
+        }else{
+          return gettable();
+        }
+
+      });*/
 
   Widget buildDone(BuildContext context)=>Builder(
     builder: (context) {
@@ -191,41 +245,84 @@ class _MyBody extends State<Body> {
         ),
         onPressed: (){
           final snack =SnackBar(
-            content: Text('Time Should be After 3 hours From now and Resturant close From 12 AM To 10 AM'),
-            duration: Duration(seconds: 5),
+            content: Text('Resturant close From 12 AM To 10 AM'),
+            duration: Duration(seconds: 3),
+          );
+          final snack2 =SnackBar(
+            content: Text('Time Should be After 3 hours From now '),
+            duration: Duration(seconds: 3),
           );
           setState(() {
-            int num = int.parse(number.text);
+            int numb = int.parse(number.text);
+             set = int.parse(number.text) ;
             String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
             String tim=DateFormat('HH:mm').format(_selectTime);
+           // gettableanddate();
+           // tr.addAll(tableno);
             if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
               Scaffold.of(context).showSnackBar(snack);
-            }else if(_selectTime.isAfter(_available)){
+            }else
+              if(DateFormat('yyyy-MM-dd').format(_selectedDay)==DateFormat('yyyy-MM-dd').format(DateTime.now()))
+            {
+              if(_selectTime.isAfter(_available)){
 
               if(number.text.isEmpty) {
                 _error='Enter Number of Seats';
               } else {
                 _error= null;
+                gettableanddate().then((value) {
+                  tr.addAll(value);
+                  print('ommmm $value');
+                  print('ommmm1 $tr');
+                  if (value.toString()=="[]"){
+                    showAlertDialog(context,numb);
+                  }
+                  else{
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context)=> tables(
+                          date:dat,
+                          time:tim,
+                          no: numb,
+                          uid: userId,
+                          listtables:tr,
+                        ),
+                      ),);
+                  }
+                });
+              }
+            }
+              else{
+              Scaffold.of(context).showSnackBar(snack2);}
+            }
+              else{
+              if(number.text.isEmpty) {
+                _error='Enter Number of Seats';
+              } else {
+                _error= null;
+             gettableanddate().then((value) {
+              tr.addAll(value);
+                 print('ommmm $value');
+                print('ommmm1 $tr');
+                if (value.toString()=="[]"){
+                  showAlertDialog(context,numb);
+                }
+                else{
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context)=> tables(
                       date:dat,
                       time:tim,
-                      no: num,
+                      no: numb,
+                      uid: userId,
+                      listtables:tr,
                     ),
-
-                  ),
-                );
+                  ),);
+                }
+             });
               }
             }
-            else{
-              Scaffold.of(context).showSnackBar(snack);
-            }
           });
-
-
-
-
         },
         child: const Text('Done'),
         color: Color.fromRGBO(65, 189, 180, 54),
@@ -240,7 +337,28 @@ class _MyBody extends State<Body> {
       style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
     ),
   );
+  showAlertDialog(BuildContext context, int noseats) {
 
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white54,
+      title:const Text("Warning:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+      ),),
+      content: Text("There is no available tables in that day with $noseats seats.", style:const  TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: const [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
 
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class table extends StatelessWidget {
@@ -6,6 +7,7 @@ class table extends StatelessWidget {
   table({
     required this.orders,
   }) ;
+
 
   TableRow buildRow(List<String> cells, {bool isHeader = false}) =>
       TableRow(
@@ -31,9 +33,10 @@ class table extends StatelessWidget {
         0: FractionColumnWidth(0.5),
         1: FractionColumnWidth(0.20),
         2: FractionColumnWidth(0.30),
+       // 3: FractionColumnWidth(0.10),
       },
       children: [
-        buildRow(['Items', 'Qty', 'Price'], isHeader: true),
+        buildRow(['Items', 'Qty', 'Price'],isHeader: true),
         for(int i=0;i<orders.length;i++)
           buildRow([orders[i][0], 'x'+orders[i][1], orders[i][2]]),
         buildRow(['Sub-Total', '-', getSum()]),
