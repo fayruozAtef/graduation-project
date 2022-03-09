@@ -7,15 +7,18 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'catgoriesinhall.dart';
 
 class QRScanPage extends StatefulWidget {
-  const QRScanPage({Key? key}) : super(key: key);
+  String userid;
+  QRScanPage({Key? key, required this.userid}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRScanPageState();
+  State<StatefulWidget> createState() => _QRScanPageState(id: userid);
 }
 
 class _QRScanPageState extends State<QRScanPage> {
   String qrCode = '';
   List<String>test=[' ',' ','0'];
+  String id;
+  _QRScanPageState({Key? key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,7 @@ class _QRScanPageState extends State<QRScanPage> {
                               }
                               else{
                                 Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:test, tableno: qrCode,))
+                                    MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:test, tableno: qrCode,userid: id,))
                                 );
                               }
                       },

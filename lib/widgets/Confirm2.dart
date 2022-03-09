@@ -1,48 +1,47 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'Confirm2.dart';
+import 'backgrconfirm.dart';
 import 'background.dart';
 import 'home.dart';
-class confirm extends StatefulWidget {
+class confirmDone extends StatefulWidget {
   final String date;
   final String time;
   final int tableno;
   final String userId;
-  confirm({Key? key, required this.date,required this.time,required this.tableno,required this.userId}) : super(key: key);
+  confirmDone({Key? key, required this.date,required this.time,required this.tableno,required this.userId}) : super(key: key);
   @override
-  State<confirm> createState() => _confirm();
+  State<confirmDone> createState() => _confirm();
 }
 
-class _confirm extends State<confirm> {
+class _confirm extends State<confirmDone> {
 
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: AppBar(
-        title:Text('Your Reservation:',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),) ,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-      ),
 
-      body:Background(
+      body:Backconfirm(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Padding(padding: EdgeInsets.only(top: 40),),
+              Container(
+                padding: EdgeInsets.all(15.5),
+                child: const Text('Your Reservation is Done:',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                  ),) ,
+              ),
+              Padding(padding: EdgeInsets.only(top: 30),),
               Container(
                 child: Row(
                   children: [
                     Container(
                       padding: EdgeInsets.fromLTRB(10.0,10.0,0,5),
-                      child: Text('Date: ',
+                      child:const Text('Date: ',
                         style:TextStyle(
                           color: Colors.black,
                           fontSize: 24,
@@ -51,11 +50,11 @@ class _confirm extends State<confirm> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0,10.0,0,5),
+                      padding: EdgeInsets.fromLTRB(5,10.0,0,5),
                       child: Text(widget.date,
                         style:TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 24,
                         ),),
                     ),
                   ],
@@ -68,7 +67,7 @@ class _confirm extends State<confirm> {
                   children: [
                     Container(
                       padding: EdgeInsets.fromLTRB(10.0,10.0,0,5),
-                      child: Text('Time: ',
+                      child:const Text('Time: ',
                         style:TextStyle(
                           color: Colors.black,
                           fontSize: 24,
@@ -77,11 +76,11 @@ class _confirm extends State<confirm> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0,10.0,0,5),
+                      padding: EdgeInsets.fromLTRB(5,10.0,0,5),
                       child: Text(widget.time,
                         style:TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 24,
                         ),),
                     ),
                   ],
@@ -94,7 +93,7 @@ class _confirm extends State<confirm> {
                   children: [
                     Container(
                       padding: EdgeInsets.fromLTRB(10.0,10.0,0,5),
-                      child: Text('Table no: ',
+                      child: const Text('Table no: ',
                         style:TextStyle(
                           color: Colors.black,
                           fontSize: 24,
@@ -103,42 +102,18 @@ class _confirm extends State<confirm> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0.0,10.0,0,5),
+                      padding: EdgeInsets.fromLTRB(5.0,10.0,0,5),
                       child: Text('${widget.tableno}',
                         style:TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
-                        ),),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(padding: EdgeInsets.only(top: 30),),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(10.0,10.0,0,5),
-                      child: Text('Hint: ',
-                        style: TextStyle(
-                          color: Colors.red,
                           fontSize: 24,
-                          fontWeight: FontWeight.bold,
                         ),),
                     ),
-                    Flexible(
-                      child: Text('you cannot cancel it before the time by 2 hours.',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),),
-                    )
                   ],
                 ),
               ),
               Padding(padding: EdgeInsets.only(top: 30),),
+
               Container(
                 height: 120,
                 padding: EdgeInsets.all(10),
@@ -151,7 +126,7 @@ class _confirm extends State<confirm> {
                     minWidth: 150.0,
                     height: 50.0,
                     child: RaisedButton(
-                      child: Text('Done',
+                      child:const Text('Done',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 26,
@@ -162,44 +137,7 @@ class _confirm extends State<confirm> {
                         borderRadius:  BorderRadius.circular(12.0),
                       ),
                       onPressed: () async {
-                        CollectionReference data = FirebaseFirestore.instance.collection("reserve");
-                        await data.doc().set(
-                          {"arrived":false,"date":widget.date,"time":widget.time,"tableno":widget.tableno,"user id":widget.userId},
-                          SetOptions(merge: true),
-                        );
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) =>
-                                confirmDone(date: widget.date, time: widget.time,tableno: widget.tableno,
-                              userId: widget.userId,)));
-                      },
 
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 120,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    border: Border.all(color: Colors.white12,width: 10.0,)
-                ),
-                child: Center(
-                  child: ButtonTheme(
-                    minWidth: 150.0,
-                    height: 50.0,
-                    child: RaisedButton(
-                      child: Text('Cancel',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26,
-                        ),),
-                      color: Color.fromRGBO(65, 189, 180, 54),
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius:  BorderRadius.circular(12.0),
-                      ),
-                      onPressed: () {
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)));
                       },
@@ -207,7 +145,7 @@ class _confirm extends State<confirm> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -7,18 +7,21 @@ import 'package:resflutter_app/widgets/catgoriesinhall.dart';
 class detailsinHall extends StatefulWidget {
   String title;
   String table;
-  detailsinHall({Key? key,required this.title, required this.table}) : super(key: key);
+  String userid;
+
+  detailsinHall({Key? key,required this.title, required this.table, required this.userid}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(title2: title, tableNo: this.table);
+    return MyAppState(title2: title, tableNo: this.table , id: userid);
   }
 }
 
 class MyAppState extends State<detailsinHall> {
   String title2;
   String tableNo;
-  MyAppState({Key? key, required this.title2, required this.tableNo}) : super();
+  String id;
+  MyAppState({Key? key, required this.title2, required this.tableNo,required this.id}) : super();
 
 
   List <String>order=[];
@@ -147,7 +150,7 @@ class MyAppState extends State<detailsinHall> {
                                   order.add(count[i].toString());
                                   order.add(tprice[i].toString());
                                   Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,)));
+                                      MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,userid: id,)));
                                 },
                                 child:
                                 Text('ADD | ${tprice[i]} LE',

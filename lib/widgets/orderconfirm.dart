@@ -1,22 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:resflutter_app/widgets/table2.dart';
 import 'confirmtable.dart';
 import 'home.dart';
 
 class ordercon extends StatefulWidget {
   List<List<String>> test2;
-  final String userId;
-  ordercon({Key? key, required this.test2,required this.userId}) : super(key: key);
+  String userId;
+  String tno;
+  ordercon({Key? key, required this.test2,required this.userId,required this.tno}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(test: test2,userId: userId);
+    return _orderon(test: this.test2,userId: this.userId,tano:this.tno);
   }
 }
-class MyAppState extends State<ordercon> {
+class _orderon extends State<ordercon> {
   List<List<String>> test;
-  final String userId;
-  MyAppState({Key? key, required this.test,required this.userId }) : super();
+  String userId;
+  String tano;
+  _orderon({Key? key, required this.test,required this.userId,required this.tano }) : super();
+
   TableRow buildRow(List<String> cells,{bool isHeader = false}) => TableRow(
     children:cells.map((cell) {
       final style=TextStyle(
@@ -52,7 +56,33 @@ class MyAppState extends State<ordercon> {
           child:Text('Order Summary : ',
              style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
        ),
-       table(orders: test),
+       table2(orders: test),
+           Padding(padding: EdgeInsets.only(top: 20),),
+           Container(
+             height: 50,
+             child: Row(
+               children: [
+                 Container(
+                   padding: EdgeInsets.fromLTRB(10.0,10.0,0,5),
+                   child:const Text('Table: ',
+                     style:TextStyle(
+                       color: Colors.black,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                     ),
+                   ),
+                 ),
+                 Container(
+                   padding: EdgeInsets.fromLTRB(5,10.0,0,5),
+                   child: Text(tano,
+                     style:TextStyle(
+                       color: Colors.black,
+                       fontSize: 24,
+                     ),),
+                 ),
+               ],
+             ),
+           ),
            Container(
              height: 120,
              padding: EdgeInsets.all(10),
@@ -79,7 +109,6 @@ class MyAppState extends State<ordercon> {
                      Navigator.of(context).pushReplacement(
                          MaterialPageRoute(builder: (context) =>home(userId: userId,)));
                    },
-
                  ),
                ),
              ),
