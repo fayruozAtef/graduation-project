@@ -90,7 +90,7 @@ class _tables extends State<tables> {
                                                           child: CarouselSlider(
                                                             options: CarouselOptions(
                                                               aspectRatio: 1.25,
-                                                              enlargeCenterPage: true,
+                                                              //enlargeCenterPage: true,
                                                             ),
                                                             items: table[i]['images']
                                                                 .map<Widget>((item) =>
@@ -104,7 +104,7 @@ class _tables extends State<tables> {
                                                       ),
                                                       SizedBox(height: 20),
                                                       SizedBox(
-                                                          width: 200,
+                                                          width: 230,
                                                           child: Text(
                                                               "Sets no:${table[i]['no-of-sets'] } location:${table[i]['location'] }",
                                                               style: TextStyle(
@@ -181,7 +181,7 @@ class _tables extends State<tables> {
                                                           child: CarouselSlider(
                                                             options: CarouselOptions(
                                                               aspectRatio: 1.2,
-                                                              enlargeCenterPage: true,
+                                                              //enlargeCenterPage: true,
                                                             ),
                                                             items: table[i+1]['images']
                                                                 .map<Widget>((item) =>

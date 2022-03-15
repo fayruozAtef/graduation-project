@@ -16,7 +16,7 @@ class QRScanPage extends StatefulWidget {
 
 class _QRScanPageState extends State<QRScanPage> {
   String qrCode = '';
-  List<String>test=[' ',' ','0'];
+  List<List<String>>test=[[' ',' ','0'],[' ',' ','0'],[' ',' ','0']];
   String id;
   _QRScanPageState({Key? key, required this.id});
 

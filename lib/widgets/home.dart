@@ -211,7 +211,7 @@ class MyAppState extends State<home>{
                   child: Card(
                     child:InkWell(onTap: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => QRScanPage()));
+                          MaterialPageRoute(builder: (context) => QRScanPage(userid:Userid ,)));
                     },
                       child: Container(
                         decoration:  BoxDecoration(

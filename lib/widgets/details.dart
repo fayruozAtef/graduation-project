@@ -73,17 +73,6 @@ class MyAppState extends State<details> {
     tprice[n] = tprice[n] - list[n]['price'];
   }
 
-  void _add(){
-    for(int i=0;i<list.length;i++){
-      if(count[i]>0){
-        List<String> su=['','',''];
-        su[0]=(list[i]['name']);
-        su[1]=(count[i].toString());
-        su[2]=(tprice[i].toString());
-        order.add(su);
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:resflutter_app/widgets/catgoriesinhall.dart';
 import 'package:resflutter_app/widgets/table2.dart';
 import 'confirmtable.dart';
 import 'home.dart';
@@ -39,23 +40,25 @@ class _orderon extends State<ordercon> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            'Confirm Order ', style: TextStyle(color: Colors.black, fontSize: 25)),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
       body: SingleChildScrollView(
       child: Column(
          children: [
-         const SizedBox(height: 10.0,),
-         Container(
-          height: 50,
-          padding: EdgeInsets.all(10),
-          alignment: Alignment.centerLeft,
-          child:Text('Order Summary : ',
-             style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-       ),
+           const SizedBox(height: 50.0,),
+           Container(
+             height: 50,
+             padding: EdgeInsets.all(10),
+             alignment: Alignment.center,
+             child:const Text('Confirm',style:TextStyle(color:Colors.black,fontSize: 30,fontWeight: FontWeight.bold)
+             ),
+           ),
+           const SizedBox(height: 20.0,),
+           Container(
+             height: 50,
+             padding: EdgeInsets.all(10),
+             alignment: Alignment.centerLeft,
+             child:Text('Order Summary : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
+             ),
+           ),
        table2(orders: test),
            Padding(padding: EdgeInsets.only(top: 20),),
            Container(
@@ -112,7 +115,23 @@ class _orderon extends State<ordercon> {
                  ),
                ),
              ),
-           )
+
+           ),
+           SizedBox(height:20),
+           ElevatedButton(
+             style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
+                 fixedSize:MaterialStateProperty.all(Size(200,45)),
+                 shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                     borderRadius:BorderRadius.circular(18)
+                 ))
+             ),
+             onPressed: ()  {
+               Navigator.of(context).pushReplacement(
+                   MaterialPageRoute(builder: (context) =>CategoriesinHall(userid: userId, subOrder: test,tableno: tano,)));
+             },
+             child: Text('Add More',style:TextStyle(fontSize: 30)),
+           ),
+
       ],
       ),
     ),

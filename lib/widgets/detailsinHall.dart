@@ -24,7 +24,7 @@ class MyAppState extends State<detailsinHall> {
   MyAppState({Key? key, required this.title2, required this.tableNo,required this.id}) : super();
 
 
-  List <String>order=[];
+  List <List<String>>order=[];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
@@ -36,7 +36,7 @@ class MyAppState extends State<detailsinHall> {
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());
-        count.add(1);
+        count.add(0);
         tprice.add(element.get('price'));
         //t.add((element.get('price')).toString());
       });
@@ -54,19 +54,19 @@ class MyAppState extends State<detailsinHall> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-    //t[n] = tprice[n].toStringAsFixed(2);
+
   }
 
   void _decrease(int n) {
-    if (count[n] < 2) {
+    if (count[n] < 1) {
       return;
     }
     setState(() {
       count[n]--;
     });
     tprice[n] = tprice[n] - list[n]['price'];
-    //t[n] = tprice[n].toStringAsFixed(2);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,95 +77,110 @@ class MyAppState extends State<detailsinHall> {
         foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              for(int i = 0; i < list.length; i++)
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(13.0),
-                    side: BorderSide(color: Colors.black, width: 2),
-                  ),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 175,
-                          width: 600,
-                          child: Image(
-                            image:NetworkImage(list[i]['imagepath']),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            for(int i = 0; i < list.length; i++)
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(13.0),
+                  side: BorderSide(color: Colors.black, width: 2),
+                ),
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 175,
+                        width: 800,
+                        child: Image(
+                          image:NetworkImage(list[i]['imagepath']),
+                        ),
+                      ),
+                      ExpansionTile(
+                          collapsedIconColor: Colors.black,
+                          iconColor: Colors.black,
+                          childrenPadding: EdgeInsets.all(16).copyWith(
+                              top: 0),
+                          title: Text(
+                              list[i]['name'], style: TextStyle(color: Colors
+                              .black, fontSize: 25, fontWeight: FontWeight
+                              .bold)
                           ),
-                        ),
-                        ExpansionTile(
-                            collapsedIconColor: Colors.black,
-                            iconColor: Colors.black,
-                            childrenPadding: EdgeInsets.all(16).copyWith(
-                                top: 0),
-                            title: Text(
-                                list[i]['name'], style: TextStyle(color: Colors
-                                .black, fontSize: 25, fontWeight: FontWeight
-                                .bold)
-                            ),
-                            children: [
-                              Text(list[i]['component'], style: TextStyle(
-                                  color: Colors.black, fontSize: 20)),
-                            ]
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            FloatingActionButton(
-                              child: Icon(Icons.add, color: Colors.white,
-                                  size: 20),
-                              onPressed: () {
-                                _increase(i);
-                              },
-                              backgroundColor: Colors.teal,
-                              mini: true,
-                            ),
-                            Text('${count[i]}', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
-                            FloatingActionButton(
-                              child: Icon(Icons.remove, color: Colors.white, size: 20),
-                              onPressed: () {
-                                _decrease(i);
-                              },
-                              backgroundColor: Colors.teal,
-                              mini: true,
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<
-                                        Color>(Colors.white),
-                                    fixedSize: MaterialStateProperty.all(Size(200, 40)),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                18)
-                                    ))
-                                ),
-                                onPressed: () {
-                                  order.add(list[i]['name']);
-                                  order.add(count[i].toString());
-                                  order.add(tprice[i].toString());
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,userid: id,)));
-                                },
-                                child:
-                                Text('ADD | ${tprice[i]} LE',
-                                    style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
+                            Text(list[i]['component'], style: TextStyle(
+                                color: Colors.black, fontSize: 20)),
+                          ]
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FloatingActionButton(
+                            child: Icon(Icons.add, color: Colors.white,
+                                size: 20),
+                            onPressed: () {
+                              _increase(i);
+                            },
+                            backgroundColor: Colors.teal,
+                            mini: true,
+                          ),
+                          Text('${count[i]}', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+                          FloatingActionButton(
+                            child: Icon(Icons.remove, color: Colors.white, size: 20),
+                            onPressed: () {
+                              _decrease(i);
+                            },
+                            backgroundColor: Colors.teal,
+                            mini: true,
+                          ),
+                          Container(
+                            width:225,
+                            height: 40 ,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color:Colors.black,
                               ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                      ],
-                    ),
+                              borderRadius: BorderRadius.all(Radius.circular(18)),
+                            ),
+                            child:Text(count[i]==0? '0':'${tprice[i]} LE',textAlign: TextAlign.center,
+                                style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
-                )
-            ],
-          )
+                ),
+              ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
+                    fixedSize:MaterialStateProperty.all(Size(150,45)),
+                    shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        borderRadius:BorderRadius.circular(18)
+                    ))
+                ),
+                onPressed: () {
+                  for(int i=0;i<list.length;i++){
+                    if(count[i]>0){
+                      List<String> su=[];
+                      su.add(list[i]['name']);
+                      su.add(count[i].toString());
+                      su.add(tprice[i].toString());
+                      order.add(su);
+                    }
+                  }
+                  print(order);
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,userid: id,)));
+                },
+
+                child: Text('Add',style:TextStyle(fontSize: 30)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
