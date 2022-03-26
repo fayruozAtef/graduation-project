@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
-List<List<String>>test=[[' ',' ','0'],[' ',' ','0'],[' ',' ','0']];
+List<List<String>>test=[[' ',' ','0']];
 class DeliveryInformation extends StatefulWidget {
 
   final String userId;
@@ -70,8 +70,6 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                           height: 60.0,
                           width:  MediaQuery.of(context).size.width,
                           child: TextField(
-                            maxLength: 11,
-
                             controller: myController,
                             textAlign: TextAlign.left,
                             style:const TextStyle(color: Colors.white, fontSize: 20.0,),

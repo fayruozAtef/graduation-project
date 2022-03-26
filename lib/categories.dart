@@ -62,16 +62,22 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if(subOrder2[0][2]=='0'){
+    if(subOrder2[0][1]==''){
       totalOrder=[];
     }
-    for(int i=0;i<subOrder2.length;i++)
-      totalOrder.add(subOrder2[i]);
-    x=0.0;
-    for(int i=1;i<totalOrder.length;i++)
-    {
-      x+=double.parse(totalOrder[i][2]);
+    else{
+      for(int i=0;i<subOrder2.length;i++) {
+        totalOrder.add(subOrder2[i]);
+      }
+
+      x=0.0;
+      for(int i=1;i<totalOrder.length;i++)
+      {
+        x+=double.parse(totalOrder[i][2]);
+      }
+      subOrder2=[[' ',' ','0']];
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pick your order' ,

@@ -62,8 +62,10 @@ class _CategoriesState extends State<CategoriesinHall> {
     if(subOrder2[0][2]=='0'){
       totalOrder=[];
     }
-    for(int i=0;i<subOrder2.length;i++)
+    for(int i=0;i<subOrder2.length;i++) {
       totalOrder.add(subOrder2[i]);
+    }
+    //subOrder2=[[' ',' ','0'],[' ',' ','0'],[' ',' ','0']];
     x=0.0;
     for(int i=1;i<totalOrder.length;i++)
     {
