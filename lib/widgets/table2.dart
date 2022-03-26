@@ -31,12 +31,6 @@ class _table2 extends State<table2>{
 
   @override
   Widget build(BuildContext context) {
-    for(int j=0;j<orders.length;j++){
-      if(orders[j][2]=='0' || orders[j][2]==''){
-        orders.removeAt(j);
-      }
-      print(orders);
-    }
     return Card(
       child:Column(
         children: [

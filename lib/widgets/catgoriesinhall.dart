@@ -62,8 +62,10 @@ class _CategoriesState extends State<CategoriesinHall> {
     print("sub");
 print(subOrder2);
     for (int i = 0; i < subOrder2.length; i++) {
+
       totalOrder.add(subOrder2[i]);
-        print(totalOrder);
+      print(totalOrder);
+
     }
     for(int j=0;j<totalOrder.length;j++){
       if(totalOrder[j][2]=='0' || totalOrder[j][2]==''){
@@ -336,7 +338,7 @@ print(subOrder2);
   Widget buildNavigateButton()=>FloatingActionButton.extended(
     backgroundColor: Colors.teal,
     onPressed: (){
-      if(totalOrder.length>1) {
+      if(totalOrder.length>0) {
         Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) =>
