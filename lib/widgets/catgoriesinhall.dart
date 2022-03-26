@@ -59,18 +59,25 @@ class _CategoriesState extends State<CategoriesinHall> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if(subOrder2[0][2]=='0'){
-      totalOrder=[];
-    }
-    for(int i=0;i<subOrder2.length;i++) {
+    print("sub");
+print(subOrder2);
+    for (int i = 0; i < subOrder2.length; i++) {
       totalOrder.add(subOrder2[i]);
+        print(totalOrder);
     }
-    //subOrder2=[[' ',' ','0'],[' ',' ','0'],[' ',' ','0']];
+    for(int j=0;j<totalOrder.length;j++){
+      if(totalOrder[j][2]=='0' || totalOrder[j][2]==''){
+        totalOrder.removeAt(j);
+        print("*************remove");
+        print(totalOrder);
+      }
+    }
     x=0.0;
-    for(int i=1;i<totalOrder.length;i++)
+    for(int i=0;i<totalOrder.length;i++)
     {
       x+=double.parse(totalOrder[i][2]);
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pick your order' ,
@@ -333,12 +340,13 @@ class _CategoriesState extends State<CategoriesinHall> {
         Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) =>
-                    ordercon(test2: totalOrder.sublist(1,totalOrder.length),userId:id, tno: tableNo,)));
+                    ordercon(test2: totalOrder,userId:id, tno: tableNo,)));
 
       }
     },
     label: Text('${x}'+' | '+'CheckOut Now '),
   );
+
 }
 
 

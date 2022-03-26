@@ -13,6 +13,7 @@ class _table2 extends State<table2>{
   List<List<String>> orders;
   _table2({required this.orders});
 
+
   String getSum(){
     double sum=0;
     for(int i=0;i<orders.length;i++) {
@@ -27,9 +28,15 @@ class _table2 extends State<table2>{
       orders[n][2]='';
     });
   }
-  List weidth=[140,40,120];
+
   @override
   Widget build(BuildContext context) {
+    for(int j=0;j<orders.length;j++){
+      if(orders[j][2]=='0' || orders[j][2]==''){
+        orders.removeAt(j);
+      }
+      print(orders);
+    }
     return Card(
       child:Column(
         children: [
@@ -75,7 +82,7 @@ class _table2 extends State<table2>{
                   onPressed: (){
                     empty(i);
                     orders.removeAt(i);
-                    print(orders);
+                    //print(orders);
                   },
                   backgroundColor:Colors.white,
                   mini:true,
