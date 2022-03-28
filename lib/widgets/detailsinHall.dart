@@ -152,7 +152,8 @@ class MyAppState extends State<detailsinHall> {
                   ),
                 ),
               ),
-            Container(
+            SizedBox(height: 45,),
+            /*Container(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
@@ -178,10 +179,30 @@ class MyAppState extends State<detailsinHall> {
 
                 child: Text('Add',style:TextStyle(fontSize: 30)),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
+      floatingActionButton: buildNavigateButton(),
     );
   }
+  Widget buildNavigateButton()=>FloatingActionButton.extended(
+    backgroundColor: Colors.teal,
+    onPressed: (){
+      for(int i=0;i<list.length;i++){
+        if(count[i]>0){
+          List<String> su=[];
+          su.add(list[i]['name']);
+          su.add(count[i].toString());
+          su.add(tprice[i].toString());
+          order.add(su);
+        }
+      }
+      print(order);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,userid: id,)));
+
+    },
+    label: Text('Add',style:TextStyle(fontSize: 30)),
+  );
 }

@@ -59,19 +59,20 @@ class _CategoriesState extends State<CategoriesinHall> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    print("sub");
-print(subOrder2);
-    for (int i = 0; i < subOrder2.length; i++) {
+   // print("sub");
+//print(subOrder2);
 
-      totalOrder.add(subOrder2[i]);
-      print(totalOrder);
+  for (int i = 0; i < subOrder2.length; i++) {
+    totalOrder.add(subOrder2[i]);
+    //print(totalOrder);
+    subOrder2.removeAt(i);
+  }
 
-    }
     for(int j=0;j<totalOrder.length;j++){
       if(totalOrder[j][2]=='0' || totalOrder[j][2]==''){
         totalOrder.removeAt(j);
-        print("*************remove");
-        print(totalOrder);
+        //print("*************remove");
+        //print(totalOrder);
       }
     }
     x=0.0;
