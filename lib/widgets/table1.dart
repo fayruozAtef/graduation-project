@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class table2 extends StatefulWidget{
+class table1 extends StatefulWidget{
   List<List<String>> orders;
-  table2({required this.orders});
+  table1({required this.orders});
   @override
   createState() {
-    return (_table2(orders: orders));
+    return (_table1(orders: orders));
   }
 }
-class _table2 extends State<table2>{
+class _table1 extends State<table1>{
   List<List<String>> orders;
-  _table2({required this.orders});
+  _table1({required this.orders});
 
   String getSum(){
     double sum=0;
@@ -56,32 +56,31 @@ class _table2 extends State<table2>{
           for(int i=0;i<orders.length;i++)
             if(orders[i][2]!='0')
               Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(8,0,0,0),
-                  width: 150,
-                  child:Text(orders[i][0],style: TextStyle( color: Colors.black, fontSize: 20,)),
-                ),
-                Container(
-                  width: 45,
-                  child:Text('x'+orders[i][1],style: TextStyle( color: Colors.black, fontSize: 20,)),
-                ),
-                Container(
-                  width: 109,
-                  child:Text(orders[i][2],style: TextStyle( color: Colors.black, fontSize: 20,)),
-                ),
-                FloatingActionButton(
-                  child:Icon(Icons.highlight_remove ,color:Colors.red,size:20),
-                  onPressed: (){
-                    empty(i);
-                    orders.removeAt(i);
-                    //print(orders);
-                  },
-                  backgroundColor:Colors.white,
-                  mini:true,
-                ),
-              ],
-            ),
+                children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(8,0,0,0),
+                    width: 150,
+                    child:Text(orders[i][0],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  ),
+                  Container(
+                    width: 45,
+                    child:Text('x'+orders[i][1],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  ),
+                  Container(
+                    width: 109,
+                    child:Text(orders[i][2],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  ),
+                  FloatingActionButton(
+                    child:Icon(Icons.highlight_remove ,color:Colors.red,size:20),
+                    onPressed: (){
+                      empty(i);
+                      orders.removeAt(i);
+                    },
+                    backgroundColor:Colors.white,
+                    mini:true,
+                  ),
+                ],
+              ),
           Text('-------------------------------',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 20,)),
           Row(
             children:[
@@ -104,9 +103,9 @@ class _table2 extends State<table2>{
           Row(
             children:[
               Container(
-                padding: EdgeInsets.fromLTRB(8,0,0,0),
                 width: 150,
-                child:Text('Delivery',style: TextStyle( color: Colors.black, fontSize: 20,)),
+                padding: EdgeInsets.fromLTRB(8,0,0,0),
+                child: Text('Service',style: TextStyle( color: Colors.black, fontSize: 20,)),
               ),
               Container(
                 width: 45,
@@ -114,7 +113,7 @@ class _table2 extends State<table2>{
               ),
               Container(
                 width: 109,
-                child:Text('50',style: TextStyle( color: Colors.black, fontSize: 20,)),
+                child: Text('30',style: TextStyle( color: Colors.black, fontSize: 20,)),
               ),
             ],
           ),
@@ -132,7 +131,7 @@ class _table2 extends State<table2>{
               ),
               Container(
                 width: 109,
-                child: Text((double.parse(getSum())+50).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
+                child: Text((double.parse(getSum())+30).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
               ),
             ],
           ),

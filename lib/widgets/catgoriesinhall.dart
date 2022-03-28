@@ -1,7 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:resflutter_app/widgets/confirmdelivery.dart';
-import 'package:resflutter_app/widgets/details.dart';
 import 'package:resflutter_app/widgets/detailsinHall.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -59,22 +56,18 @@ class _CategoriesState extends State<CategoriesinHall> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-   // print("sub");
-//print(subOrder2);
 
-  for (int i = 0; i < subOrder2.length; i++) {
-    totalOrder.add(subOrder2[i]);
-    //print(totalOrder);
-    subOrder2.removeAt(i);
-  }
+    for (int i = 0; i < subOrder2.length; i++) {
+      totalOrder.add(subOrder2[i]);
+      subOrder2.removeAt(i);
+    }
 
     for(int j=0;j<totalOrder.length;j++){
       if(totalOrder[j][2]=='0' || totalOrder[j][2]==''){
         totalOrder.removeAt(j);
-        //print("*************remove");
-        //print(totalOrder);
       }
     }
+
     x=0.0;
     for(int i=0;i<totalOrder.length;i++)
     {
@@ -344,12 +337,10 @@ class _CategoriesState extends State<CategoriesinHall> {
             MaterialPageRoute(
                 builder: (context) =>
                     ordercon(test2: totalOrder,userId:id, tno: tableNo,)));
-
       }
     },
     label: Text('${x}'+' | '+'CheckOut Now '),
   );
-
 }
 
 
