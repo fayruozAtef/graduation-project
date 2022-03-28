@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/catgoriesinhall.dart';
-
 
 class detailsinHall extends StatefulWidget {
   String title;
@@ -29,7 +27,6 @@ class MyAppState extends State<detailsinHall> {
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
   List <num> tprice = [];
-  //List <String> t = [];
 
   getData() async {
     QuerySnapshot dbf = await bff.where('type',isEqualTo:title2).get();
@@ -38,7 +35,6 @@ class MyAppState extends State<detailsinHall> {
         list.add(element.data());
         count.add(0);
         tprice.add(element.get('price'));
-        //t.add((element.get('price')).toString());
       });
     });
   }
@@ -153,33 +149,6 @@ class MyAppState extends State<detailsinHall> {
                 ),
               ),
             SizedBox(height: 45,),
-            /*Container(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
-                    fixedSize:MaterialStateProperty.all(Size(150,45)),
-                    shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius:BorderRadius.circular(18)
-                    ))
-                ),
-                onPressed: () {
-                  for(int i=0;i<list.length;i++){
-                    if(count[i]>0){
-                      List<String> su=[];
-                      su.add(list[i]['name']);
-                      su.add(count[i].toString());
-                      su.add(tprice[i].toString());
-                      order.add(su);
-                    }
-                  }
-                  print(order);
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,userid: id,)));
-                },
-
-                child: Text('Add',style:TextStyle(fontSize: 30)),
-              ),
-            ),*/
           ],
         ),
       ),

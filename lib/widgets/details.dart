@@ -35,7 +35,6 @@ class MyAppState extends State<details> {
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
   List <num> tprice = [];
-  //List <String> t = [];
 
   getData() async {
     QuerySnapshot dbf = await bff.where('type',isEqualTo:title2).get();
@@ -44,7 +43,6 @@ class MyAppState extends State<details> {
         list.add(element.data());
         count.add(0);
         tprice.add(element.get('price'));
-        //t.add((element.get('price')).toString());
       });
     });
   }
@@ -60,7 +58,6 @@ class MyAppState extends State<details> {
       count[n]++;
     });
     tprice[n] = count[n] * double.parse((list[n]['price']).toString());
-
   }
 
   void _decrease(int n) {
@@ -158,36 +155,30 @@ class MyAppState extends State<details> {
                   ),
                 ),
               ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
-                    fixedSize:MaterialStateProperty.all(Size(150,45)),
-                    shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius:BorderRadius.circular(18)
-                    ))
-                ),
-                onPressed: () {
-                  for(int i=0;i<list.length;i++){
-                    if(count[i]>0){
-                      List<String> su=[];
-                      su.add(list[i]['name']);
-                      su.add(count[i].toString());
-                      su.add(tprice[i].toString());
-                      order.add(su);
-                    }
-                  }
-                  print(order);
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
-                },
-
-                child: Text('Add',style:TextStyle(fontSize: 30)),
-              ),
-            ),
+            SizedBox(height: 45,),
           ],
         ),
       ),
+      floatingActionButton: buildNavigateButton(),
     );
   }
+  Widget buildNavigateButton()=>FloatingActionButton.extended(
+    backgroundColor: Colors.teal,
+    onPressed: (){
+      for(int i=0;i<list.length;i++){
+        if(count[i]>0){
+          List<String> su=[];
+          su.add(list[i]['name']);
+          su.add(count[i].toString());
+          su.add(tprice[i].toString());
+          order.add(su);
+        }
+        List<String> subend=['','','0'];
+        order.add(subend);
+      }
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
+    },
+    label: Text('Add',style:TextStyle(fontSize: 30)),
+  );
 }

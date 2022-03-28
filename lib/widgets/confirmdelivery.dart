@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/table2.dart';
 import '../categories.dart';
-import 'confirmtable.dart';
 import 'home.dart';
 
 class confdeliv extends StatefulWidget {
@@ -45,29 +44,20 @@ class MyAppState extends State<confdeliv> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(
-            'Confirm', style: TextStyle(color: Colors.black, fontSize: 25)),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
-
-       */
       body: SingleChildScrollView(
         child: Column(
             children: [
               const SizedBox(height: 50.0,),
               Container(
                 height: 50,
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(8),
                 alignment: Alignment.center,
                 child:const Text('Confirm',style:TextStyle(color:Colors.black,fontSize: 30,fontWeight: FontWeight.bold)
                 ),
               ),
-              const SizedBox(height: 20.0,),
               Container(
                 height: 50,
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
                 alignment: Alignment.centerLeft,
                 child:Text('Order Summary : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
                 ),
@@ -101,16 +91,9 @@ class MyAppState extends State<confdeliv> {
                     ]
                 ),
               ),
-
-
-
               Container(
-
                 padding: EdgeInsets.all(10),
-
-
                 child:Row(
-                  //mainAxisAlignment: MainAxisAlignment.center,
                     children:[
                       Text('your phone : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
                       Text(phone,style:TextStyle(color:Colors.black,fontSize: 20))
@@ -118,12 +101,8 @@ class MyAppState extends State<confdeliv> {
                 ),
               ),
               Container(
-
                 padding: EdgeInsets.all(10),
-
-
                 child:Row(
-                  //mainAxisAlignment: MainAxisAlignment.center,
                     children:[
                       Text('your extra phone : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
                       Text(exphone,style:TextStyle(color:Colors.black,fontSize: 20))
@@ -163,7 +142,6 @@ class MyAppState extends State<confdeliv> {
                 },
                 child: Text('Add More',style:TextStyle(fontSize: 30)),
               ),
-
             ]
         ),
       ),

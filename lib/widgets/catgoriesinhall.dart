@@ -342,5 +342,3 @@ class _CategoriesState extends State<CategoriesinHall> {
     label: Text('${x}'+' | '+'CheckOut Now '),
   );
 }
-
-
