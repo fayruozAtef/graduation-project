@@ -197,6 +197,8 @@ class MyAppState extends State<detailsinHall> {
           su.add(tprice[i].toString());
           order.add(su);
         }
+        List<String> subend=['','','0'];
+        order.add(subend);
       }
       print(order);
       Navigator.of(context).pushReplacement(
