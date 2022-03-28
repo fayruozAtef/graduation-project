@@ -26,23 +26,13 @@ class MyAppState extends State<confdeliv> {
 
   final String userId;
   MyAppState({Key? key, required this.test,required this.address,required this.phone,required this.exphone,required this.userId }) : super();
-  TableRow buildRow(List<String> cells,{bool isHeader = false}) => TableRow(
-    children:cells.map((cell) {
-      final style=TextStyle(
-        fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-        color: isHeader ? Colors.teal : Colors.black ,
-        fontSize:20,
-      );
-      return Padding(
-        padding: const EdgeInsets.all(8),
-        child: Center(child: Text(cell,style:style)),
-      );
-    }
-    ).toList(),
-  );
 
   @override
   Widget build(BuildContext context) {
+    Map<String,List> order=Map();
+    for(int i=0;i<test.length;i++){
+      order['order${i}']=test[i];
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -76,7 +66,6 @@ class MyAppState extends State<confdeliv> {
                             TextSpan(text :address,
                                 style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.normal),
                             ),
-
                           ],
                       ),
                           maxLines: 3,
@@ -84,11 +73,7 @@ class MyAppState extends State<confdeliv> {
                           overflow:TextOverflow.ellipsis
                       ),
                 ),
-                      /*Text('your address : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                      Expanded(
-                          child:Text(address,maxLines: 3,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 20)) ),*/
-
-                    ]
+                      ]
                 ),
               ),
               Container(
@@ -119,9 +104,9 @@ class MyAppState extends State<confdeliv> {
                 ),
                 onPressed: () async {
                    CollectionReference data = FirebaseFirestore.instance.collection("delivery");
+                   int i=0;
                     await data.doc().set(
-                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId},
-                     SetOptions(merge: true),
+                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId,"order":order},
                     );
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) =>home(userId: userId,)));
