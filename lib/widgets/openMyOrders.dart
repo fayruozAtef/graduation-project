@@ -1,31 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class open extends StatefulWidget {
 
-  final String uid;
-  open({Key? key,required this.uid}) : super(key: key);
+  Map orders={};
+  open({Key? key,required this.orders}) : super(key: key);
 
   @override
-  createState()=>_open(uid:uid);
+  createState()=>_open(orders: orders);
 }
 
 class _open extends State<open> {
 
-  final String uid;
-  _open({required this.uid});
+  Map orders={};
+  _open({required this.orders});
 
-  List<List<String>> orders=[
-  ['english breakfast','2','100'],
-  ['pizza','1','50'],
-  ['water','1','10'],
-  ];
-  String getSum(){
-    int sum=0;
-    for(int i=0;i<orders.length;i++) {
-      sum+=int.parse(orders[i][2]);
+  String getSum() {
+    double sum = 0;
+    for (var i in orders['order'].values) {
+        sum += double.parse(i[2]);
+      }
+      return sum.toString();
     }
-    return sum.toString();
+
+  String formattedDate(timeStamp){
+    var dateFormTimeStamp=DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds*1000);
+    return DateFormat('dd-MM-yyy hh:mm a').format(dateFormTimeStamp);
   }
 
   @override
@@ -45,7 +47,7 @@ class _open extends State<open> {
             child:Row(
               children: [
                 Text("Date/Time : ",style:TextStyle( color: Colors.black, fontSize: 20,fontWeight: FontWeight.bold)),
-                Text("2022/2/8  5:06 pm",style:TextStyle( color: Colors.black, fontSize: 20,)),
+                Text(formattedDate(orders['date']),style:TextStyle( color: Colors.black, fontSize: 20,)),
               ],
             ),
           ),
@@ -54,9 +56,7 @@ class _open extends State<open> {
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('In-Hall',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
-                Text('Order#20',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
-                ),
+                Text(orders['location'],style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -90,21 +90,21 @@ class _open extends State<open> {
               ],
             ),
             Text('-------------------------------',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 20,)),
-            for(int i=0;i<orders.length;i++)
+            for(var i in orders['order'].values)
               Row(
                 children: [
                   Container(
                     padding: EdgeInsets.fromLTRB(8,0,0,0),
                     width: 180,
-                    child:Text(orders[i][0],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                    child:Text(i[0],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
                   Container(
                     width: 60,
-                    child:Text('x'+orders[i][1],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                    child:Text('x'+i[1],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
                   Container(
                     width: 100,
-                    child:Text(orders[i][2],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                    child:Text(i[2],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
                 ],
               ),
@@ -132,7 +132,7 @@ class _open extends State<open> {
                 Container(
                   padding: EdgeInsets.fromLTRB(8,0,0,0),
                   width: 180,
-                  child:Text('Delivery',style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  child:Text(orders['location'],style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
                   width: 60,
@@ -140,7 +140,7 @@ class _open extends State<open> {
                 ),
                 Container(
                   width: 100,
-                  child:Text('50',style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  child:Text(orders['const'],style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
               ],
             ),
@@ -156,9 +156,9 @@ class _open extends State<open> {
                   width: 60,
                   child:Text('-',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
-                Container(
+               Container(
                   width: 100,
-                  child: Text((int.parse(getSum())+50).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  child: Text((double.parse(getSum())+double.parse(orders['const'])).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
               ],
             ),
