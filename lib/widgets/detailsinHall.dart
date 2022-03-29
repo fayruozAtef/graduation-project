@@ -106,6 +106,8 @@ class MyAppState extends State<detailsinHall> {
                           children: [
                             Text(list[i]['component'], style: TextStyle(
                                 color: Colors.black, fontSize: 20)),
+                            Text('${list[i]['price']}LE', textAlign: TextAlign.left,style: TextStyle(
+                                color: Colors.black, fontSize: 30)),
                           ]
                       ),
                       Row(

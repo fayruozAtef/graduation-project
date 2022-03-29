@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/categories.dart';
 
@@ -113,6 +114,8 @@ class MyAppState extends State<details> {
                           children: [
                             Text(list[i]['component'], style: TextStyle(
                                 color: Colors.black, fontSize: 20)),
+                            Text('${list[i]['price']}LE', textAlign: TextAlign.left,style: TextStyle(
+                                color: Colors.black, fontSize: 30)),
                           ]
                       ),
                       Row(
