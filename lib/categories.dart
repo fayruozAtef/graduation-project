@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 List<List<String>> totalOrder=[];
 double x=0.0;
-List<String> imgList=['','','','','','','','',''];
 class Categories extends StatefulWidget {
   List<List<String>>subOrder=[];
   String address='';
