@@ -70,7 +70,7 @@ class information extends State<profileInfo> {
       this.image=imageTemporary;
     });
     Uint8List? uploadFile = this.image?.readAsBytesSync();
-      final reference =FirebaseStorage.instance.refFromURL('gs://testfirebaseflutter-aa934.appspot.com').child(userId);
+      final reference =FirebaseStorage.instance.refFromURL('gs://testfirebaseflutter-aa934.appspot.com/users').child(userId);
     UploadTask uploadTask =reference.putData(uploadFile!);
      uploadTask.whenComplete(() async {
         String url = await uploadTask.snapshot.ref.getDownloadURL();
