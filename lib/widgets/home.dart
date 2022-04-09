@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -68,25 +71,23 @@ class MyAppState extends State<home>{
 
   String uname='';
   String uemail='';
-
+  String image='';
   getData() async {
     DocumentReference data = FirebaseFirestore.instance.collection("users").doc(Userid);
     var dbu = await data.get();
     setState(() {
       uname = dbu.get("first name") + ' ' + dbu.get("last name");
       uemail = dbu.get("email");
+      image=dbu.get('image');
     });
-
   }
+
   @override
   void initState() {
     dowurl();
     getData();
     super.initState();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,21 +102,19 @@ class MyAppState extends State<home>{
           child:ListView(
             padding: EdgeInsets.zero,
             children: [
-              UserAccountsDrawerHeader(accountName: Text(uname,style:TextStyle(color:Colors.black)),
+              UserAccountsDrawerHeader(
+                accountName: Text(uname,style:TextStyle(color:Colors.black)),
                 accountEmail: Text(uemail,style:TextStyle(color:Colors.black)),
                 currentAccountPicture:CircleAvatar(
-                  child:ClipOval(
-                    child:Image.asset('assets/images/avatar1.jpg',
-                      width:80,
-                      height:80,
-                      fit: BoxFit.cover,
-                    ),
+                    child: ClipOval(
+                          child:image!=''?Image.network(image, width:90, height:90, fit: BoxFit.cover,):SizedBox(),
+                        ),
                   ),
-                ),
                 decoration: BoxDecoration(
                   color: Colors.white38,
                 ),
               ),
+
               ListTile(
                 leading:Icon(Icons.person),
                 title:Text('My Personal Info'),
