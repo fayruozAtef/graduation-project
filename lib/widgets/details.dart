@@ -168,6 +168,7 @@ class MyAppState extends State<details> {
   Widget buildNavigateButton()=>FloatingActionButton.extended(
     backgroundColor: Colors.teal,
     onPressed: (){
+      List<String> subend=['','','0'];
       for(int i=0;i<list.length;i++){
         if(count[i]>0){
           List<String> su=[];
@@ -176,9 +177,8 @@ class MyAppState extends State<details> {
           su.add(tprice[i].toString());
           order.add(su);
         }
-        List<String> subend=['','','0'];
-        order.add(subend);
       }
+      order.add(subend);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => Categories(subOrder:order,address: address,phone: phone,exphone:exphone,userId: userId,)));
     },

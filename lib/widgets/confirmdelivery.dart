@@ -102,14 +102,20 @@ class MyAppState extends State<confdeliv> {
                 onPressed: () async {
                   Map<String,List> order=Map();
                   for(int i=0;i<test.length;i++){
+                    if(test[i][0]=='')
+                      test.removeAt(i);
+                  }
+                  print("test2: $test");
+                  for(int i=0;i<test.length;i++){
                     test[i].add('0');
                     order['order${i}']=test[i];
                   }
                   print("test: $test");
+
                    CollectionReference data = FirebaseFirestore.instance.collection("delivery");
                    int i=0;
                     await data.doc().set(
-                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId,"order":order,"date":DateTime.now(),"location":'Delivery',"const":'50'},
+                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId,"order":order,"date":DateTime.now(),"location":'Delivery',"const":'50',"finished":'0'},
                     );
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) =>home(userId: userId,)));
