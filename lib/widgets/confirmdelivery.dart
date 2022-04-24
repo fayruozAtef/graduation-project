@@ -115,7 +115,7 @@ class MyAppState extends State<confdeliv> {
                    CollectionReference data = FirebaseFirestore.instance.collection("delivery");
                    int i=0;
                     await data.doc().set(
-                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId,"order":order,"date":DateTime.now(),"location":'Delivery',"const":'50',"finished":'0'},
+                        {"address":address,"phone":phone,"extra phone":exphone,"user id":userId,"order":order,"date":DateTime.now(),"const":'50',"finished":'0'},
                     );
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) =>home(userId: userId,)));
