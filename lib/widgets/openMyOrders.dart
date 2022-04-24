@@ -56,7 +56,9 @@ class _open extends State<open> {
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(orders['location'],style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                (orders['const']!=null)?
+                Text('Delivery',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)):
+                Text('In-Hall',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -94,7 +96,7 @@ class _open extends State<open> {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.fromLTRB(8,0,0,0),
+                    padding: EdgeInsets.fromLTRB(8,0,0,10),
                     width: 180,
                     child:Text(i[0],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
@@ -132,7 +134,8 @@ class _open extends State<open> {
                 Container(
                   padding: EdgeInsets.fromLTRB(8,0,0,0),
                   width: 180,
-                  child:Text(orders['location'],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  child:(orders['const']!=null)?Text('Delivery',style: TextStyle( color: Colors.black, fontSize: 20,)):
+                  Text("Service",style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
                   width: 60,
@@ -140,7 +143,8 @@ class _open extends State<open> {
                 ),
                 Container(
                   width: 100,
-                  child:Text(orders['const'],style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  child:(orders['const']!=null)?Text(orders['const'],style: TextStyle( color: Colors.black, fontSize: 20,)):
+                  Text('${((double.parse(getSum())*14)/100)}',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
               ],
             ),
@@ -158,7 +162,8 @@ class _open extends State<open> {
                 ),
                Container(
                   width: 100,
-                  child: Text((double.parse(getSum())+double.parse(orders['const'])).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
+                  child: (orders['const']!=null)?Text((double.parse(getSum())+double.parse(orders['const'])).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)):
+                  Text((double.parse(getSum())+((double.parse(getSum())*14)/100)).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
               ],
             ),

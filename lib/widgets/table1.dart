@@ -113,7 +113,7 @@ class _table1 extends State<table1>{
               ),
               Container(
                 width: 109,
-                child: Text('30',style: TextStyle( color: Colors.black, fontSize: 20,)),
+                child: Text('${((double.parse(getSum())*14)/100)}',style: TextStyle( color: Colors.black, fontSize: 20,)),
               ),
             ],
           ),
@@ -131,7 +131,7 @@ class _table1 extends State<table1>{
               ),
               Container(
                 width: 109,
-                child: Text((double.parse(getSum())+30).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
+                child: Text(((double.parse(getSum()))+((double.parse(getSum())*14)/100)).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
               ),
             ],
           ),

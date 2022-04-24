@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'openMyOrders.dart';
 import 'package:intl/intl.dart';
 
@@ -20,11 +21,19 @@ class _myorders extends State<myorders> {
 List orders=[];
 List<double> total=[];
   CollectionReference bff = FirebaseFirestore.instance.collection("delivery");
+  CollectionReference bff2 = FirebaseFirestore.instance.collection("In-Hall");
   getData() async {
     QuerySnapshot db = await bff.where('user id',isEqualTo:uid).get();
+    QuerySnapshot db2 = await bff2.where('user id',isEqualTo:uid).get();
     db.docs.forEach((element) {
       setState(() {
         orders.add(element.data());
+        total.add(0);
+      });
+    });
+    db2.docs.forEach((element2) {
+      setState(() {
+        orders.add(element2.data());
         total.add(0);
       });
     });
@@ -50,6 +59,7 @@ List<double> total=[];
       }
     }
 
+
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar:AppBar(
@@ -67,9 +77,9 @@ List<double> total=[];
               side: BorderSide(color: Colors.black, width: 0.30),
             ),
             child:InkWell(onTap: (){
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context)=>open(orders: orders[i],)));
-            },
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context)=>open(orders: orders[i],)));
+                },
               child: Container(
                 width: width,
                 height:70,
@@ -81,8 +91,10 @@ List<double> total=[];
                       width:110,
                       height:60,
                       alignment: Alignment.centerRight,
-                      child: Expanded(
-                          child:Text('${total[i]+double.parse(orders[i]['const'])} EGP',maxLines: 2,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 22, fontWeight: FontWeight.bold)) ),
+                      child:(orders[i]['const']!=null)? Expanded(
+                          child:Text('${total[i]+double.parse(orders[i]['const'])} EGP',maxLines: 2,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 22, fontWeight: FontWeight.bold)) ):
+                      Expanded(
+                          child:Text('${total[i]+((total[i]*14)/100)} EGP',maxLines: 2,softWrap: false,overflow:TextOverflow.ellipsis,style:TextStyle(color:Colors.black,fontSize: 22, fontWeight: FontWeight.bold)) ),
                     ),
                   ],
                 ),
