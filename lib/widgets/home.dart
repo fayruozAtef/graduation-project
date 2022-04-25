@@ -14,6 +14,7 @@ import '../deliveryinformation.dart';
 import 'categorydrawer.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
+import 'myReservation.dart';
 import 'myorder.dart';
 import 'qr_scan_page.dart';
 
@@ -125,11 +126,20 @@ class MyAppState extends State<home>{
                 },
               ),
               ListTile(
-                leading:Icon(Icons.person),
-                title:Text('My Order'),
+                leading:Icon(Icons.history),
+                title:Text('My Orders'),
                 onTap:(){
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=>myorders(uid: Userid)));
+
+                },
+              ),
+              ListTile(
+                leading:Icon(Icons.table_bar),
+                title:Text('My Reservation'),
+                onTap:(){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>myReservation(uid: Userid)));
 
                 },
               ),
