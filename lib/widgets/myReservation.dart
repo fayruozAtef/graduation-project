@@ -18,6 +18,7 @@ class _myReservation extends State<myReservation> {
   _myReservation({required this.uid});
 
   List list=[];
+  List old=[];
   List id=[];
 DateTime today=DateTime.now();
 TimeOfDay time=TimeOfDay.now();
@@ -30,12 +31,18 @@ TimeOfDay time=TimeOfDay.now();
           list.add(element.data());
           id.add(element.id);
         }
-        if(element.get('date')==DateFormat('yyy-MM-dd').format(today)){
+       else if(element.get('date')==DateFormat('yyy-MM-dd').format(today)){
           TimeOfDay t=TimeOfDay(hour:int.parse((element.get('time')).split(":")[0]),minute: int.parse((element.get('time')).split(":")[1]));
           if(time.hour<((t.hour)-2)){
             list.add(element.data());
             id.add(element.id);
           }
+          else{
+            old.add(element.data());
+          }
+       }
+      else{
+          old.add(element.data());
         }
       });
     });
@@ -61,7 +68,6 @@ TimeOfDay time=TimeOfDay.now();
           children: [
             SizedBox(height: 8),
             for(int i=0;i<list.length;i++)
-              if(list[i]!='')
               Card(
                 shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.teal, width: 2),
@@ -106,6 +112,35 @@ TimeOfDay time=TimeOfDay.now();
                       ],
                     ),
                   ),
+            for(int i=0;i<old.length;i++)
+              Card(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.teal, width: 2),
+                ),
+                child:Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child:Row(
+                          children:[
+                            Text('Date : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                            Text(DateFormat('dd-MM-yyy').format(DateTime.parse(old[i]['date']))+'  '+old[i]['time'],style:TextStyle(color:Colors.black,fontSize: 22))
+                          ]
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child:Row(
+                          children:[
+                            Text('Table No. : ',style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                            Text("${old[i]['tableno']}",style:TextStyle(color:Colors.black,fontSize: 22))
+                          ]
+                      ),
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
       ),
