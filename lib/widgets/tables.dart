@@ -106,11 +106,16 @@ class _tables extends State<tables> {
                                                       SizedBox(
                                                           width: 230,
                                                           child: Text(
-                                                              "Sets no:${table[i]['no-of-sets'] } location:${table[i]['location'] }",
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontSize: 25))
+                                                              "Sets No:${table[i]['no-of-sets']}",
+                                                              style: TextStyle(color: Colors.black, fontSize: 25))
                                                       ),
+                                                      SizedBox(
+                                                          width: 230,
+                                                          child: Text(
+                                                              "Location:${table[i]['location']}",
+                                                              style: TextStyle(color: Colors.black, fontSize: 25))
+                                                      ),
+
                                                       SizedBox(height: 20),
                                                       ElevatedButton(
                                                         style: ButtonStyle(
@@ -195,9 +200,15 @@ class _tables extends State<tables> {
                                                       SizedBox(
                                                           width: 200,
                                                           child: Text(
-                                                              "Sets no:${table[i +
-                                                                  1]['no-of-sets'] } location:${table[i +
-                                                                  1]['location'] }",
+                                                              "Sets No:${table[i + 1]['no-of-sets']}",
+                                                              style: TextStyle(
+                                                                  color: Colors.black,
+                                                                  fontSize: 25))
+                                                      ),
+                                                      SizedBox(
+                                                          width: 200,
+                                                          child: Text(
+                                                              "Location:${table[i + 1]['location']}",
                                                               style: TextStyle(
                                                                   color: Colors.black,
                                                                   fontSize: 25))
