@@ -11,7 +11,9 @@ import 'package:resflutter_app/widgets/coins.dart';
 import 'package:resflutter_app/widgets/profileInfo.dart';
 
 import '../deliveryinformation.dart';
+import 'aboutUs.dart';
 import 'categorydrawer.dart';
+import 'contact.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
 import 'myReservation.dart';
@@ -161,12 +163,18 @@ class MyAppState extends State<home>{
               ListTile(
                 leading:Icon(Icons.article),
                 title:Text('About us'),
-                onTap:(){},
+                onTap:(){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>aboutus()));
+                },
               ),
               ListTile(
                 leading:Icon(Icons.add_ic_call_outlined),
                 title:Text('Contact'),
-                onTap:(){},
+                onTap:(){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>contact()));
+                },
               ),
               ListTile(
                   leading:Icon(Icons.exit_to_app),
