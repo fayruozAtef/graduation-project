@@ -110,7 +110,7 @@ class MyAppState extends State<home>{
                 accountEmail: Text(uemail,style:TextStyle(color:Colors.black)),
                 currentAccountPicture:CircleAvatar(
                     child: ClipOval(
-                          child:image!=''?Image.network(image, width:90, height:90, fit: BoxFit.cover,):SizedBox(),
+                          child:image!=''?Image.network(image, width:90, height:90, fit: BoxFit.cover,):Image.asset('assets/images/images.png'),
                         ),
                   ),
                 decoration: BoxDecoration(

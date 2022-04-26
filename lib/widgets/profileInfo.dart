@@ -98,7 +98,7 @@ class information extends State<profileInfo> {
                   height: 150,
                   width: 150,
                   child: ClipOval(
-                    child:uimage!=''?Image.network(uimage, width:90, height:90, fit: BoxFit.cover,):ColoredBox(color: Colors.blue),
+                    child:uimage!=''?Image.network(uimage, width:90, height:90, fit: BoxFit.cover,):Image.asset('assets/images/images.png'),
                   ),
                   ),
                 FloatingActionButton(
