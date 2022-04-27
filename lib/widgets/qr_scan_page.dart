@@ -16,7 +16,7 @@ class QRScanPage extends StatefulWidget {
 
 class _QRScanPageState extends State<QRScanPage> {
   String qrCode = '';
-  List<List<String>>test=[[' ',' ','0'],[' ',' ','0'],[' ',' ','0']];
+  List<List<String>>test=[];
   String id;
   _QRScanPageState({Key? key, required this.id});
 
@@ -85,7 +85,7 @@ class _QRScanPageState extends State<QRScanPage> {
                               }
                               else{
                                 Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:test, tableno: qrCode,userid: id,))
+                                    MaterialPageRoute(builder: (context) => CategoriesinHall(totalOrder:test, tableno: qrCode,userid: id,))
                                 );
                               }
                       },

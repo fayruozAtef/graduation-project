@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:resflutter_app/widgets/catgoriesinhall.dart';
+import 'catgoriesinhall.dart';
 
 class detailsinHall extends StatefulWidget {
   String title;
   String table;
   String userid;
+  List <List<String>>order;
 
-  detailsinHall({Key? key,required this.title, required this.table, required this.userid}) : super(key: key);
+  detailsinHall({Key? key,required this.title, required this.table, required this.userid, required this.order}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(title2: title, tableNo: this.table , id: userid);
+    return MyAppState(title2: title, tableNo: this.table , id: userid,order: this.order);
   }
 }
 
@@ -19,10 +20,9 @@ class MyAppState extends State<detailsinHall> {
   String title2;
   String tableNo;
   String id;
-  MyAppState({Key? key, required this.title2, required this.tableNo,required this.id}) : super();
+  List <List<String>>order;
+  MyAppState({Key? key, required this.title2, required this.tableNo,required this.id,required this.order}) : super();
 
-
-  List <List<String>>order=[];
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
@@ -168,14 +168,13 @@ class MyAppState extends State<detailsinHall> {
           su.add(tprice[i].toString());
           order.add(su);
         }
-        List<String> subend=['','','0'];
-        order.add(subend);
+
       }
-      print(order);
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => CategoriesinHall(subOrder:order, tableno: tableNo,userid: id,)));
+          MaterialPageRoute(builder: (context) => CategoriesinHall(totalOrder:order, tableno: tableNo,userid: id,)));
 
     },
     label: Text('Add',style:TextStyle(fontSize: 30)),
   );
 }
+

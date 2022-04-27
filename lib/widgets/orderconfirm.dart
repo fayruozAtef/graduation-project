@@ -88,7 +88,7 @@ class _orderon extends State<ordercon> {
              ),
              onPressed: ()  {
                Navigator.of(context).pushReplacement(
-                   MaterialPageRoute(builder: (context) =>CategoriesinHall(subOrder: test, tableno: tano,userid: userId,)));
+                   MaterialPageRoute(builder: (context) =>CategoriesinHall(totalOrder: test, tableno: tano,userid: userId,)));
              },
              child: Text('Add More',style:TextStyle(fontSize: 30)),
            ),
