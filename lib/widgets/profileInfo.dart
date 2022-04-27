@@ -62,8 +62,8 @@ class information extends State<profileInfo> {
   }
 
   File? image;
-  _openPicker() async{
-    final image= await ImagePicker().pickImage(source: ImageSource.gallery);
+  _openPicker(ImageSource source) async{
+    final image= await ImagePicker().pickImage(source: source);
     if(image==null) return;
     final imageTemporary =File(image.path);
     setState(() {
@@ -78,8 +78,9 @@ class information extends State<profileInfo> {
           uimage = url;
         });
       });
-
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +106,50 @@ class information extends State<profileInfo> {
                   child: Icon(Icons.camera_alt, color: Colors.white, size: 20),
                   backgroundColor: Colors.teal,
                   mini: true,
-                  onPressed: _openPicker,
+                  onPressed:(){
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        //final theme = Theme.of(context);
+                        return Container(
+                              height: 215,
+                              child: Container(
+                                child: ListView(
+                                  children: [
+                                    Padding(
+                                      padding:EdgeInsets.fromLTRB(9, 10, 0, 0) ,
+                                      child:Text('Profile Photo',style:TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold)),
+                                    ),
+                                    ListTile(
+                                      leading:Icon(Icons.camera_alt_outlined,color: Colors.black, size: 20),
+                                      title:Text('Camera',style:TextStyle(color:Colors.black,fontSize: 20),),
+                                      onTap:(){
+                                        _openPicker(ImageSource.camera);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading:Icon(Icons.image_outlined,color: Colors.black, size: 20),
+                                      title:Text('Gallery',style:TextStyle(color:Colors.black,fontSize: 20),),
+                                      onTap:(){
+                                        _openPicker(ImageSource.gallery);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading:Icon(Icons.delete_outline_outlined,color: Colors.black, size: 20),
+                                      title:Text('Delete',style:TextStyle(color:Colors.black,fontSize: 20),),
+                                      onTap:(){
+                                        setState(() {
+                                          uimage='';
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                          );
+                        },
+                    );
+                  }
                 ),
                 Container(
                   padding:EdgeInsets.all(13),
@@ -210,7 +254,6 @@ class information extends State<profileInfo> {
                       ]
                   ),
                 ),
-
                 ElevatedButton(
                   style:ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(Colors.teal),
                       fixedSize:MaterialStateProperty.all(Size(150,45)),
@@ -222,6 +265,8 @@ class information extends State<profileInfo> {
                     final isValid = formkey.currentState!.validate();
                     if(isValid==true ){
                       updateData(currentfname,currentlname,currentphone,_value,uimage);
+                      final delete =FirebaseStorage.instance.refFromURL('gs://testfirebaseflutter-aa934.appspot.com/users').child(userId);
+                      delete.delete();
                       Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) =>home(userId:userId)));
