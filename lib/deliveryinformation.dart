@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
-List<List<String>>test=[[' ',' ','0']];
+List<List<String>>test=[];
 class DeliveryInformation extends StatefulWidget {
 
   final String userId;
@@ -177,7 +177,7 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                                         MaterialPageRoute
                                           (builder: (context) =>
                                             Categories(
-                                                subOrder: test,
+                                                totalOrder: test,
                                                 address: address,
                                                 phone: phonenum,
                                                 exphone: extraphonenum,

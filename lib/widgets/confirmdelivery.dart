@@ -132,7 +132,7 @@ class MyAppState extends State<confdeliv> {
                 ),
                 onPressed: ()  {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) =>Categories(userId: userId, subOrder: test,exphone: exphone,address: address,phone: phone,)));
+                      MaterialPageRoute(builder: (context) =>Categories(userId: userId, totalOrder: test,exphone: exphone,address: address,phone: phone,)));
                 },
                 child: Text('Add More',style:TextStyle(fontSize: 30)),
               ),
