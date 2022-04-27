@@ -11,9 +11,12 @@ import 'package:resflutter_app/widgets/coins.dart';
 import 'package:resflutter_app/widgets/profileInfo.dart';
 
 import '../deliveryinformation.dart';
+import 'aboutUs.dart';
 import 'categorydrawer.dart';
+import 'contact.dart';
 import 'dateAndtime.dart';
 // @dart=2.9
+import 'myReservation.dart';
 import 'myorder.dart';
 import 'qr_scan_page.dart';
 
@@ -107,7 +110,7 @@ class MyAppState extends State<home>{
                 accountEmail: Text(uemail,style:TextStyle(color:Colors.black)),
                 currentAccountPicture:CircleAvatar(
                     child: ClipOval(
-                          child:image!=''?Image.network(image, width:90, height:90, fit: BoxFit.cover,):SizedBox(),
+                          child:image!=''?Image.network(image, width:90, height:90, fit: BoxFit.cover,):Image.asset('assets/images/images.png'),
                         ),
                   ),
                 decoration: BoxDecoration(
@@ -125,11 +128,20 @@ class MyAppState extends State<home>{
                 },
               ),
               ListTile(
-                leading:Icon(Icons.person),
-                title:Text('My Order'),
+                leading:Icon(Icons.history),
+                title:Text('My Orders'),
                 onTap:(){
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=>myorders(uid: Userid)));
+
+                },
+              ),
+              ListTile(
+                leading:Icon(Icons.table_bar),
+                title:Text('My Reservation'),
+                onTap:(){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>myReservation(uid: Userid)));
 
                 },
               ),
@@ -151,12 +163,18 @@ class MyAppState extends State<home>{
               ListTile(
                 leading:Icon(Icons.article),
                 title:Text('About us'),
-                onTap:(){},
+                onTap:(){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>aboutus()));
+                },
               ),
               ListTile(
-                leading:Icon(Icons.add_ic_call_outlined),
+                leading:Icon(Icons.add_ic_call),
                 title:Text('Contact'),
-                onTap:(){},
+                onTap:(){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>contact()));
+                },
               ),
               ListTile(
                   leading:Icon(Icons.exit_to_app),
