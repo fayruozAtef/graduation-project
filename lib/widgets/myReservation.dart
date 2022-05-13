@@ -21,7 +21,7 @@ class _myReservation extends State<myReservation> {
   List old=[];
   List id=[];
 DateTime today=DateTime.now();
-TimeOfDay time=TimeOfDay.now();
+  TimeOfDay time=TimeOfDay.now();
   CollectionReference bff = FirebaseFirestore.instance.collection("reserve");
   getData() async {
     QuerySnapshot db = await bff.where('user id',isEqualTo:uid).where('arrived',isEqualTo: false).get();

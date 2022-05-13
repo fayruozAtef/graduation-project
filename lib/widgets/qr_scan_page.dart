@@ -1,7 +1,8 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:resflutter_app/widgets/widgeto.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'catgoriesinhall.dart';
@@ -16,6 +17,8 @@ class QRScanPage extends StatefulWidget {
 
 class _QRScanPageState extends State<QRScanPage> {
   String qrCode = '';
+  String tableno = '';
+  String code='';
   List<List<String>>test=[];
   String id;
   _QRScanPageState({Key? key, required this.id});
@@ -25,7 +28,7 @@ class _QRScanPageState extends State<QRScanPage> {
     final deviceSize= MediaQuery.of(context).size;
     return  Stack(
       children: [
-        BackWithOpacity(),
+        const BackWithOpacity(),
         Scaffold(
           appBar:AppBar(
             title:const Text('Choose the table',style: TextStyle(color: Colors.white,fontSize:22)),
@@ -57,7 +60,7 @@ class _QRScanPageState extends State<QRScanPage> {
                       height:60,
                       width:300,
                       child: MaterialButton(
-                        onPressed: () => scanQRCode(),
+                        onPressed: () =>{ qrCode="",scanQRCode()},
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -78,10 +81,10 @@ class _QRScanPageState extends State<QRScanPage> {
                     child: MaterialButton(
                       onPressed: (){
                               if(qrCode==''){
-                                showAlertDialog(context);
+                                showAlertDialog(context,"Scan table QR-code first.");
                               }
                               else if(double.parse(qrCode)<0){
-                                showAlertDialog(context);
+                                showAlertDialog(context,"Scan table QR-code first.");
                               }
                               else{
                                 Navigator.of(context).pushReplacement(
@@ -122,23 +125,74 @@ class _QRScanPageState extends State<QRScanPage> {
       if (!mounted) return;
 
       setState(() {
-        this.qrCode = qrCode;
+        this.code=qrCode;
+        getTableNumber();
       });
     } on PlatformException {
-      qrCode = 'Failed to get platform version.';
+      code = 'Failed to get platform version.';
     }
   }
 
-  showAlertDialog(BuildContext context) {
+  CollectionReference tables = FirebaseFirestore.instance.collection("tables");
+  CollectionReference reservedTabesToday = FirebaseFirestore.instance.collection("reserve");
 
+  //Get table number of the current code
+  Future<void> getTableNumber() async {
+    int tablesNumber=0;
+    QuerySnapshot tableQuery = await tables.where("qrcode",isEqualTo: code).get();
+    tablesNumber=tableQuery.size;
+    if(tablesNumber==1){
+      tableQuery.docs.forEach((element) {
+        setState(() {
+         tableno=element.id;
+         print(tableno);
+        });
+      });
+    }
+    else {
+      print("No thing to Scan");
+      showAlertDialog(context,"Scan table QR-code first.");
+    }
+    getReserved();
+  }
+
+  //Get all reserved tables today
+  Future<void> getReserved() async {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String dateToday = formatter.format(now);
+    TimeOfDay time=TimeOfDay.now();
+    bool flag=true;
+    QuerySnapshot dbt = await reservedTabesToday.where("arrived", isEqualTo: false).where('date',isEqualTo:dateToday ).get();
+    dbt.docs.forEach((element) {
+      setState(() {
+        if(tableno==element.get("tableno").toString()){
+          if(element.get('date')==DateFormat('yyy-MM-dd').format(now)){
+            TimeOfDay t=TimeOfDay(hour:int.parse((element.get('time')).split(":")[0]),minute: int.parse((element.get('time')).split(":")[1]));
+            if(time.hour>((t.hour)-4)){
+              flag=false;
+            }
+          }
+        }
+      });
+    });
+    if(flag==true) {
+      qrCode=tableno;
+    }
+    else{
+      qrCode="";
+      showAlertDialog(context, "Sorry the table is reserved today. \nPlease go and scan another table. \nThanks for your help");
+    }
+}
+  showAlertDialog(BuildContext context,String message) {
     // set up the AlertDialog
-    AlertDialog alert = const AlertDialog(
+    AlertDialog alert = AlertDialog(
       backgroundColor: Colors.white54,
-      title:Text("Warning:", style: TextStyle(
-        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+      title:const Text("Warning:", style: TextStyle(
+        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white,
       ),),
-      content: Text("Scan table QR-code first.", style: TextStyle(
-        fontSize: 18, color: Colors.black,
+      content: Text(message, style: const TextStyle(
+        fontSize: 20, color: Colors.black,
       ),),
       actions: [],
     );
