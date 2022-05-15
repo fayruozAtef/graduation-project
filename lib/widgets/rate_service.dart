@@ -198,7 +198,6 @@ class _MRateus extends State<Rateus>{
                                           ),
                                         ),
                                       ),
-
                                       SizedBox(
                                         height: 60.0,
                                         width: 80.0,
@@ -245,7 +244,7 @@ class _MRateus extends State<Rateus>{
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -277,7 +276,7 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(3,1),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
                                           color:Colors.black,
                                           child:const Text(' 1 ',
@@ -296,9 +295,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(3,2),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 2 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -315,9 +314,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(3,3),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 3 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -334,9 +333,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(3,4),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 4 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -353,9 +352,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(3,5),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -387,7 +386,7 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(4,1),
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(30),
-                                              side: BorderSide(color: Colors.grey)
+                                              side:const BorderSide(color: Colors.grey)
                                           ),
                                           color:Colors.black,
                                           child:const Text(' 1 ',
@@ -406,9 +405,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(4,2),
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(30),
-                                              side: BorderSide(color: Colors.grey)
+                                              side:const BorderSide(color: Colors.grey)
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 2 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -425,9 +424,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(4,3),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 3 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -444,9 +443,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(4,4),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 4 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -463,9 +462,9 @@ class _MRateus extends State<Rateus>{
                                         MaterialButton(onPressed: collectRate(4,5),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
-                                            side: BorderSide(color: Colors.grey),
+                                            side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Color.fromRGBO(65, 189, 180, 54),
+                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -511,16 +510,26 @@ class _MRateus extends State<Rateus>{
   }
 
   collectRate(int id, int num) {
-    if(id==1)
-      n1=num;
-    else if(id==2)
+    if(id==1) {
+      n1 = num;
+    }
+    else if(id==2){
       n2=num;
-    else if(id==3)
+    }
+    else if(id==3){
       n3=num;
-    else if(id==4)
+    }
+    else if(id==4){
       n4=num;
-    else if(id==5)
+    }
+    else if(id==5){
       n5=num;
-  }
+    }
+    print(n1);
+    print(n2);
+    print(n3);
+    print(n4);
+    print(n5);
 
+  }
 }
