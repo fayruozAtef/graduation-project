@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/catgoriesinhall.dart';
 import 'package:resflutter_app/widgets/table1.dart';
+
+import 'home.dart';
+import 'notifserv.dart';
 
 class ordercon extends StatefulWidget {
   List<List<String>> test2;
@@ -18,6 +23,8 @@ class _orderon extends State<ordercon> {
   List<List<String>> test;
   String userId;
   String tano;
+  final FCMNotificationService _fcmNotificationService =
+  FCMNotificationService();
   _orderon({ required this.test,required this.userId,required this.tano });
   @override
   Widget build(BuildContext context) {
@@ -74,7 +81,28 @@ class _orderon extends State<ordercon> {
                      borderRadius:BorderRadius.circular(18)
                  ))
              ),
-             onPressed: (){
+             onPressed: () async {
+               try{
+                 await _fcmNotificationService.sendNotificationToUser(
+
+                     title: "Table $tano ",
+                     body: "Table $tano Made an Order.",
+                     test: test,
+                     tableno: tano
+                 );
+                 ScaffoldMessenger.of(context).showSnackBar(
+                   SnackBar(content: Text("Waiter Will confirme Your Order Soon.")),
+                 );
+                 Timer(const Duration(seconds: 3), () {
+                   Navigator.of(context).pushReplacement(
+                       MaterialPageRoute(builder: (context)=>home(userId: userId,)));
+                 });
+               }catch(e){
+                 ScaffoldMessenger.of(context).showSnackBar(
+                   SnackBar(content: Text("Error,${e.toString()}.")),
+                 );
+               }
+
              },
              child: Text('Confirm',style:TextStyle(fontSize: 30)),
            ),
