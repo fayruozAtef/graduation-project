@@ -8,7 +8,6 @@ abstract class IFCMNotificationService {
 
     required String title,
     required String body,
-    required List<List<String>> test,
     required String tableno,
   });
 
@@ -24,7 +23,6 @@ class FCMNotificationService extends IFCMNotificationService {
 
       String title,
       String body,
-      List<List<String>> test,
       String tableno,
       ) async {
     try {
@@ -33,7 +31,6 @@ class FCMNotificationService extends IFCMNotificationService {
           'to': '/topics/waiter',
           'priority': 'high',
           'data':{
-            'test': test,
             'table': tableno
           },
           'notification': {
@@ -64,13 +61,11 @@ class FCMNotificationService extends IFCMNotificationService {
 
     required String title,
     required String body,
-    required List<List<String>> test,
     required String tableno,
   }) {
     return _sendNotification(
       title,
       body,
-      test,
       tableno,
     );
   }

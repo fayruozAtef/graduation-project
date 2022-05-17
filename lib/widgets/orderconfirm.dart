@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/catgoriesinhall.dart';
 import 'package:resflutter_app/widgets/table1.dart';
@@ -23,8 +24,7 @@ class _orderon extends State<ordercon> {
   List<List<String>> test;
   String userId;
   String tano;
-  final FCMNotificationService _fcmNotificationService =
-  FCMNotificationService();
+  final FCMNotificationService _fcmNotificationService = FCMNotificationService();
   _orderon({ required this.test,required this.userId,required this.tano });
   @override
   Widget build(BuildContext context) {
@@ -82,16 +82,31 @@ class _orderon extends State<ordercon> {
                  ))
              ),
              onPressed: () async {
+               Map<String,List> order=Map();
+               for(int i=0;i<test.length;i++){
+                 if(test[i][0]=='')
+                   test.removeAt(i);
+               }
+               print("test2: $test");
+               for(int i=0;i<test.length;i++){
+                 test[i].add('0');
+                 order['order${i}']=test[i];
+               }
+               print("test: $test");
+
+               CollectionReference data = FirebaseFirestore.instance.collection("convert");
+               await data.doc("$tano").set(
+                 {"user id":userId,"order":order,"table":tano},
+               );
+
                try{
                  await _fcmNotificationService.sendNotificationToUser(
-
                      title: "Table $tano ",
                      body: "Table $tano Made an Order.",
-                     test: test,
                      tableno: tano
                  );
                  ScaffoldMessenger.of(context).showSnackBar(
-                   SnackBar(content: Text("Waiter Will confirme Your Order Soon.")),
+                   const SnackBar(content: Text("Waiter Will confirme Your Order Soon.")),
                  );
                  Timer(const Duration(seconds: 3), () {
                    Navigator.of(context).pushReplacement(
