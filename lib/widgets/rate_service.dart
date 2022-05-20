@@ -8,6 +8,9 @@ import 'home.dart';
 
 int n1=0,n2=0,n3=0,n4=0,n5=0;
 class Rateus extends StatefulWidget{
+  String userId;
+  Rateus({Key? key, required this.userId,}) : super(key: key);
+
   @override
   State<Rateus> createState() => _MRateus();
 }

@@ -3,12 +3,16 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:resflutter_app/authscreen.dart';
 import 'package:resflutter_app/widgets/coins.dart';
 import 'package:resflutter_app/widgets/profileInfo.dart';
+import 'package:resflutter_app/widgets/rate_service.dart';
 
 import '../deliveryinformation.dart';
 import 'aboutUs.dart';
@@ -19,6 +23,21 @@ import 'dateAndtime.dart';
 import 'myReservation.dart';
 import 'myorder.dart';
 import 'qr_scan_page.dart';
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel',
+    "High Importance Notifcations",
+    importance: Importance.max
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationplugin =
+FlutterLocalNotificationsPlugin();
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print("Handling a background message : ${message.messageId}");
+  print(message.data);
+}
 
 
 List<String> imgList=[];
@@ -36,7 +55,61 @@ class home extends StatefulWidget {
 List<Widget> imageSliders=[];
 class MyAppState extends State<home>{
   final String Userid;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  final CollectionReference _tokensDB =
+  FirebaseFirestore.instance.collection('users');
   MyAppState({Key? key,required this.Userid});
+  initialize() async {
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    await flutterLocalNotificationplugin
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    var intializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings =
+    InitializationSettings(android: intializationSettingsAndroid);
+
+     flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification: (String? payload){
+      if(payload!=null){
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) =>Rateus(userId:Userid,)));
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      print("data:${message.data['test']}");
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                'resturant',
+                channel.name,
+                icon: 'launch_background',
+              ),
+            ),
+            payload: message.data['test']
+        );
+      }
+    });
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if(message!=null){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Rateus(userId:Userid,)));
+      }
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Rateus(userId:Userid,)));
+    });
+
+  }
 
   dowurl() async{
     String durl1 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest1.jpg').getDownloadURL();
@@ -84,11 +157,24 @@ class MyAppState extends State<home>{
       image=dbu.get('image');
     });
   }
+  Future<void> load() async {
+
+    String? token = await _fcm.getToken();
+
+    assert(token != null);
+
+    DocumentReference docRef = _tokensDB.doc("$Userid");
+    docRef.update({'token': token});
+
+
+  }
 
   @override
   void initState() {
     dowurl();
     getData();
+    initialize();
+    load();
     super.initState();
   }
 
