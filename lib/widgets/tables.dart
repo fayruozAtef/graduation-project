@@ -82,7 +82,7 @@ class _tables extends State<tables> {
                                         //final theme = Theme.of(context);
                                         return SingleChildScrollView(
                                           child: Container(
-                                              height: 500,
+                                              height: 550,
                                               child: Container(
                                                 child: Column(
                                                     children: [
@@ -95,6 +95,7 @@ class _tables extends State<tables> {
                                                             items: table[i]['images']
                                                                 .map<Widget>((item) =>
                                                                 Container(
+                                                                  height: (500/4)*3,
                                                                     child:  Image
                                                                         .network(
                                                                         item)),
@@ -102,21 +103,21 @@ class _tables extends State<tables> {
                                                                 .toList(),
                                                           )
                                                       ),
-                                                      SizedBox(height: 20),
+                                                      SizedBox(height: 10),
                                                       SizedBox(
-                                                          width: 230,
+                                                          width: (MediaQuery.of(context).size.width)-20,
                                                           child: Text(
                                                               "Sets No:${table[i]['no-of-sets']}",
                                                               style: TextStyle(color: Colors.black, fontSize: 25))
                                                       ),
                                                       SizedBox(
-                                                          width: 230,
+                                                          width: (MediaQuery.of(context).size.width)-20,
                                                           child: Text(
                                                               "Location:${table[i]['location']}",
                                                               style: TextStyle(color: Colors.black, fontSize: 25))
                                                       ),
 
-                                                      SizedBox(height: 20),
+                                                      SizedBox(height: 10),
                                                       ElevatedButton(
                                                         style: ButtonStyle(
                                                             backgroundColor: MaterialStateProperty
@@ -178,7 +179,7 @@ class _tables extends State<tables> {
                                         //final theme = Theme.of(context);
                                         return SingleChildScrollView(
                                           child: Container(
-                                              height: 500,
+                                              height: 550,
                                               child: Container(
                                                 child: Column(
                                                     children: [
@@ -198,7 +199,7 @@ class _tables extends State<tables> {
                                                       ),
                                                       SizedBox(height: 20),
                                                       SizedBox(
-                                                          width: 200,
+                                                          width: (MediaQuery.of(context).size.width)-20,
                                                           child: Text(
                                                               "Sets No:${table[i + 1]['no-of-sets']}",
                                                               style: TextStyle(
@@ -206,7 +207,7 @@ class _tables extends State<tables> {
                                                                   fontSize: 25))
                                                       ),
                                                       SizedBox(
-                                                          width: 200,
+                                                          width: (MediaQuery.of(context).size.width)-20,
                                                           child: Text(
                                                               "Location:${table[i + 1]['location']}",
                                                               style: TextStyle(

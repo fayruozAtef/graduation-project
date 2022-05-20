@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/table2.dart';
@@ -105,20 +107,21 @@ class MyAppState extends State<confdeliv> {
                     if(test[i][0]=='')
                       test.removeAt(i);
                   }
-                  print("test2: $test");
                   for(int i=0;i<test.length;i++){
                     test[i].add('0');
                     order['order${i}']=test[i];
                   }
-                  print("test: $test");
 
                    CollectionReference data = FirebaseFirestore.instance.collection("delivery");
-                   int i=0;
                     await data.doc().set(
                         {"address":address,"phone":phone,"extra phone":exphone,"user id":userId,"order":order,"date":DateTime.now(),"const":'50',"finished":'0'},
                     );
+                  showAlertDialog(context,"Your sucessfully make an order");
+                  Timer(const Duration(seconds: 3), () {
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) =>home(userId: userId,)));
+                  });
+
                     },
                 child: Text('Confirm',style:TextStyle(fontSize: 30)),
               ),
@@ -131,14 +134,36 @@ class MyAppState extends State<confdeliv> {
                     ))
                 ),
                 onPressed: ()  {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) =>Categories(userId: userId, totalOrder: test,exphone: exphone,address: address,phone: phone,)));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) =>Categories(userId: userId, totalOrder: test,exphone: exphone,address: address,phone: phone,)));
+
                 },
                 child: Text('Add More',style:TextStyle(fontSize: 30)),
               ),
             ]
         ),
       ),
+    );
+  }
+  showAlertDialog(BuildContext context,String message) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white,
+      title:const Text("Message:", style: TextStyle(
+        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,
+      ),),
+      content: Text(message, style: const TextStyle(
+        fontSize: 20, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
