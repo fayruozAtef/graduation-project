@@ -23,7 +23,7 @@ class _CategoriesState extends State<CategoriesinHall> {
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("categories");
   getData() async {
-    QuerySnapshot dbf = await bff.get();
+    QuerySnapshot dbf = await bff.orderBy("type").get();
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());

@@ -26,11 +26,11 @@ class _CategoriesState extends State<Categories> {
 
   final String userId;
   _CategoriesState({Key? key ,required this.totalOrder2,required this.address,required this.phone,required this.exphone,required this.userId}) ;
-  
+
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("categories");
   getData() async {
-    QuerySnapshot dbf = await bff.get();
+    QuerySnapshot dbf = await bff.orderBy("type").get();
     dbf.docs.forEach((element) {
       setState(() {
         list.add(element.data());
