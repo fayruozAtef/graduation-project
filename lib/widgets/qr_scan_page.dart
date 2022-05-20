@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:resflutter_app/widgets/widgeto.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'backWithOpacity.dart';
 import 'catgoriesinhall.dart';
 
 class QRScanPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class QRScanPage extends StatefulWidget {
 }
 
 class _QRScanPageState extends State<QRScanPage> {
-  String qrCode = '';
+  String qrCode='' ;
   String tableno = '';
   String code='';
   List<List<String>>test=[];
@@ -25,7 +25,6 @@ class _QRScanPageState extends State<QRScanPage> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize= MediaQuery.of(context).size;
     return  Stack(
       children: [
         const BackWithOpacity(),
@@ -60,7 +59,7 @@ class _QRScanPageState extends State<QRScanPage> {
                       height:60,
                       width:300,
                       child: MaterialButton(
-                        onPressed: () =>{ qrCode="",scanQRCode()},
+                        onPressed: () =>{scanQRCode()},
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -80,17 +79,14 @@ class _QRScanPageState extends State<QRScanPage> {
                     width:180,
                     child: MaterialButton(
                       onPressed: (){
-                              if(qrCode==''){
-                                showAlertDialog(context,"Scan table QR-code first.");
-                              }
-                              else if(double.parse(qrCode)<0){
-                                showAlertDialog(context,"Scan table QR-code first.");
-                              }
-                              else{
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) => CategoriesinHall(totalOrder:test, tableno: qrCode,userid: id,))
-                                );
-                              }
+                        if(qrCode==''){
+                          showAlertDialog(context,"Scan table QR-code first.");
+                        }
+                        else if(double.parse(qrCode)>0){
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) => CategoriesinHall(totalOrder:test, tableno: qrCode,userid: id,))
+                          );
+                        }
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -144,16 +140,16 @@ class _QRScanPageState extends State<QRScanPage> {
     if(tablesNumber==1){
       tableQuery.docs.forEach((element) {
         setState(() {
-         tableno=element.id;
-         print(tableno);
+          tableno=element.id;
         });
       });
+      if(tableno!=""){
+        getReserved();
+      }
     }
     else {
-      print("No thing to Scan");
-      showAlertDialog(context,"Scan table QR-code first.");
+      showAlertDialog(context,"Sorry, This code is unvalid.");
     }
-    getReserved();
   }
 
   //Get all reserved tables today
@@ -176,14 +172,16 @@ class _QRScanPageState extends State<QRScanPage> {
         }
       });
     });
-    if(flag==true) {
-      qrCode=tableno;
-    }
-    else{
-      qrCode="";
-      showAlertDialog(context, "Sorry the table is reserved today. \nPlease go and scan another table. \nThanks for your help");
-    }
-}
+    setState(() {
+      if(flag==true) {
+        qrCode=tableno;
+      }
+      else{
+        showAlertDialog(context, "Sorry the table is reserved today. \nPlease go and scan another table. \nThanks for your help");
+      }
+    });
+
+  }
   showAlertDialog(BuildContext context,String message) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
