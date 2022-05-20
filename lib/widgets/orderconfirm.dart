@@ -89,7 +89,6 @@ class _orderon extends State<ordercon> {
                }
                print("test2: $test");
                for(int i=0;i<test.length;i++){
-                 test[i].add('0');
                  order['order${i}']=test[i];
                }
                print("test: $test");
