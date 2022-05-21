@@ -66,11 +66,7 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Reset Password",style: TextStyle(color: Colors.white,fontSize:22)),
-        backgroundColor: Colors.black,),
-      body: Stack(
+    return Stack(
           children:[
             Container(
               padding: EdgeInsets.all(20.0),
@@ -126,8 +122,8 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
             ),
           ]
 
-      ),
-    );
+      );
+
   }
   Future resetpassword() async{
     try{
