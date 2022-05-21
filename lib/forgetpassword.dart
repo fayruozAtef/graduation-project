@@ -90,6 +90,7 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(color: Colors.white),
                         validator: (value){
+                          _autData['email']=value!;
                           if(value!.isEmpty || !value.contains('@')){
                             return 'Invalid Email! ';
                           }
