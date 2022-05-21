@@ -6,12 +6,13 @@ import 'package:resflutter_app/widgets/widgets.dart';
 import 'authscreen.dart';
 
 
-class Rgister extends StatelessWidget {
-  static const routeName='/auth';
+/*class Rgister extends StatelessWidget {
+  static const routeName = '/auth';
+
   //const AuthScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  /*Widget build(BuildContext context) {
     final deviceSize= MediaQuery.of(context).size;
     return Container(
       //padding: EdgeInsets.all(20.0),
@@ -25,8 +26,81 @@ class Rgister extends StatelessWidget {
           Scaffold(
             appBar: AppBar(
               title: const Text("Registeration",style: TextStyle(color: Colors.white,fontSize:22)),
+              backgroundColor: Colors.black,),
             //resizeToAvoidBottomInset: false,
-            backgroundColor: Colors.transparent,),
+            backgroundColor: Colors.transparent,
+            body: Stack(
+              children: const <Widget>[
+                AuthCard(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+
+  }
+}*/
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        const Back(),
+        const SizedBox(height: 200,),
+        Container(
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text("Register",style: TextStyle(color: Colors.white,fontSize:22)),
+              backgroundColor: Colors.black,),
+            backgroundColor: Colors.transparent,
+            body: Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  height: 150,
+                  width: 150,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/logo.png'),
+                      opacity: 0.6,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                AuthCard(),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+*/
+
+class Rgister extends StatelessWidget {
+  static const routeName='/auth';
+  //const AuthScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final deviceSize= MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        title: const Text("Reset Password",style: TextStyle(color: Colors.white,fontSize:22)),
+        backgroundColor: Colors.black,),
+      //padding: EdgeInsets.all(20.0),
+      body: Stack(
+        children:<Widget> [
+          const Back(),
+          Image.asset('assets/images/logo.png' , height: 80,width: 80,
+            alignment: Alignment.topLeft,
+          ),
+          const SizedBox(height: 200,),
+          Scaffold(
+            //resizeToAvoidBottomInset: false,
+            backgroundColor: Colors.transparent,
             body: Stack(
               children: const <Widget>[
                 AuthCard(),
@@ -40,7 +114,6 @@ class Rgister extends StatelessWidget {
 
   }
 }
-
 class AuthCard extends StatefulWidget {
   const AuthCard({
     Key ? key,
@@ -91,7 +164,7 @@ class _AuthCardState extends State<AuthCard> {
         }
 
         ).then((value) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>AuthScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AuthScreen()));
         }).then((value) {
           email.text.trim();
           _passwordController.text.trim();
@@ -128,7 +201,11 @@ class _AuthCardState extends State<AuthCard> {
                 child: Column(
                   children: <Widget>[
                     const SizedBox(height: 50.0,),
-                    const Text('Welcome', style: TextStyle(color: Colors.white,fontSize: 30,fontFamily:'Time New Roman'),textAlign:TextAlign.center),
+                    const Text('Welcome',
+                        style: TextStyle(color: Colors.white,
+                            fontSize: 30,
+                            fontFamily:'Time New Roman'),
+                        textAlign:TextAlign.right),
                     const SizedBox(height: 50,),
                       TextFormField(
                         decoration: InputDecoration(

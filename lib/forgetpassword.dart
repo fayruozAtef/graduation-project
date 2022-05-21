@@ -63,13 +63,15 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
   Map<String, String> _autData={
     'email':'' ,
   };
-
+  @override
+  void dispose(){
+    emailcontroller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Reset Password",style: TextStyle(color: Colors.white,fontSize:22)),
-        backgroundColor: Colors.black,),
+      backgroundColor: Colors.transparent,
       body: Stack(
           children:[
             Container(
@@ -129,7 +131,7 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
       ),
     );
   }
-  Future resetpassword() async{
+ /* Future resetpassword() async{
     try{
       await FirebaseAuth.instance.sendPasswordResetEmail(
           email: emailcontroller.text.trim()).then((value) =>{
@@ -139,7 +141,37 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
           }),
       });
     }on FirebaseException catch(e){
+      if(e.code=='Given String is empty or null')
+        {
+          print(e);
+          showAlertDialog(context, 'please enter an email.');
+        }
+      if(e.code=='There is no user record corresponding to this identifier')
+        {
+          showAlertDialog(context, 'please enter valid email.');
+          print(e);
+
+        }
+    }
+  }*/
+
+  Future resetpassword() async{
+    if(_formKey.currentState!.validate()){
+      _formKey.currentState!.save() ;
+      try{
+        await FirebaseAuth.instance.sendPasswordResetEmail(
+            email: emailcontroller.text.trim()).then((value) =>{
+          showAlertDialog(context, "Password Reset Email Sent"),
+          Timer(const Duration(seconds: 3), () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>AuthScreen()));
+          }),
+        });
+      }on FirebaseException catch(e){
       print(e);
+      showAlertDialog(context, 'your email is not exist');
+
+      }
+
     }
   }
   showAlertDialog(BuildContext context,String message) {

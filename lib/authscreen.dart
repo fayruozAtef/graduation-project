@@ -176,6 +176,8 @@ class _AuthCardState extends State<AuthCard> {
                         style: TextStyle(fontSize: 18),
                       ),
                       onPressed: () {
+                        email.text.trim();
+                        _passwordController.text.trim();
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (context)=>Rgister()));
 
@@ -188,7 +190,7 @@ class _AuthCardState extends State<AuthCard> {
                     FlatButton(
                       child: Text(
                         'Forget Password ',
-                        style: TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 15),
                       ),
                       onPressed: (){
                         Navigator.of(context).push(
