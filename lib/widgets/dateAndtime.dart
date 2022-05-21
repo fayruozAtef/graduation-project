@@ -231,6 +231,10 @@ class _MyBody extends State<Body> {
                set = int.parse(number.text) ;
               String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
               String tim=DateFormat('HH:mm').format(_selectTime);
+              if(numb>8){
+                showAlertDialog2(context, "Please call the Resturant For that Number of seats") ;
+              }
+              else{
               if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
                 showAlertDialog2(context,'Resturant close From 12 AM To 10 AM' );
               }else{
@@ -293,7 +297,7 @@ class _MyBody extends State<Body> {
                   }
                });
                 }
-              }}}
+              }}}}
             });
           },
           child: const Text('Done',style: TextStyle(
@@ -318,9 +322,9 @@ class _MyBody extends State<Body> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white,
       title:const Text("Warning:", style: TextStyle(
-        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
       ),),
       content: Text("There is no available tables in that day with $noseats seats.", style:const  TextStyle(
         fontSize: 18, color: Colors.black,

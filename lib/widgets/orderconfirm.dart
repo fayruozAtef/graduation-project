@@ -144,7 +144,7 @@ class _orderon extends State<ordercon> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       backgroundColor: Colors.white,
-      title:const Text("Warning:", style: TextStyle(
+      title:const Text("Message:", style: TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
       ),),
       content: Text(message, style:const  TextStyle(
