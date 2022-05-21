@@ -265,7 +265,7 @@ class _AuthCardState extends State<AuthCard> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.white),
                       validator: (value){
-                        if(value!.isEmpty || !value.contains('@')||!value.contains('.com')){
+                        if(value!.isEmpty || !value.contains('@')||!value.endsWith('.com')){
                           return 'Invalid Email! ';
                         }
                       },
