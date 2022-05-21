@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -21,21 +22,11 @@ class profileInfo extends StatefulWidget {
 }
 
 class information extends State<profileInfo> {
-  String currentfname='';
-  String currentlname='';
-  String currentphone='';
-
 
   final formkey=GlobalKey<FormState>();
-
-  String _value='female';
   final String userId;
   information({Key? key,required this.userId});
-  String uFname='';
-  String uLname='';
-  String uphone='';
-  String ugender='';
-  String uimage='';
+
 
   Future updateData(String fname,String lname,String phone,String gender,String image) async{
     CollectionReference db = FirebaseFirestore.instance.collection("users");
@@ -44,15 +35,20 @@ class information extends State<profileInfo> {
     ) ;
   }
 
+  String uimage='';
+  List info=[];
+  String _value='';
   getData() async {
     DocumentReference data = FirebaseFirestore.instance.collection("users").doc(userId);
     var dbu = await data.get();
+    print(dbu.data());
     setState(() {
-      uFname = dbu.get("first name") ;
-      uLname = dbu.get("last name");
-      uphone = dbu.get("phone");
-      ugender = dbu.get("Gender");
+      info.add(dbu.get("first name"));
+      info.add(dbu.get("last name"));
+      info.add(dbu.get("phone"));
+      info.add(dbu.get("Gender"));
       uimage = dbu.get('image');
+      _value=info[3];
     });
   }
 
@@ -84,6 +80,7 @@ class information extends State<profileInfo> {
 
   @override
   Widget build(BuildContext context) {
+    print("info "+"${info}");
     return Scaffold(
       appBar:AppBar(
         title: Text('Profile Information',style: TextStyle(color: Colors.white,fontSize:25)),
@@ -155,17 +152,17 @@ class information extends State<profileInfo> {
                 Container(
                   padding:EdgeInsets.all(13),
                   child:TextFormField(
+                    initialValue: info[0],
                     validator: (val){
                       if(val!.isEmpty) {
                         return 'Please Enter your First Name';
                       }
                       return null;
                     },
-                    onChanged: (val)=>setState(()=>currentfname=val),
+                    onChanged: (val)=>setState(()=>info[0]=val),
                     style:TextStyle(color:Colors.black,fontSize: 20),
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
-                      hintText: uFname,
                       hintStyle:TextStyle(color:Colors.black,fontSize: 20),
                       labelText: 'First Name',
                       labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
@@ -179,17 +176,17 @@ class information extends State<profileInfo> {
                 Container(
                   padding:EdgeInsets.all(13),
                   child:TextFormField(
+                    initialValue: info[1],
                     validator: (val){
                       if(val!.isEmpty) {
                         return 'Please Enter your Last Name';
                       }
                       return null;
                     },
-                    onChanged: (val)=>setState(()=>currentlname=val),
+                    onChanged: (val)=>setState(()=>info[1]=val),
                     style:TextStyle(color:Colors.black,fontSize: 20),
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
-                      hintText: uLname,
                       hintStyle:TextStyle(color:Colors.black,fontSize: 20),
                       labelText: 'Last Name',
                       labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
@@ -203,6 +200,7 @@ class information extends State<profileInfo> {
                 Container(
                   padding:EdgeInsets.all(13),
                   child:TextFormField(
+                    initialValue: info[2],
                     validator: (val){
                       if(val!.isEmpty) {
                         return 'Please Enter your phone';
@@ -212,12 +210,11 @@ class information extends State<profileInfo> {
                       }
                       return null;
                     },
-                    onChanged: (val)=>setState(()=>currentphone=val),
+                    onChanged: (val)=>setState(()=>info[2]=val),
                     style:TextStyle(color:Colors.black,fontSize: 20),
                     cursorColor: Colors.black,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      hintText: uphone,
                       hintStyle:TextStyle(color:Colors.black,fontSize: 20),
                       labelText: 'Phone',
                       labelStyle: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
@@ -265,12 +262,15 @@ class information extends State<profileInfo> {
                   onPressed: () {
                     final isValid = formkey.currentState!.validate();
                     if(isValid==true ){
-                      updateData(currentfname,currentlname,currentphone,_value,uimage);
+                      updateData(info[0],info[1],info[2],_value,uimage);
                       final delete =FirebaseStorage.instance.refFromURL('gs://testfirebaseflutter-aa934.appspot.com/users').child(userId);
                       delete.delete();
-                      Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) =>home(userId:userId)));
+                      showAlertDialog(context,"update information sucessfully");
+                      Timer(const Duration(seconds: 3), () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>home(userId:userId)));});
+
                     }
                   },
                   child: Text('update',style:TextStyle(fontSize: 30)),
@@ -279,6 +279,27 @@ class information extends State<profileInfo> {
           ),
         ),
       ),
+    );
+  }
+  showAlertDialog(BuildContext context,String message) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white,
+      title:const Text("Message:", style: TextStyle(
+        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,
+      ),),
+      content: Text(message, style: const TextStyle(
+        fontSize: 20, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -90,7 +90,7 @@ class _CategoriesState extends State<Categories> {
                   child:Card(
                     child:InkWell(onTap: (){
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context)=>details(title: list[i]['type'],address:address,phone:phone,exphone:exphone,userId:userId)));
+                          MaterialPageRoute(builder: (context)=>details(title: list[i]['type'],address:address,phone:phone,exphone:exphone,userId:userId,order: totalOrder2,)));
                     },
                       child: Container(
                         decoration:  BoxDecoration(
