@@ -146,7 +146,7 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
 
     // set up the AlertDialog
     AlertDialog alert =  AlertDialog(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white,
       title:const Text("Message:", style: TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
       ),),
