@@ -217,84 +217,91 @@ class _MyBody extends State<Body> {
 
   Widget buildDone(BuildContext context)=>Builder(
     builder: (context) {
-      return RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius:  BorderRadius.circular(12.0),
-        ),
-        onPressed: (){
+      return ButtonTheme(
+        minWidth: 150.0,
+        height: 50.0,
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius:  BorderRadius.circular(12.0),
+          ),
+          onPressed: (){
 
-          setState(() {
-            int numb = int.parse(number.text);
-             set = int.parse(number.text) ;
-            String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
-            String tim=DateFormat('HH:mm').format(_selectTime);
-            if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
-              showAlertDialog2(context,'Resturant close From 12 AM To 10 AM' );
-            }else{
-              if(_selectTime.hour>=23){
-                showAlertDialog2(context,'Resturant close At 12 AM ' );
+            setState(() {
+              int numb = int.parse(number.text);
+               set = int.parse(number.text) ;
+              String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
+              String tim=DateFormat('HH:mm').format(_selectTime);
+              if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
+                showAlertDialog2(context,'Resturant close From 12 AM To 10 AM' );
+              }else{
+                if(_selectTime.hour>=23){
+                  showAlertDialog2(context,'Resturant close At 12 AM ' );
+                }
+              else{
+                if(DateFormat('yyyy-MM-dd').format(_selectedDay)==DateFormat('yyyy-MM-dd').format(DateTime.now()))
+              {
+                if(_selectTime.isAfter(_available)){
+
+                if(number.text.isEmpty) {
+                  _error='Enter Number of Seats';
+                } else {
+                  _error= null;
+                  gettableanddate().then((value) {
+                    print('ommmm $value');
+                    if (value.toString()=="[]"){
+                      showAlertDialog(context,numb);
+                    }
+                    else{
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context)=> tables(
+                            date:dat,
+                            time:tim,
+                            no: numb,
+                            uid: userId,
+                            listtables:value,
+                          ),
+                        ),);
+                    }
+                  });
+                }
               }
-            else{
-              if(DateFormat('yyyy-MM-dd').format(_selectedDay)==DateFormat('yyyy-MM-dd').format(DateTime.now()))
-            {
-              if(_selectTime.isAfter(_available)){
-
-              if(number.text.isEmpty) {
-                _error='Enter Number of Seats';
-              } else {
-                _error= null;
-                gettableanddate().then((value) {
-                  print('ommmm $value');
+                else{
+                showAlertDialog2(context,'Time Should be After 3 hours From now' );
+                }
+              }
+                else{
+                if(number.text.isEmpty) {
+                  _error='Enter Number of Seats';
+                } else {
+                  _error= null;
+               gettableanddate().then((value) {
                   if (value.toString()=="[]"){
                     showAlertDialog(context,numb);
                   }
                   else{
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context)=> tables(
-                          date:dat,
-                          time:tim,
-                          no: numb,
-                          uid: userId,
-                          listtables:value,
-                        ),
-                      ),);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context)=> tables(
+                        date:dat,
+                        time:tim,
+                        no: numb,
+                        uid: userId,
+                        listtables:value,
+                      ),
+                    ),);
                   }
-                });
-              }
-            }
-              else{
-              showAlertDialog2(context,'Time Should be After 3 hours From now' );
-              }
-            }
-              else{
-              if(number.text.isEmpty) {
-                _error='Enter Number of Seats';
-              } else {
-                _error= null;
-             gettableanddate().then((value) {
-                if (value.toString()=="[]"){
-                  showAlertDialog(context,numb);
+               });
                 }
-                else{
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context)=> tables(
-                      date:dat,
-                      time:tim,
-                      no: numb,
-                      uid: userId,
-                      listtables:value,
-                    ),
-                  ),);
-                }
-             });
-              }
-            }}}
-          });
-        },
-        child: const Text('Done'),
-        color: Color.fromRGBO(65, 189, 180, 54),
+              }}}
+            });
+          },
+          child: const Text('Done',style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 26,),
+          ),
+          color: Color.fromRGBO(65, 189, 180, 54),
+        ),
       );
     }
   );
@@ -333,9 +340,9 @@ class _MyBody extends State<Body> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white,
       title:const Text("Warning:", style: TextStyle(
-        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
       ),),
       content: Text(message, style:const  TextStyle(
         fontSize: 18, color: Colors.black,

@@ -104,9 +104,8 @@ class _orderon extends State<ordercon> {
                      body: "Table $tano Made an Order.",
                      tableno: tano
                  );
-                 ScaffoldMessenger.of(context).showSnackBar(
-                   const SnackBar(content: Text("Waiter Will confirme Your Order Soon.")),
-                 );
+                 showAlertDialog2(context, "Waiter Will confirm Your Order Soon.");
+
                  Timer(const Duration(seconds: 3), () {
                    Navigator.of(context).pushReplacement(
                        MaterialPageRoute(builder: (context)=>home(userId: userId,)));
@@ -138,6 +137,28 @@ class _orderon extends State<ordercon> {
       ],
       ),
     ),
+    );
+  }
+  showAlertDialog2(BuildContext context, String message) {
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white,
+      title:const Text("Warning:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
+      ),),
+      content: Text(message, style:const  TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: const [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
