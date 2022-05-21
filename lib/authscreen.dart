@@ -88,7 +88,7 @@ class _AuthCardState extends State<AuthCard> {
             'phone': _autData['phone'] ,
             'email':_autData['email'],
             'coins':100,
-            'gender':_autData['gender']
+            'gender':_autData['Gender']
           }
 
           ).then((value) {
@@ -279,19 +279,19 @@ class _AuthCardState extends State<AuthCard> {
                           children:[
                             Text('Gender : ',style:TextStyle(color:Colors.white,fontSize: 17,)),
                             Radio<String>(value: 'male',
-                              groupValue: _autData['gender'],
+                              groupValue: _autData['Gender'],
                               onChanged: (value) {
                                 setState((){
-                                  _autData['gender']=value!;
+                                  _autData['Gender']=value!;
                                 });
                               },
                             ),
                             Text('Male',style:TextStyle(color:Colors.white,fontSize: 20)),
                             Radio<String>(value: 'female',
-                              groupValue:  _autData['gender'],
+                              groupValue:  _autData['Gender'],
                               onChanged: (value) {
                                 setState((){
-                                  _autData['gender']=value!;
+                                  _autData['Gender']=value!;
                                 });
                               },
                             ),

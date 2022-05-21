@@ -66,61 +66,66 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children:[
-          Container(
-            padding: EdgeInsets.all(20.0),
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(height: 80.0,),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Reset Password",style: TextStyle(color: Colors.white,fontSize:22)),
+        backgroundColor: Colors.black,),
+      body: Stack(
+          children:[
+            Container(
+              padding: EdgeInsets.all(20.0),
+              child: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      const SizedBox(height: 80.0,),
 
-                    ////////////////////////////////////////////
-                    TextFormField(
-                      decoration:const InputDecoration (
-                        labelText: 'E-Mail' ,
-                        labelStyle: TextStyle(color: Colors.white),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(color: Colors.white),
-                      validator: (value){
-                        if(value!.isEmpty || !value.contains('@')){
-                          return 'Invalid Email! ';
-                        }
-                      },
-                       controller: emailcontroller,
-                      onSaved: (value){
-                        _autData['email']=value!;
-                      },
-                    ),
-
-                    const SizedBox(height: 20,),
-
-                      RaisedButton(
-                        child:
-                        const Text('Reset Password',
-                          style: TextStyle(fontSize: 20),
+                      ////////////////////////////////////////////
+                      TextFormField(
+                        decoration:const InputDecoration (
+                          labelText: 'E-Mail' ,
+                          labelStyle: TextStyle(color: Colors.white),
                         ),
-                        onPressed:() {
-                        resetpassword();
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(color: Colors.white),
+                        validator: (value){
+                          if(value!.isEmpty || !value.contains('@')){
+                            return 'Invalid Email! ';
+                          }
                         },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 40.0,vertical: 8.0),
-                        color: Color.fromRGBO(65, 189, 180, 54),
-                        textColor: Colors.white,
+                         controller: emailcontroller,
+                        onSaved: (value){
+                          _autData['email']=value!;
+                        },
                       ),
-                    const SizedBox(height: 10,),
-                  ],
+
+                      const SizedBox(height: 20,),
+
+                        RaisedButton(
+                          child:
+                          const Text('Reset Password',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          onPressed:() {
+                          resetpassword();
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 40.0,vertical: 8.0),
+                          color: Color.fromRGBO(65, 189, 180, 54),
+                          textColor: Colors.white,
+                        ),
+                      const SizedBox(height: 10,),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ]
+          ]
 
+      ),
     );
   }
   Future resetpassword() async{
