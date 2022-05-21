@@ -169,7 +169,7 @@ class _AuthCardState extends State<AuthCard> {
                         color: Color.fromRGBO(65, 189, 180, 54),
                         textColor: Colors.white,
                       ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 15,),
                     FlatButton(
                       child: Text(
                           'SIGNUP' ,
@@ -186,7 +186,7 @@ class _AuthCardState extends State<AuthCard> {
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       textColor: Colors.white,
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 9,),
                     FlatButton(
                       child: Text(
                         'Forget Password ',
