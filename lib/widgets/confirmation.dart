@@ -115,28 +115,21 @@ class _confirm extends State<confirm> {
               ),
               Padding(padding: EdgeInsets.only(top: 30),),
               Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(10.0,10.0,0,5),
-                      child: Text('Hint: ',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),),
+                padding: EdgeInsets.only(left: 8),
+                child: RichText(text: TextSpan(
+                  text :'Hint : ',
+                  style:TextStyle(color:Colors.red,fontSize: 25,fontWeight: FontWeight.bold),
+                  children:[
+                    TextSpan(text :"you can't cancel it before the time by 2 hours.",
+                      style:TextStyle(color:Colors.black,fontSize: 20,fontWeight: FontWeight.normal),
                     ),
-                    Flexible(
-                      child: Text('you cannot cancel it before the time by 2 hours.',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),),
-                    )
                   ],
                 ),
+                    maxLines: 3,
+                    softWrap: false,
+                    overflow:TextOverflow.ellipsis
+                ),
+
               ),
               Padding(padding: EdgeInsets.only(top: 30),),
               Container(

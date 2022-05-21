@@ -222,7 +222,7 @@ class _MyBody extends State<Body> {
           borderRadius:  BorderRadius.circular(12.0),
         ),
         onPressed: (){
-          
+
           setState(() {
             int numb = int.parse(number.text);
              set = int.parse(number.text) ;
