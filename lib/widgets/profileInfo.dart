@@ -88,7 +88,7 @@ class information extends State<profileInfo> {
         foregroundColor:Colors.white,
       ),
       body:SingleChildScrollView(
-        child: Form(
+        child:(info.length==0)? SizedBox():Form(
           key:formkey,
           child: Column(
               children: [
@@ -284,6 +284,9 @@ class information extends State<profileInfo> {
   showAlertDialog(BuildContext context,String message) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
       backgroundColor: Colors.white,
       title:const Text("Message:", style: TextStyle(
         fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,
