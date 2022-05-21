@@ -9,14 +9,15 @@ class details extends StatefulWidget {
   String address='';
   String exphone='';
   String phone='';
+  List <List<String>>order;
 
   final String userId;
 
-  details({Key? key,required this.title,required this.address,required this.phone,required this.exphone,required this.userId}) : super(key: key);
+  details({Key? key,required this.title,required this.address,required this.phone,required this.exphone,required this.userId,required this.order}) : super(key: key);
 
   @override
   createState(){
-    return MyAppState(title2: title,address: address,phone: phone,exphone: exphone,userId: userId);
+    return MyAppState(title2: title,address: address,phone: phone,exphone: exphone,userId: userId, order: order);
   }
 }
 
@@ -25,13 +26,14 @@ class MyAppState extends State<details> {
   String address='';
   String exphone='';
   String phone='';
+  List <List<String>>order;
 
   final String userId;
 
-  MyAppState({Key? key, required this.title2,required this.address,required this.phone,required this.exphone,required this.userId}) : super();
+  MyAppState({Key? key, required this.title2,required this.address,required this.phone,required this.exphone,required this.userId,required this.order}) : super();
 
 
-  List <List<String>>order=[];
+
   List list = [];
   CollectionReference bff = FirebaseFirestore.instance.collection("menu");
   List <int> count = [];
@@ -168,6 +170,7 @@ class MyAppState extends State<details> {
   Widget buildNavigateButton()=>FloatingActionButton.extended(
     backgroundColor: Colors.teal,
     onPressed: (){
+
       for(int i=0;i<list.length;i++){
         if(count[i]>0){
           List<String> su=[];
