@@ -138,8 +138,9 @@ class _confirm extends State<confirmDone> {
                       ),
                       onPressed: () async {
 
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)));
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)),
+                            ModalRoute.withName("home"));
                       },
 
                     ),
