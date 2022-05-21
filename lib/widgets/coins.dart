@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
@@ -26,9 +29,10 @@ class _coins extends State<Coins>{
   @override
   void initState() {
     getData();
-    print(coin);
     super.initState();
   }
+  List<int> value=[400,600,1000,1500,3200,4500];
+  List<String> rewards=["softdrink","latte","fries","pancake","english breakfast","club sandwish"];
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -78,7 +82,7 @@ class _coins extends State<Coins>{
                                   height:170,
                                   width: (MediaQuery.of(context).size.width-30)/2,
                                   child:Card(
-                                    child:InkWell(onTap: () {},
+                                    child:InkWell(onTap: () {getReward(0);},
                                       child: Container(
                                         decoration:const BoxDecoration(
                                           image: DecorationImage(
@@ -95,8 +99,8 @@ class _coins extends State<Coins>{
                                   width: (MediaQuery.of(context).size.width-30)/2,
                                   height: 60.0,
                                   child: MaterialButton(
-                                    child:const Text('Get a softdrink with 400 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
-                                    onPressed: () {  },),
+                                    child: Text('Get a softdrink with ${value[0]} coin' ,style:const TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                    onPressed: () { getReward(0); },),
                                 ),
                               ],
                           ),
@@ -106,7 +110,7 @@ class _coins extends State<Coins>{
                                 height:170,
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 child:Card(
-                                  child:InkWell(onTap: () {},
+                                  child:InkWell(onTap: () {getReward(1);},
                                     child: Container(
                                       decoration:const BoxDecoration(
                                         image: DecorationImage(
@@ -123,8 +127,8 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 60.0,
                                 child: MaterialButton(
-                                  child: const Text('Get a latte with 800 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
-                                  onPressed: () {  },),
+                                  child: Text('Get a latte with ${value[1] } coin' ,style:const TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () { getReward(1); },),
                               ),
                             ],
                           ),
@@ -139,7 +143,7 @@ class _coins extends State<Coins>{
                                 height:170,
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 child:Card(
-                                  child:InkWell(onTap: () {},
+                                  child:InkWell(onTap: () {getReward(2);},
                                     child: Container(
                                       decoration:const BoxDecoration(
                                         image: DecorationImage(
@@ -156,8 +160,8 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 60.0,
                                 child: MaterialButton(
-                                  child:const Text('Get a fries with 1000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
-                                  onPressed: () {  },),
+                                  child: Text('Get a fries with ${value[2]} coin' ,style: const TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () { getReward(2); },),
                               ),
                             ],
                           ),
@@ -167,7 +171,7 @@ class _coins extends State<Coins>{
                                 height:170,
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 child:Card(
-                                  child:InkWell(onTap: () {},
+                                  child:InkWell(onTap: () {getReward(3);},
                                     child: Container(
                                       decoration:const BoxDecoration(
                                         image: DecorationImage(
@@ -184,8 +188,8 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 60.0,
                                 child: MaterialButton(
-                                  child: const Text('Get a panckake with 2000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
-                                  onPressed: () {  },),
+                                  child: Text('Get a pancake with ${value[3]} coin' ,style:const TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () { getReward(3);},),
                               ),
                             ],
                           ),
@@ -200,7 +204,7 @@ class _coins extends State<Coins>{
                                 height:170,
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 child:Card(
-                                  child:InkWell(onTap: () {},
+                                  child:InkWell(onTap: () {getReward(4);},
                                     child: Container(
                                       decoration:const BoxDecoration(
                                         image: DecorationImage(
@@ -217,8 +221,8 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 80.0,
                                 child: MaterialButton(
-                                  child:const Text('Get a english breakfast with 3500 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
-                                  onPressed: () {  },),
+                                  child: Text('Get a english breakfast with ${value[4]} coin' ,style:const TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () { getReward(4); },),
                               ),
                             ],
                           ),
@@ -228,7 +232,7 @@ class _coins extends State<Coins>{
                                 height:170,
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 child:Card(
-                                  child:InkWell(onTap: () {},
+                                  child:InkWell(onTap: () {getReward(5);},
                                     child: Container(
                                       decoration:const BoxDecoration(
                                         image: DecorationImage(
@@ -245,8 +249,8 @@ class _coins extends State<Coins>{
                                 width: (MediaQuery.of(context).size.width-30)/2,
                                 height: 80.0,
                                 child: MaterialButton(
-                                  child: const Text('Get a club sandwish with 5000 coin' ,style: TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
-                                  onPressed: () {  },),
+                                  child: Text('Get a club sandwish with ${value[5]} coin' ,style:const TextStyle(fontSize: 18, color: Colors.white,),textAlign: TextAlign.center,),
+                                  onPressed: () { getReward(5); },),
                               ),
                             ],
                           ),
@@ -262,5 +266,96 @@ class _coins extends State<Coins>{
       ],
     );
   }
+  getReward( int index){
 
+      if(coin<value[index]) {
+        showAlertDialog(context, "Sorry, your coins isn't sufficent. \nMake orders to get more coins. \nThanks.");
+      }
+      else if(coin>value[index]){
+        confirmMessage(context,"Do you want to get ${rewards[index]} as a reward? ", index);
+      }
+  }
+  showAlertDialog(BuildContext context,String message) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white,
+      title:const Text("Message:", style: TextStyle(
+        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,
+      ),),
+      content: Text(message, style: const TextStyle(
+        fontSize: 20, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  confirmMessage(BuildContext context,String message, int index) {
+
+    Widget cancelButton = FlatButton(
+      child:const Text("Yes",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+      onPressed:  () async {
+        String userId=FirebaseAuth.instance.currentUser!.uid;
+        var randomData= Random() ;
+        String selectedData = String.fromCharCodes(List.generate(5, (index) => randomData.nextInt(33) + 89));
+        CollectionReference rewardTable = FirebaseFirestore.instance.collection("Rewards");
+        QuerySnapshot sp=await rewardTable.get();
+        bool hasreward=false;
+        sp.docs.forEach((element) {
+          if(element["userId"]==userId && element["get"]==false){
+            hasreward=true;
+          }
+        });
+        if(hasreward==false){
+          await rewardTable.doc().set({'userId':userId,"reward type":rewards[index],"get":false ,"qr":selectedData})
+              .then((value)=> {
+            Navigator.pop(context, false),
+            showAlertDialog(context, "Go to the waiter for your reward.")
+          }
+          ).catchError((error) => print("Failed to get reward: $error"));
+        }
+        else{
+          Navigator.pop(context, false);
+          showAlertDialog(context, "Sorry get your suspended reward first. ");
+        }
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: const Text("No",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+      onPressed:  () {
+        Navigator.pop(context, false);
+
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert =  AlertDialog(
+      backgroundColor: Colors.white,
+      title:const Text("Message:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
+      ),),
+      content: Text('$message', style: const TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
