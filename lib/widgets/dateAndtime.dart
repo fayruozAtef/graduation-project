@@ -222,22 +222,19 @@ class _MyBody extends State<Body> {
           borderRadius:  BorderRadius.circular(12.0),
         ),
         onPressed: (){
-          const snack =SnackBar(
-            content: Text('Resturant close From 12 AM To 10 AM'),
-            duration: Duration(seconds: 3),
-          );
-          const snack2 =SnackBar(
-            content: Text('Time Should be After 3 hours From now '),
-            duration: Duration(seconds: 3),
-          );
+          
           setState(() {
             int numb = int.parse(number.text);
              set = int.parse(number.text) ;
             String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
             String tim=DateFormat('HH:mm').format(_selectTime);
             if(_selectTime.isAfter(_stclose)&&_selectTime.isBefore(_endclose)){
-              Scaffold.of(context).showSnackBar(snack);
-            }else
+              showAlertDialog2(context,'Resturant close From 12 AM To 10 AM' );
+            }else{
+              if(_selectTime.hour>=23){
+                showAlertDialog2(context,'Resturant close At 12 AM ' );
+              }
+            else{
               if(DateFormat('yyyy-MM-dd').format(_selectedDay)==DateFormat('yyyy-MM-dd').format(DateTime.now()))
             {
               if(_selectTime.isAfter(_available)){
@@ -267,7 +264,8 @@ class _MyBody extends State<Body> {
               }
             }
               else{
-              Scaffold.of(context).showSnackBar(snack2);}
+              showAlertDialog2(context,'Time Should be After 3 hours From now' );
+              }
             }
               else{
               if(number.text.isEmpty) {
@@ -292,7 +290,7 @@ class _MyBody extends State<Body> {
                 }
              });
               }
-            }
+            }}}
           });
         },
         child: const Text('Done'),
@@ -318,6 +316,28 @@ class _MyBody extends State<Body> {
         fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
       ),),
       content: Text("There is no available tables in that day with $noseats seats.", style:const  TextStyle(
+        fontSize: 18, color: Colors.black,
+      ),),
+      actions: const [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  showAlertDialog2(BuildContext context, String message) {
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white54,
+      title:const Text("Warning:", style: TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,
+      ),),
+      content: Text(message, style:const  TextStyle(
         fontSize: 18, color: Colors.black,
       ),),
       actions: const [],
