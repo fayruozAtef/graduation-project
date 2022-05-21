@@ -88,7 +88,7 @@ class information extends State<profileInfo> {
         foregroundColor:Colors.white,
       ),
       body:SingleChildScrollView(
-        child:(info.length==0)? SizedBox():Form(
+        child:(info.length<1)? const SizedBox(height: 10,):Form(
           key:formkey,
           child: Column(
               children: [
