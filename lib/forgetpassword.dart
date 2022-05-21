@@ -14,7 +14,6 @@ class Password extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize= MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -63,10 +62,16 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
   Map<String, String> _autData={
     'email':'' ,
   };
-
+  @override
+  void dispose(){
+    emailcontroller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
           children:[
             Container(
               padding: EdgeInsets.all(20.0),
@@ -86,7 +91,6 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(color: Colors.white),
                         validator: (value){
-                          _autData['email']=value!;
                           if(value!.isEmpty || !value.contains('@')){
                             return 'Invalid Email! ';
                           }
@@ -122,27 +126,34 @@ class _ForgetPAsswordState extends State<ForgetPAssword> {
             ),
           ]
 
-      );
+      ));
 
   }
+
   Future resetpassword() async{
-    try{
-      await FirebaseAuth.instance.sendPasswordResetEmail(
-          email: emailcontroller.text.trim()).then((value) =>{
+    if(_formKey.currentState!.validate()){
+      _formKey.currentState!.save() ;
+      try{
+        await FirebaseAuth.instance.sendPasswordResetEmail(
+            email: emailcontroller.text.trim()).then((value) =>{
           showAlertDialog(context, "Password Reset Email Sent"),
           Timer(const Duration(seconds: 3), () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>AuthScreen()));
           }),
-      });
-    }on FirebaseException catch(e){
+        });
+      }on FirebaseException catch(e){
       print(e);
+      showAlertDialog(context, 'your email is not exist');
+
+      }
+
     }
   }
   showAlertDialog(BuildContext context,String message) {
 
     // set up the AlertDialog
     AlertDialog alert =  AlertDialog(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white,
       title:const Text("Message:", style: TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,
       ),),
