@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -101,11 +103,14 @@ DateTime today=DateTime.now();
                                   borderRadius:BorderRadius.circular(18)
                               ))
                           ),
-                          onPressed: ()  {
-                            bff.doc(id[i]).delete();
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) =>home(userId: uid)));
-                          },
+                          onPressed: () {
+                              bff.doc(id[i]).delete();
+                              showAlertDialog(context,"Delete Your Reservation Done");
+                              Timer(const Duration(seconds: 3), () {
+                              Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) =>home(userId: uid)));
+                              });
+                              },
                           child: Text('Delete',style:TextStyle(fontSize: 30)),
                         ) ,
                         ),
@@ -115,7 +120,7 @@ DateTime today=DateTime.now();
             for(int i=0;i<old.length;i++)
               Card(
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.teal, width: 2),
+                  side: BorderSide(color: Colors.red, width: 2),
                 ),
                 child:Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,6 +149,30 @@ DateTime today=DateTime.now();
           ],
         ),
       ),
+    );
+  }
+  showAlertDialog(BuildContext context,String message) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      backgroundColor: Colors.white,
+      title:const Text("Message:", style: TextStyle(
+        fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,
+      ),),
+      content: Text(message, style: const TextStyle(
+        fontSize: 20, color: Colors.black,
+      ),),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

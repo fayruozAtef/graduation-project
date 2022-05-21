@@ -148,6 +148,9 @@ class MyAppState extends State<confdeliv> {
   showAlertDialog(BuildContext context,String message) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
       backgroundColor: Colors.white,
       title:const Text("Message:", style: TextStyle(
         fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black,
