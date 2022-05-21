@@ -171,12 +171,6 @@ class _confirm extends State<confirm> {
                 ),
               ),
               Container(
-                height: 120,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    border: Border.all(color: Colors.white12,width: 10.0,)
-                ),
                 child: Center(
                   child: ButtonTheme(
                     minWidth: 150.0,
