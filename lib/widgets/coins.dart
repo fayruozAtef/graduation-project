@@ -311,7 +311,7 @@ class _coins extends State<Coins>{
           }
         });
         if(hasreward==false){
-          await rewardTable.doc().set({'userId':userId,"reward type":rewards[index],"get":false ,})
+          await rewardTable.doc().set({'userId':userId,"reward type":rewards[index],"get":false ,"coins":value[index]})
               .then((value)=> {
             Navigator.pop(context, false),
             showAlertDialog(context, "Go to the waiter for your reward.")
