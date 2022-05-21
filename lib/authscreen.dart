@@ -1,11 +1,11 @@
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:resflutter_app/auth.dart';
 import 'package:resflutter_app/widgets/home.dart';
 import 'package:resflutter_app/widgets/widgets.dart';
-import 'package:provider/provider.dart';
+
+import 'forgetpassword.dart';
 
 enum AuthMode{ Signup , Login }
 
@@ -55,6 +55,7 @@ class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState>_formKey=GlobalKey();
   AuthMode _authMode=AuthMode.Login;
   TextEditingController email = TextEditingController();
+  final _passwordController =TextEditingController();
   Map<String, String> _autData={
     'email':'' ,
     'password':'' ,
@@ -64,7 +65,7 @@ class _AuthCardState extends State<AuthCard> {
 
   };
   var _isLoading=false;
-  final _passwordController =TextEditingController();
+
 
   ///////sign up function/////////
 
@@ -87,8 +88,14 @@ class _AuthCardState extends State<AuthCard> {
             'phone': _autData['phone'] ,
             'email':_autData['email'],
             'coins':100,
-          }).then((value) {
+            'gender':_autData['gender']
+          }
+
+          ).then((value) {
             _switchAuthMode();
+          }).then((value) {
+            email.text.trim();
+            _passwordController.text.trim();
           });
 
         }).catchError((e){
@@ -120,7 +127,13 @@ class _AuthCardState extends State<AuthCard> {
       ).then((value){
         print("Successfull");
         String id=Auth().getId();
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>home(userId: id,) ));
+
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>home(userId: id,))
+        ).then((value)
+        {
+          email.clear();
+        _passwordController.clear();
+        });
        // print(value.user.uid);
       }).catchError((e){
         if (e.code == 'user-not-found') {
@@ -140,10 +153,13 @@ class _AuthCardState extends State<AuthCard> {
     if(_authMode==AuthMode.Login){
       setState(() {
         _authMode= AuthMode.Signup;
+        email.text.trim();
+        _passwordController.text.trim();
       });
     }else{
       setState(() {
         _authMode=AuthMode.Login;
+
       });
     }
   }
@@ -196,6 +212,10 @@ class _AuthCardState extends State<AuthCard> {
                         style: TextStyle(color: Colors.white),
                         validator: (value){
                           _autData['phone']=value!;
+                          if(value.length>11 || value.length<11)
+                          {
+                            return 'Please enter a valid phone number ';
+                          }
                         },
                         onSaved: (value) {
                           _autData['phone']=value!;
@@ -203,6 +223,7 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                     ////////////////////////////////////////////
                     TextFormField(
+                      controller: email,
                       decoration:const InputDecoration (
                           labelText: 'E-Mail' ,
                         labelStyle: TextStyle(color: Colors.white),
@@ -214,7 +235,7 @@ class _AuthCardState extends State<AuthCard> {
                           return 'Invalid Email! ';
                         }
                       },
-                     // controller: email,
+
                       onSaved: (value){
                         _autData['email']=value!;
                       },
@@ -251,7 +272,33 @@ class _AuthCardState extends State<AuthCard> {
                         }
                             :null,
                       ),
-
+                    if(_authMode==AuthMode.Signup)
+                    Container(
+                      padding:EdgeInsets.all(2),
+                      child:Row(
+                          children:[
+                            Text('Gender : ',style:TextStyle(color:Colors.white,fontSize: 17,)),
+                            Radio<String>(value: 'male',
+                              groupValue: _autData['gender'],
+                              onChanged: (value) {
+                                setState((){
+                                  _autData['gender']=value!;
+                                });
+                              },
+                            ),
+                            Text('Male',style:TextStyle(color:Colors.white,fontSize: 20)),
+                            Radio<String>(value: 'female',
+                              groupValue:  _autData['gender'],
+                              onChanged: (value) {
+                                setState((){
+                                  _autData['gender']=value!;
+                                });
+                              },
+                            ),
+                            Text('Female',style:TextStyle(color:Colors.white,fontSize: 20))
+                          ]
+                      ),
+                    ),
                     const SizedBox(height: 20,),
                     if(_isLoading)
                       CircularProgressIndicator()
@@ -266,6 +313,7 @@ class _AuthCardState extends State<AuthCard> {
                             {
                               //_logIn(email.toString(),_passwordController.toString());
                               _logIn();
+
                             }
                           else if(_authMode==AuthMode.Signup)
                             {
@@ -286,6 +334,21 @@ class _AuthCardState extends State<AuthCard> {
                         style: TextStyle(fontSize: 18),
                       ),
                       onPressed: _switchAuthMode ,
+                      //padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 4),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      textColor: Colors.white,
+                    ),
+                    const SizedBox(height: 10,),
+                    if(_authMode==AuthMode.Login)
+                    FlatButton(
+                      child: Text(
+                        'Forget Password ',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      onPressed: (){
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Password()));
+                      } ,
                       //padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 4),
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       textColor: Colors.white,
