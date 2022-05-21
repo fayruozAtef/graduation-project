@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -303,8 +302,6 @@ class _coins extends State<Coins>{
       child:const Text("Yes",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
       onPressed:  () async {
         String userId=FirebaseAuth.instance.currentUser!.uid;
-        var randomData= Random() ;
-        String selectedData = String.fromCharCodes(List.generate(5, (index) => randomData.nextInt(33) + 89));
         CollectionReference rewardTable = FirebaseFirestore.instance.collection("Rewards");
         QuerySnapshot sp=await rewardTable.get();
         bool hasreward=false;
@@ -314,7 +311,7 @@ class _coins extends State<Coins>{
           }
         });
         if(hasreward==false){
-          await rewardTable.doc().set({'userId':userId,"reward type":rewards[index],"get":false ,"qr":selectedData})
+          await rewardTable.doc().set({'userId':userId,"reward type":rewards[index],"get":false ,})
               .then((value)=> {
             Navigator.pop(context, false),
             showAlertDialog(context, "Go to the waiter for your reward.")
