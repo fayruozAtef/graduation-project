@@ -215,7 +215,6 @@ class _AuthCardState extends State<AuthCard> {
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.name,
                         validator: (value){
-                          _autData['firstname']=value!;
                          if(value!.isEmpty ){
                               return ' please enter first name ';
                         }},
@@ -230,7 +229,6 @@ class _AuthCardState extends State<AuthCard> {
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.name,
                         validator: (value){
-                          _autData['lastname']=value!;
                           if(value!.isEmpty ){
                             return ' please enter last name ';
                           }
@@ -313,7 +311,8 @@ class _AuthCardState extends State<AuthCard> {
                           child: Row(
                               children:[
                                 Text('Gender : ',style:TextStyle(color:Colors.white,fontSize: 17,)),
-                                Radio<String>(value: 'male',
+                                Radio<String>(
+                                  value: 'male',
                                   groupValue: _autData['gender'],
                                   onChanged: (value) {
                                     setState((){
@@ -322,7 +321,8 @@ class _AuthCardState extends State<AuthCard> {
                                   },
                                 ),
                                 Text('Male',style:TextStyle(color:Colors.white,fontSize: 20)),
-                                Radio<String>(value: 'female',
+                                Radio<String>(
+                                  value: 'female',
                                   groupValue:  _autData['gender'],
                                   onChanged: (value) {
                                     setState((){
@@ -345,7 +345,14 @@ class _AuthCardState extends State<AuthCard> {
                           style: TextStyle(fontSize: 20),
                         ),
                         onPressed:() {
-                          _signup();
+                          if(_autData['gender']!.isEmpty)
+                            {
+                              showAlertDialog(context,'please choose your gender');
+                            }
+                          else{
+                            _signup();
+                          }
+
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
