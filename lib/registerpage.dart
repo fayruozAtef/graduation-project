@@ -85,7 +85,6 @@ class Rgister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize= MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -161,7 +160,8 @@ class _AuthCardState extends State<AuthCard> {
           'phone': _autData['phone'] ,
           'email':_autData['email'],
           'coins':100,
-          'Gender':_autData['gender']
+          'Gender':_autData['gender'],
+          'image':""
         }
 
         ).then((value) {
