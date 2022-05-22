@@ -82,41 +82,48 @@ class _orderon extends State<ordercon> {
                  ))
              ),
              onPressed: () async {
-               Map<String,List> order=Map();
-               for(int i=0;i<test.length;i++){
-                 if(test[i][0]=='')
-                   test.removeAt(i);
-               }
-               print("test2: $test");
-               for(int i=0;i<test.length;i++){
-                 order['order${i}']=test[i];
-               }
-               print("test: $test");
+               if(test.length>=1) {
+                 Map<String, List> order = Map();
+                 for (int i = 0; i < test.length; i++) {
+                   if (test[i][0] == '')
+                     test.removeAt(i);
+                 }
+                 print("test2: $test");
+                 for (int i = 0; i < test.length; i++) {
+                   order['order${i}'] = test[i];
+                 }
+                 print("test: $test");
 
-               CollectionReference data = FirebaseFirestore.instance.collection("convert");
-               await data.doc("$tano").set(
-                 {"user id":userId,"order":order,"table":tano},
-               );
-
-               try{
-                 await _fcmNotificationService.sendNotificationToUser(
-                     title: "Table $tano ",
-                     body: "Table $tano Made an Order.",
-                     tableno: tano
+                 CollectionReference data = FirebaseFirestore.instance
+                     .collection("convert");
+                 await data.doc("$tano").set(
+                   {"user id": userId, "order": order, "table": tano},
                  );
-                 showAlertDialog2(context, "Waiter Will confirm Your Order Soon.");
 
-                 Timer(const Duration(seconds: 3), () {
-                   Navigator.of(context).pushAndRemoveUntil(
-                       MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)),
-                       ModalRoute.withName("home"));
-                 });
-               }catch(e){
-                 ScaffoldMessenger.of(context).showSnackBar(
-                   SnackBar(content: Text("Error,${e.toString()}.")),
-                 );
+                 try {
+                   await _fcmNotificationService.sendNotificationToUser(
+                       title: "Table $tano ",
+                       body: "Table $tano Made an Order.",
+                       tableno: tano
+                   );
+                   showAlertDialog2(
+                       context, "Waiter Will confirm Your Order Soon.");
+
+                   Timer(const Duration(seconds: 3), () {
+                     Navigator.of(context).pushAndRemoveUntil(
+                         MaterialPageRoute(builder: (context) =>
+                             home(userId: widget.userId,)),
+                         ModalRoute.withName("home"));
+                   });
+                 } catch (e) {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                     SnackBar(content: Text("Error,${e.toString()}.")),
+                   );
+                 }
                }
-
+               else{
+                 showAlertDialog2(context,"Sorry you delete all the order. \nPlease add more to confirm");
+               }
              },
              child: Text('Confirm',style:TextStyle(fontSize: 30)),
            ),

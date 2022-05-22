@@ -43,6 +43,7 @@ class home extends StatefulWidget {
 
   @override
   createState(){
+    print(userId);
     return MyAppState(Userid: userId);
   }
 }
@@ -118,6 +119,7 @@ class MyAppState extends State<home>{
   String image='';
   getData() async {
     DocumentReference data = FirebaseFirestore.instance.collection("users").doc(Userid);
+    print(Userid);
     var dbu = await data.get();
     setState(() {
       uname = dbu.get("first name") + ' ' + dbu.get("last name");
