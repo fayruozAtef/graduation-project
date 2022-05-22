@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:resflutter_app/authscreen.dart';
 import 'package:resflutter_app/widgets/coins.dart';
@@ -39,9 +36,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print(message.data);
 }
 
-
-List<String> imgList=[];
-List<String> bodyimgList=['','',''];//0 -> reserve  1-> in hall  2-> delivery
 
 class home extends StatefulWidget {
   final String userId;
@@ -111,39 +105,13 @@ class MyAppState extends State<home>{
 
   }
 
-  dowurl() async{
-    String durl1 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest1.jpg').getDownloadURL();
-    String durl3 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest2.jpg').getDownloadURL();
-    String durl2 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest3.jpg').getDownloadURL();
-    String durl4 = await firebase_storage.FirebaseStorage.instance.ref('assets/rest4.jpg').getDownloadURL();
-
-    String reserveim = await firebase_storage.FirebaseStorage.instance.ref('assets/reserved.jpg').getDownloadURL();
-    String inhallim = await firebase_storage.FirebaseStorage.instance.ref('assets/inhall.jpg').getDownloadURL();
-    String deliveryim = await firebase_storage.FirebaseStorage.instance.ref('assets/delivery.jpg').getDownloadURL();
-
-    setState((){
-      imgList.add(durl1);
-      imgList.add(durl2);
-      imgList.add(durl3);
-      imgList.add(durl4);
-      bodyimgList[0]=(reserveim);
-      bodyimgList[1]=(inhallim);
-      bodyimgList[2]=(deliveryim);
-    });
-    imageSliders=[];
-    imageSliders = imgList
-        .map((item) => Container(
-      child: Container(
-        child: ClipRRect(
-            child: Stack(
-              children: <Widget>[
-                Image(image: NetworkImage(item)),
-              ],
-            )),
-      ),
-    ))
-        .toList();
-  }
+  final List<String> imgList = [
+    'assets/images/rest3.jpg',
+    'assets/images/rest1.jpg',
+    'assets/images/rest4.jpg',
+    'assets/images/rest2.jpg',
+  ];
+  late List<Widget> imageSliders;
 
   String uname='';
   String uemail='';
@@ -158,20 +126,14 @@ class MyAppState extends State<home>{
     });
   }
   Future<void> load() async {
-
     String? token = await _fcm.getToken();
-
     assert(token != null);
-
     DocumentReference docRef = _tokensDB.doc("$Userid");
     docRef.update({'token': token});
-
-
   }
 
   @override
   void initState() {
-    dowurl();
     getData();
     initialize();
     load();
@@ -180,6 +142,17 @@ class MyAppState extends State<home>{
 
   @override
   Widget build(BuildContext context) {
+    imageSliders=imgList.map((item) => Container(
+      child: Container(
+        child: ClipRRect(
+            child: Stack(
+              children: <Widget>[
+                Image.asset(item, fit: BoxFit.fill),
+              ],
+            )),
+      ),
+    ))
+        .toList();
     double width = MediaQuery.of(context).size.width;
     return MaterialApp(
       home:Scaffold(
@@ -281,13 +254,13 @@ class MyAppState extends State<home>{
                 Container(
                     child: CarouselSlider(
                       options: CarouselOptions(
-                        aspectRatio: 1.9,
-                        //enlargeCenterPage: true,
+                        aspectRatio: 1.6,
+                        enlargeCenterPage: true,
                         scrollDirection: Axis.horizontal,
                       ),
                       items: imageSliders,
                     )),
-                const SizedBox(height: 6.0),
+                //const SizedBox(height: 6.0),
                 SizedBox(height:170,
                   width:width,
                   child:Card(
@@ -298,7 +271,7 @@ class MyAppState extends State<home>{
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(bodyimgList[0]),
+                            image: AssetImage("assets/images/reserved.jpg"),
                             fit:BoxFit.fill,
                             opacity:40,
                           ),
@@ -319,7 +292,7 @@ class MyAppState extends State<home>{
                       child: Container(
                         decoration:  BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(bodyimgList[1]),
+                            image: AssetImage("assets/images/inhall.jpg"),
                             fit:BoxFit.fill,
                             opacity:40,
                           ),
@@ -341,7 +314,7 @@ class MyAppState extends State<home>{
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(bodyimgList[2]),
+                            image:AssetImage("assets/images/delivery.jpg"),
                             fit:BoxFit.fill,
                             opacity:40,
                           ),
@@ -352,6 +325,7 @@ class MyAppState extends State<home>{
                     ),
                   ),
                 ),
+                SizedBox(height: 20,)
               ]
           ),
         ),

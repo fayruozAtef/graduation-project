@@ -32,6 +32,7 @@ class _open extends State<open> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth=MediaQuery.of(context).size.width ;
     return Scaffold(
         appBar:AppBar(
         title: Text('Order Details',style: TextStyle(color: Colors.white,fontSize:25)),
@@ -76,16 +77,16 @@ class _open extends State<open> {
                   children: [
                     Container(
                      padding: EdgeInsets.fromLTRB(8,0,0,0),
-                     width: 180,
+                     width: (deviceWidth/5)*2.5,
                      child:Text('Items',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 20,)),
                 ),
                 Container(
-                  width: 60,
+                  width: (deviceWidth/5),
                   child:
                   Text('Qty',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 20,)),
                 ),
                 Container(
-                  width: 100,
+                  width: (deviceWidth/5),
                   child:
                   Text('Price',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 20,)),
                 ),
@@ -97,15 +98,15 @@ class _open extends State<open> {
                 children: [
                   Container(
                     padding: EdgeInsets.fromLTRB(8,0,0,10),
-                    width: 180,
+                    width: (deviceWidth/5)*2.5,
                     child:Text(i[0],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
                   Container(
-                    width: 60,
+                    width: (deviceWidth/5),
                     child:Text('x'+i[1],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
                   Container(
-                    width: 100,
+                    width:(deviceWidth/5),
                     child:Text(i[2],style: TextStyle( color: Colors.black, fontSize: 20,)),
                   ),
                 ],
@@ -115,15 +116,15 @@ class _open extends State<open> {
               children:[
                 Container(
                   padding: EdgeInsets.fromLTRB(8,0,0,0),
-                  width: 180,
+                  width: (deviceWidth/5)*2.5,
                   child: Text('Sub-Total',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
-                  width: 60,
+                  width: (deviceWidth/5),
                   child:Text('-',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
-                  width: 100,
+                  width: (deviceWidth/5),
                   child:Text(getSum(),style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
               ],
@@ -133,16 +134,16 @@ class _open extends State<open> {
               children:[
                 Container(
                   padding: EdgeInsets.fromLTRB(8,0,0,0),
-                  width: 180,
+                  width: (deviceWidth/5)*2.5,
                   child:(orders['const']!=null)?Text('Delivery',style: TextStyle( color: Colors.black, fontSize: 20,)):
                   Text("Service",style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
-                  width: 60,
+                  width: (deviceWidth/5),
                   child:Text('-',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
-                  width: 100,
+                  width: (deviceWidth/5),
                   child:(orders['const']!=null)?Text(orders['const'],style: TextStyle( color: Colors.black, fontSize: 20,)):
                   Text('${((double.parse(getSum())*14)/100)}',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
@@ -152,16 +153,16 @@ class _open extends State<open> {
             Row(
               children:[
                 Container(
-                  width: 180,
+                  width: (deviceWidth/5)*2.5,
                   padding: EdgeInsets.fromLTRB(8,0,0,0),
                   child: Text('Total',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                 Container(
-                  width: 60,
+                  width: (deviceWidth/5),
                   child:Text('-',style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
                Container(
-                  width: 100,
+                  width: (deviceWidth/5),
                   child: (orders['const']!=null)?Text((double.parse(getSum())+double.parse(orders['const'])).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)):
                   Text((double.parse(getSum())+((double.parse(getSum())*14)/100)).toString(),style: TextStyle( color: Colors.black, fontSize: 20,)),
                 ),
