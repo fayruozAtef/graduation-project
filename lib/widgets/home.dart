@@ -121,7 +121,6 @@ class MyAppState extends State<home>{
     DocumentReference data = FirebaseFirestore.instance.collection("users").doc(Userid);
     print(Userid);
     var dbu = await data.get();
-    data.update({"image":''});
     setState(() {
       uname = dbu.get("first name") + ' ' + dbu.get("last name");
       uemail = dbu.get("email");
