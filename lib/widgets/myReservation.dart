@@ -104,12 +104,13 @@ DateTime today=DateTime.now();
                               ))
                           ),
                           onPressed: () {
-                              bff.doc(id[i]).delete();
+                            showAlertDialog2( context,id[i]);
+                              /*bff.doc(id[i]).delete();
                               showAlertDialog(context,"Delete Your Reservation Done");
                               Timer(const Duration(seconds: 3), () {
                               Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (context) =>home(userId: uid)));
-                              });
+                              });*/
                               },
                           child: Text('Delete',style:TextStyle(fontSize: 30)),
                         ) ,
@@ -175,4 +176,44 @@ DateTime today=DateTime.now();
       },
     );
   }
+
+  showAlertDialog2(BuildContext context,String n) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      content:Text("Do you want to delete this reservation?",style: TextStyle(fontSize: 25)),
+      actions:[
+        TextButton(
+          onPressed: ()  async {
+            Navigator.of(context).pop();
+            bff.doc(n).delete();
+            showAlertDialog(context,"Delete Your Reservation Done");
+            Timer(const Duration(seconds: 3), () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) =>home(userId: uid)));
+            });
+          },
+          child: const Text('Yes',style: TextStyle(color: Colors.teal,fontSize: 23)),
+        ),
+        TextButton(
+          onPressed: ()  async {
+            Navigator.of(context).pop();
+          },
+          child: const Text('No',style: TextStyle(color: Colors.teal,fontSize: 23),),
+        ),
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
+
+

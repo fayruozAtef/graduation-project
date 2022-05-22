@@ -58,8 +58,6 @@ List<double> total=[];
         total[i]+=(double.parse(j[2]));
       }
     }
-
-
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar:AppBar(
@@ -68,7 +66,8 @@ List<double> total=[];
     foregroundColor:Colors.white,
     ),
     body:SingleChildScrollView(
-      child:Column(
+      child:(orders.length==0)?Padding(padding:EdgeInsets.only(top: 10),
+          child:Center(child:Text("No Orders",style: TextStyle(color: Colors.black,fontSize:30),) )):Column(
         children: [
           SizedBox(height: 8),
           for(int i=0;i<orders.length;i++)
