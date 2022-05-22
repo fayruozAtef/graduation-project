@@ -107,8 +107,9 @@ class _orderon extends State<ordercon> {
                  showAlertDialog2(context, "Waiter Will confirm Your Order Soon.");
 
                  Timer(const Duration(seconds: 3), () {
-                   Navigator.of(context).pushReplacement(
-                       MaterialPageRoute(builder: (context)=>home(userId: userId,)));
+                   Navigator.of(context).pushAndRemoveUntil(
+                       MaterialPageRoute(builder: (context) =>home(userId: widget.userId,)),
+                       ModalRoute.withName("home"));
                  });
                }catch(e){
                  ScaffoldMessenger.of(context).showSnackBar(
