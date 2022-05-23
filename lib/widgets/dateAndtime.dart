@@ -226,11 +226,19 @@ class _MyBody extends State<Body> {
           ),
           onPressed: (){
 
+            if(number.text.isEmpty) {
+              showAlertDialog2(context, "Enter Number of Seats First.");
+            }
+
             setState(() {
               int numb = int.parse(number.text);
                set = int.parse(number.text) ;
               String dat=DateFormat('yyyy-MM-dd').format(_selectedDay);
               String tim=DateFormat('HH:mm').format(_selectTime);
+              if(number.text.isEmpty) {
+                showAlertDialog2(context, "Enter Number of Seats First.");
+              }
+              else{
               if(numb>8){
                 showAlertDialog2(context, "Please call the Resturant For that Number of seats") ;
               }
@@ -246,10 +254,6 @@ class _MyBody extends State<Body> {
               {
                 if(_selectTime.isAfter(_available)){
 
-                if(number.text.isEmpty) {
-                  _error='Enter Number of Seats';
-                } else {
-                  _error= null;
                   gettableanddate().then((value) {
                     print('ommmm $value');
                     if (value.toString()=="[]"){
@@ -268,7 +272,7 @@ class _MyBody extends State<Body> {
                         ),);
                     }
                   });
-                }
+
               }
                 else{
                 showAlertDialog2(context,'Time Should be After 3 hours From now' );
@@ -298,6 +302,7 @@ class _MyBody extends State<Body> {
                });
                 }
               }}}}
+              }
             });
           },
           child: const Text('Done',style: TextStyle(
