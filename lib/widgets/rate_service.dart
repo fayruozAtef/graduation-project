@@ -4,9 +4,6 @@ import 'package:resflutter_app/widgets/backWithOpacity.dart';
 import 'package:resflutter_app/widgets/widgeto.dart';
 
 import 'home.dart';
-
-
-int n1=0,n2=0,n3=0,n4=0,n5=0;
 class Rateus extends StatefulWidget{
   String userId;
   Rateus({Key? key, required this.userId,}) : super(key: key);
@@ -15,8 +12,22 @@ class Rateus extends StatefulWidget{
   State<Rateus> createState() => _MRateus();
 }
 class _MRateus extends State<Rateus>{
+  Map<String, int> rateValues={
+    'food': -1,
+    'services':-1 ,
+    'place':-1,
+    'price':-1,
+
+  };
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    print(rateValues);
+    double wightOfButton=MediaQuery.of(context).size.width/5;
     return Stack(
         children: [
           BackWithOpacity(),
@@ -52,18 +63,22 @@ class _MRateus extends State<Rateus>{
                                     ),
                                   ),
                                   const SizedBox(height: 10),
+                                  //Rate for food quality
                                   Row(
                                     children: [
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(1,1),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                          rateValues['food'] = 1,
+                                          print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:Colors.black,
                                           child:const Text(' 1 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -74,15 +89,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(1,2),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['food'] = 2,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          //color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 2 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -93,15 +111,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(1,3),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['food'] = 3,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 3 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -112,15 +133,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(1,4),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['food'] = 4,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 4 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -131,15 +155,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(1,5),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['food'] = 5,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -165,15 +192,18 @@ class _MRateus extends State<Rateus>{
                                   Row(
                                     children: [
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(2,1),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['services'] = 1,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:Colors.black,
                                           child:const Text(' 1 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -182,17 +212,19 @@ class _MRateus extends State<Rateus>{
                                           ),
                                         ),
                                       ),
-
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height:wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(2,2),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['services'] = 2,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 2 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -202,10 +234,14 @@ class _MRateus extends State<Rateus>{
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(2,3),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['services'] = 3,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
@@ -219,12 +255,15 @@ class _MRateus extends State<Rateus>{
                                           ),
                                         ),
                                       ),
-
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(2,4),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['services'] = 4,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                               side: const BorderSide(color: Colors.grey)
@@ -238,16 +277,19 @@ class _MRateus extends State<Rateus>{
                                           ),
                                         ),
                                       ),
-
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width:wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(2,5),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['services'] = 5,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
+                                              side: const BorderSide(color: Colors.grey)
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -273,15 +315,18 @@ class _MRateus extends State<Rateus>{
                                   Row(
                                     children: [
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(3,1),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['place'] = 1,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:Colors.black,
                                           child:const Text(' 1 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -292,15 +337,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height:wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(3,2),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['place'] = 2,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 2 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -311,15 +359,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(3,3),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['place'] = 3,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 3 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -330,15 +381,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(3,4),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['place'] = 4,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 4 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -349,15 +403,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(3,5),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['place'] = 5,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -383,15 +440,18 @@ class _MRateus extends State<Rateus>{
                                   Row(
                                     children: [
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(4,1),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['price'] = 1,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(30),
                                               side:const BorderSide(color: Colors.grey)
                                           ),
-                                          color:Colors.black,
                                           child:const Text(' 1 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -402,15 +462,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(4,2),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['price'] = 2,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(30),
                                               side:const BorderSide(color: Colors.grey)
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 2 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -421,15 +484,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width:wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(4,3),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['price'] = 3,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 3 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -440,15 +506,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(4,4),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['price'] = 4,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 4 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -459,15 +528,18 @@ class _MRateus extends State<Rateus>{
                                       ),
 
                                       SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
+                                        height: wightOfButton-20,
+                                        width: wightOfButton,
                                         child:
-                                        MaterialButton(onPressed: collectRate(4,5),
+                                        MaterialButton(
+                                          onPressed:()=> {
+                                            rateValues['price'] = 5,
+                                            print(rateValues),
+                                          },
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(30),
                                             side:const BorderSide(color: Colors.grey),
                                           ),
-                                          color:const Color.fromRGBO(65, 189, 180, 54),
                                           child:const Text(' 5 ',
                                             style:TextStyle(
                                               color: Colors.white,
@@ -481,8 +553,8 @@ class _MRateus extends State<Rateus>{
 
                                   const SizedBox(height: 30.0,),
                                   SizedBox(
-                                    height: 60.0,
-                                    width: 300.0,
+                                    height: wightOfButton-20,
+                                    width:(MediaQuery.of(context).size.width)-100,
                                     child: MaterialButton(
                                       onPressed: () => {},
                                       shape: RoundedRectangleBorder(
@@ -511,28 +583,18 @@ class _MRateus extends State<Rateus>{
         ]
     );
   }
+/*
 
+'food': 0,
+'services':0 ,
+'place':0,
+'price':0,
+
+ */
   collectRate(int id, int num) {
-    if(id==1) {
-      n1 = num;
-    }
-    else if(id==2){
-      n2=num;
-    }
-    else if(id==3){
-      n3=num;
-    }
-    else if(id==4){
-      n4=num;
-    }
-    else if(id==5){
-      n5=num;
-    }
-    print(n1);
-    print(n2);
-    print(n3);
-    print(n4);
-    print(n5);
+
+  }
+  saveTheRate(){
 
   }
 }
