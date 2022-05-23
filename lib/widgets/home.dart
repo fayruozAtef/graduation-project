@@ -54,57 +54,6 @@ class MyAppState extends State<home>{
   final CollectionReference _tokensDB =
   FirebaseFirestore.instance.collection('users');
   MyAppState({Key? key,required this.Userid});
-  initialize() async {
-    await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    await flutterLocalNotificationplugin
-        .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
-
-    var intializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettings =
-    InitializationSettings(android: intializationSettingsAndroid);
-
-     flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification: (String? payload){
-      if(payload!=null){
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) =>Rateus(userId:Userid,)));
-      }
-    });
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      print("data:${message.data['test']}");
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                'resturant',
-                channel.name,
-                icon: 'launch_background',
-              ),
-            ),
-            payload: message.data['test']
-        );
-      }
-    });
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if(message!=null){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Rateus(userId:Userid,)));
-      }
-    });
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Rateus(userId:Userid,)));
-    });
-
-  }
 
   final List<String> imgList = [
     'assets/images/rest3.jpg',
@@ -127,18 +76,17 @@ class MyAppState extends State<home>{
       image=dbu.get('image');
     });
   }
-  Future<void> load() async {
+  /*Future<void> load() async {
     String? token = await _fcm.getToken();
     assert(token != null);
     DocumentReference docRef = _tokensDB.doc("$Userid");
     docRef.update({'token': token});
-  }
+  }*/
 
   @override
   void initState() {
     getData();
-    initialize();
-    load();
+    //load();
     super.initState();
   }
 
