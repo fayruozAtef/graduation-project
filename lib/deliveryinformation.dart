@@ -184,7 +184,6 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
                                                 userId: userId)));
                                   }
                                 }
-
                               },
                             ),
                           ),

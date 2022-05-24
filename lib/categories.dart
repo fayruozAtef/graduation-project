@@ -48,17 +48,22 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    x = 0.0;
-    if(totalOrder2.length>0) {
-      for (int j = 0; j < totalOrder2.length; j++) {
-        if (totalOrder2[j][2] == '0' || totalOrder2[j][2] == '') {
-          totalOrder2.removeAt(j);
+    if(totalOrder2[totalOrder2.length-1]==[])
+      totalOrder2=[];
+    else{
+      x = 0.0;
+      if(totalOrder2.length>0) {
+        for (int j = 0; j < totalOrder2.length; j++) {
+          if (totalOrder2[j][2] == '0' || totalOrder2[j][2] == '') {
+            totalOrder2.removeAt(j);
+          }
+        }
+        for (int i = 0; i < totalOrder2.length; i++) {
+          x += double.parse(totalOrder2[i][2]);
         }
       }
-      for (int i = 0; i < totalOrder2.length; i++) {
-        x += double.parse(totalOrder2[i][2]);
-      }
     }
+
 
 
     return Scaffold(
