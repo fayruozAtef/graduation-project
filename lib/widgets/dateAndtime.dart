@@ -45,7 +45,21 @@ class _MyBody extends State<Body> {
         tableno.add(element.data());
       });
     });
-    
+    print("1:$tableno");
+    dbt = await gettable.where("no-of-sets",isEqualTo: set+1).get();
+    dbt.docs.forEach((element) {
+      setState(() {
+        tableno.add(element.data());
+      });
+    });
+    print("2:$tableno");
+     dbt = await gettable.where("no-of-sets",isEqualTo: set+2).get();
+    dbt.docs.forEach((element) {
+      setState(() {
+        tableno.add(element.data());
+      });
+    });
+    print("table++: $tableno");
     QuerySnapshot t = await tdate.where("date",isEqualTo: DateFormat('yyyy-MM-dd').format(_selectedDay))
           .where("arrived",isEqualTo:false).get();
       d=[];
