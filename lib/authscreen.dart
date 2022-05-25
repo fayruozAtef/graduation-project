@@ -121,11 +121,10 @@ class _AuthCardState extends State<AuthCard> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.white),
                       validator: (value){
-                        if(value!.isEmpty || !value.contains('@')||!value.contains('.com')){
-                          return 'Invalid Email! ';
+                        if(value!.isEmpty ){
+                          return 'enter your emil please!';
                         }
                       },
-
                       onSaved: (value){
                         _autData['email']=value!;
                       },
@@ -139,10 +138,7 @@ class _AuthCardState extends State<AuthCard> {
                       controller: _passwordController,
                       validator: (value){
                         if(value!.isEmpty){
-                          return 'enter password';
-                        }
-                        else if(value.length <5){
-                          return 'password is too short!';
+                          return 'enter your password please!';
                         }
                       },
                       onSaved: (value) {
