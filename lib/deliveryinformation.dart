@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:resflutter_app/categories.dart';
 import 'package:resflutter_app/widgets/backWithOpacity.dart';
 
-List<List<String>>test=[];
+
 class DeliveryInformation extends StatefulWidget {
 
   final String userId;
@@ -26,6 +26,7 @@ class _DeliveryInformationState extends State<DeliveryInformation> {
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
 
+  List<List<String>>test=[];
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
